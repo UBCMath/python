@@ -1,0 +1,18 @@
+title: Python and Jupyter for UBC Mathematics
+author: UBC Math
+copyright: "2023"
+sphinx:
+  config:
+    mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+only_build_toc_files: true
+html:
+  home_page_in_navbar: false
+repository:
+  url: https://github.com/UBCMath/python
+html:
+  home_page_in_navbar: false
+  use_repository_button: true
+launch_buttons:
+  jupyterhub_url: https://ubc.syzygy.ca/jupyter
+
+#ghp-import -n -p -f _build/html

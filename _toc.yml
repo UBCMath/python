@@ -1,0 +1,25 @@
+format: jb-book
+root: index
+parts:
+  - caption: Getting Started
+    chapters:
+    - file: getting-started/syzygy.ipynb
+    - file: getting-started/mathematics.ipynb
+    - file: getting-started/matrices.ipynb
+    - file: getting-started/vectorization.ipynb
+  - caption: Linear Algebra
+    chapters:
+    - file: linear-algebra/geometry.ipynb
+    - file: linear-algebra/systems.ipynb
+    - file: linear-algebra/transformations.ipynb
+    - file: linear-algebra/eigenvalues.ipynb
+  - caption: Differential Equations
+    chapters:
+    - file: differential-equations/graphical.ipynb
+    - file: differential-equations/numerical.ipynb
+    - file: differential-equations/odeint.ipynb
+    - file: differential-equations/systems.ipynb
+  - caption: Calculus
+    chapters:
+    - file: calculus/contour.ipynb
+    - file: calculus/integration.ipynb
