@@ -61,6 +61,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'linear-algebra/systems';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -167,6 +169,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../calculus/contour.html">Contour Plots</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../calculus/integration.html">Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../calculus/optimization.html">Optimization</a></li>
 </ul>
 
     </div>
@@ -336,7 +339,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -352,6 +357,17 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#terminology">Terminology</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#elementary-row-operations">Elementary Row Operations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#row-echelon-form">Row Echelon Form</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-solutions-with-scipy">Computing Solutions with SciPy</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -363,7 +379,382 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="systems-of-linear-equations">
 <h1>Systems of Linear Equations<a class="headerlink" href="#systems-of-linear-equations" title="Permalink to this heading">#</a></h1>
-<p><em>Under construction</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.linalg</span> <span class="k">as</span> <span class="nn">la</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="terminology">
+<h2>Terminology<a class="headerlink" href="#terminology" title="Permalink to this heading">#</a></h2>
+<p>A <strong>system of linear equations</strong> is a collection of equations of the form</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{array}{ccccccccc}
+a_{0,0}x_0 &amp; + &amp; a_{0,1}x_1 &amp; + &amp; \cdots &amp; + &amp; a_{0,n-1} x_{n-1} &amp; = &amp; b_0 \\
+a_{1,0}x_0 &amp; + &amp; a_{1,1}x_1 &amp; + &amp; \cdots &amp; + &amp; a_{1,n-1} x_{n-1} &amp; = &amp; b_1 \\
+\vdots &amp; &amp; &amp; &amp; &amp; &amp; &amp; &amp; \vdots &amp; \\
+a_{m-1,0}x_0 &amp; + &amp; a_{m-1,1}x_1 &amp; + &amp; \cdots &amp; + &amp; a_{m-1,n-1} x_{n-1} &amp; = &amp; b_{m-1}
+\end{array}
+\end{split}\]</div>
+<p>where the numbers <span class="math notranslate nohighlight">\(a_{i,j}\)</span> and <span class="math notranslate nohighlight">\(b_i\)</span> are known coefficients, and <span class="math notranslate nohighlight">\(x_j\)</span> are the variables. We can write the equation is matrix form as</p>
+<div class="math notranslate nohighlight">
+\[
+A \mathbf{x} = \mathbf{b}
+\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = \begin{bmatrix}
+a_{0,0} &amp; a_{0,1} &amp; \cdots &amp; a_{0,n-1} \\
+a_{1,0} &amp; a_{1,1} &amp; \cdots &amp; a_{1,n-1} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+a_{m-1,0} &amp; a_{m-1,1} &amp; \cdots &amp; a_{m-1,n-1} \\
+\end{bmatrix}
+\hspace{20mm}
+\mathbf{b} = \begin{bmatrix} b_0 \\ b_1 \\ \vdots \\ b_{m-1} \end{bmatrix}
+\hspace{20mm}
+\mathbf{x} = \begin{bmatrix} x_0 \\ x_1 \\ \vdots \\ x_{n-1} \end{bmatrix}
+\end{split}\]</div>
+<p>Combine the matrix <span class="math notranslate nohighlight">\(A\)</span> and the vector <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> to form the <strong>augmented matrix</strong></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+[ A \ | \ \mathbf{b} ] = \begin{bmatrix}
+a_{0,0} &amp; a_{0,1} &amp; \cdots &amp; a_{0,n-1} &amp; b_0 \\
+a_{1,0} &amp; a_{1,1} &amp; \cdots &amp; a_{1,n-1} &amp; b_1 \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots \\
+a_{m-1,0} &amp; a_{m-1,1} &amp; \cdots &amp; a_{m-1,n-1} &amp; b_{m-1} \\
+\end{bmatrix}
+\end{split}\]</div>
+</section>
+<section id="elementary-row-operations">
+<h2>Elementary Row Operations<a class="headerlink" href="#elementary-row-operations" title="Permalink to this heading">#</a></h2>
+<p>There are three types of row operations:</p>
+<ol class="arabic simple">
+<li><p>Add a multiple of one row to another</p></li>
+<li><p>Multiply a row by a scalar</p></li>
+<li><p>Switch rows</p></li>
+</ol>
+<p>Write a function called <code class="docutils literal notranslate"><span class="pre">add_row</span></code> which takes <code class="docutils literal notranslate"><span class="pre">A</span></code>, <code class="docutils literal notranslate"><span class="pre">c</span></code>, <code class="docutils literal notranslate"><span class="pre">i</span></code> and <code class="docutils literal notranslate"><span class="pre">j</span></code> and returns the matrix <span class="math notranslate nohighlight">\(B\)</span> obtained from <span class="math notranslate nohighlight">\(A\)</span> by adding <span class="math notranslate nohighlight">\(c\)</span> times row <span class="math notranslate nohighlight">\(i\)</span> to row <span class="math notranslate nohighlight">\(j\)</span> in <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add_row</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">):</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="c1"># Create a copy of the input matrix</span>
+    <span class="n">B</span><span class="p">[</span><span class="n">j</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">c</span><span class="o">*</span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span> <span class="o">+</span> <span class="n">A</span><span class="p">[</span><span class="n">j</span><span class="p">,:]</span>
+    <span class="k">return</span> <span class="n">B</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 1  2  3]
+ [-2  2  2]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A1</span> <span class="o">=</span> <span class="n">add_row</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">A1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[1. 2. 3.]
+ [0. 6. 8.]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Write a function called <code class="docutils literal notranslate"><span class="pre">scale_row</span></code> which takes <code class="docutils literal notranslate"><span class="pre">A</span></code>, <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">i</span></code> and returns the matrix <span class="math notranslate nohighlight">\(B\)</span> obtained from <span class="math notranslate nohighlight">\(A\)</span> by multiplying <span class="math notranslate nohighlight">\(c\)</span> times row <span class="math notranslate nohighlight">\(i\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">scale_row</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">i</span><span class="p">):</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="c1"># Create a copy of the input matrix</span>
+    <span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">c</span><span class="o">*</span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span>
+    <span class="k">return</span> <span class="n">B</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A2</span> <span class="o">=</span> <span class="n">scale_row</span><span class="p">(</span><span class="n">A1</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">A2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[1.         2.         3.        ]
+ [0.         1.         1.33333333]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Write a function called <code class="docutils literal notranslate"><span class="pre">switch_rows</span></code> which takes <code class="docutils literal notranslate"><span class="pre">A</span></code>, <code class="docutils literal notranslate"><span class="pre">i</span></code> and <code class="docutils literal notranslate"><span class="pre">j</span></code> and returns the matrix <span class="math notranslate nohighlight">\(B\)</span> obtained from <span class="math notranslate nohighlight">\(A\)</span> by switching rows <code class="docutils literal notranslate"><span class="pre">i</span></code> and <code class="docutils literal notranslate"><span class="pre">j</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">switch_rows</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">):</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="c1"># Create a copy of the input matrix</span>
+    <span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">j</span><span class="p">,:]</span>
+    <span class="n">B</span><span class="p">[</span><span class="n">j</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span>
+    <span class="k">return</span> <span class="n">B</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 0 -1]
+ [ 1  0]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">switch_rows</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 1.,  0.],
+       [ 0., -1.]])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="row-echelon-form">
+<h2>Row Echelon Form<a class="headerlink" href="#row-echelon-form" title="Permalink to this heading">#</a></h2>
+<p>A <strong>pivot</strong> is the first nonzero entry of a row of a matrix. A matrix is in <strong>row echelon form</strong> if:</p>
+<ol class="arabic simple">
+<li><p>All zero rows are at the bottom.</p></li>
+<li><p>Each pivot is to the right of the pivot in each row above.</p></li>
+<li><p>All entries are zero below each pivot.</p></li>
+</ol>
+<p>A matrix is in <strong>reduced row echelon form</strong> if it is in row echelon form and:</p>
+<ol class="arabic simple" start="4">
+<li><p>Each pivot is equal to 1.</p></li>
+<li><p>Each pivot is the only nonzero entry in its column.</p></li>
+</ol>
+<p>Apply elementary row operations to transform the following matrix into row echelon form:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+M = \left[ \begin{array}{rrrr} -2 &amp; 1 &amp; 0 &amp; 1 \\ 1 &amp; -2 &amp; 1 &amp; 1 \\ 0 &amp; 1 &amp; -2 &amp; 1 \end{array} \right]
+\end{split}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[-2  1  0  1]
+ [ 1 -2  1  1]
+ [ 0  1 -2  1]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">M1</span> <span class="o">=</span> <span class="n">add_row</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">M1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[-2.   1.   0.   1. ]
+ [ 0.  -1.5  1.   1.5]
+ [ 0.   1.  -2.   1. ]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">M2</span> <span class="o">=</span> <span class="n">add_row</span><span class="p">(</span><span class="n">M1</span><span class="p">,</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">M2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[-2.          1.          0.          1.        ]
+ [ 0.         -1.5         1.          1.5       ]
+ [ 0.          0.         -1.33333333  2.        ]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Success! Now let’s take it a few steps farther and compute the reduced row echelon form:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">M3</span> <span class="o">=</span> <span class="n">scale_row</span><span class="p">(</span><span class="n">M2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">M3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 1.         -0.5        -0.         -0.5       ]
+ [ 0.         -1.5         1.          1.5       ]
+ [ 0.          0.         -1.33333333  2.        ]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">M4</span> <span class="o">=</span> <span class="n">scale_row</span><span class="p">(</span><span class="n">M3</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">M4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 1.         -0.5        -0.         -0.5       ]
+ [-0.          1.         -0.66666667 -1.        ]
+ [ 0.          0.         -1.33333333  2.        ]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">M5</span> <span class="o">=</span> <span class="n">add_row</span><span class="p">(</span><span class="n">M4</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">M5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 1.          0.         -0.33333333 -1.        ]
+ [-0.          1.         -0.66666667 -1.        ]
+ [ 0.          0.         -1.33333333  2.        ]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">M6</span> <span class="o">=</span> <span class="n">scale_row</span><span class="p">(</span><span class="n">M5</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">M6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 1.          0.         -0.33333333 -1.        ]
+ [-0.          1.         -0.66666667 -1.        ]
+ [-0.         -0.          1.         -1.5       ]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">M7</span> <span class="o">=</span> <span class="n">add_row</span><span class="p">(</span><span class="n">M6</span><span class="p">,</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">M7</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 1.          0.         -0.33333333 -1.        ]
+ [-0.          1.          0.         -2.        ]
+ [-0.         -0.          1.         -1.5       ]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">M8</span> <span class="o">=</span> <span class="n">add_row</span><span class="p">(</span><span class="n">M7</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">M8</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 1.   0.   0.  -1.5]
+ [-0.   1.   0.  -2. ]
+ [-0.  -0.   1.  -1.5]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Success! In fact, we have cmputed the solution <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> of the system <span class="math notranslate nohighlight">\(A \mathbf{x} = \mathbf{b}\)</span> where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = \left[ \begin{array}{rrrr} -2 &amp; 1 &amp; 0 \\ 1 &amp; -2 &amp; 1 \\ 0 &amp; 1 &amp; -2 \end{array} \right]
+\hspace{10mm}
+\mathbf{b} = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}
+\hspace{10mm}
+\mathbf{x} = \begin{bmatrix} -1.5 \\ -2 \\ -1.5 \end{bmatrix}
+\end{split}\]</div>
+</section>
+<section id="computing-solutions-with-scipy">
+<h2>Computing Solutions with SciPy<a class="headerlink" href="#computing-solutions-with-scipy" title="Permalink to this heading">#</a></h2>
+<p>The function <code class="docutils literal notranslate"><span class="pre">scipy.linalg.solve</span></code> computes the unique solution of the system <span class="math notranslate nohighlight">\(A \mathbf{x} = \mathbf{b}\)</span> for a nonsingular matrix <span class="math notranslate nohighlight">\(A\)</span>. See the <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.solve.html">SciPy documentation</a> for more information. For example, let’s compute the solution of the example from the previous section.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[-2  1  0]
+ [ 1 -2  1]
+ [ 0  1 -2]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1 1 1]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[-1.5 -2.  -1.5]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Check out <a class="reference external" href="https://patrickwalls.github.io/mathematicalpython/linear-algebra/solving-linear-systems/">Mathematical Python &gt; Linear Algebra</a> for more about solving linear systems with Python.</p>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -424,6 +815,23 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#terminology">Terminology</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#elementary-row-operations">Elementary Row Operations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#row-echelon-form">Row Echelon Form</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-solutions-with-scipy">Computing Solutions with SciPy</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
