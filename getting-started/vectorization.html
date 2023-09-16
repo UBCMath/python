@@ -61,6 +61,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'getting-started/vectorization';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -167,6 +169,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../calculus/contour.html">Contour Plots</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../calculus/integration.html">Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../calculus/optimization.html">Optimization</a></li>
 </ul>
 
     </div>
@@ -336,7 +339,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -352,6 +357,20 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-plotting-procedure">Basic Plotting Procedure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matplotlib">Matplotlib</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#np-linspace"><code class="docutils literal notranslate"><span class="pre">np.linspace</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vectorized-functions">Vectorized Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vectorized-arithmetic-operations">Vectorized Arithmetic Operations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#more-plotting-examples">More Plotting Examples</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -363,7 +382,354 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="vectorization-and-plotting">
 <h1>Vectorization and Plotting<a class="headerlink" href="#vectorization-and-plotting" title="Permalink to this heading">#</a></h1>
-<p><em>Under construction</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Vectorization is a fundamental concept in mathematical computing. The idea is simple but very powerful: take any function/operation <span class="math notranslate nohighlight">\(f(x)\)</span> and apply it to a vector <span class="math notranslate nohighlight">\(\mathbf{x} = \begin{bmatrix} x_1 &amp; x_2 &amp; x_3 &amp; \cdots &amp; x_N \end{bmatrix}\)</span> elementwise simultaneously:</p>
+<div class="math notranslate nohighlight">
+\[
+f(\mathbf{x}) = \begin{bmatrix} f(x_1) &amp; f(x_2) &amp; f(x_3) &amp; \cdots &amp; f(x_N) \end{bmatrix}
+\]</div>
+<p>The point is that vectorization simplifies our code and our computational thinking and we use it whenever we plot a function with NumPy and Matplotlib.</p>
+<section id="basic-plotting-procedure">
+<h2>Basic Plotting Procedure<a class="headerlink" href="#basic-plotting-procedure" title="Permalink to this heading">#</a></h2>
+<p>To plot the graph of a function <span class="math notranslate nohighlight">\(y = f(x)\)</span> over an interval <span class="math notranslate nohighlight">\([a,b]\)</span>:</p>
+<ul class="simple">
+<li><p>Choose a finite set of increasing values <span class="math notranslate nohighlight">\(x_1 &lt; x_2 &lt; \cdots &lt; x_N\)</span> with <span class="math notranslate nohighlight">\(x_1 = a\)</span> and <span class="math notranslate nohighlight">\(x_N = b\)</span></p></li>
+<li><p>Compute the corresponding <span class="math notranslate nohighlight">\(y\)</span> values <span class="math notranslate nohighlight">\(f(x_1),f(x_2),\dots,f(x_N)\)</span></p></li>
+<li><p>Connect each pair of consecutive points by a straight line</p></li>
+</ul>
+<p>Let’s make a few simple observations. A larger number <span class="math notranslate nohighlight">\(N\)</span> of <span class="math notranslate nohighlight">\(x\)</span> values over the interval <span class="math notranslate nohighlight">\([a,b]\)</span>:</p>
+<ul class="simple">
+<li><p>produces a smoother plot</p></li>
+<li><p>requires more computations to generate <span class="math notranslate nohighlight">\(y\)</span> values</p></li>
+<li><p>requires more memory to store the <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> values</p></li>
+</ul>
+<p>We need to use our own judgement to choose <span class="math notranslate nohighlight">\(N\)</span> large enough so that the plot is smooth but small enough so that the amount of computation and memory required is not too big.</p>
+</section>
+<section id="matplotlib">
+<h2>Matplotlib<a class="headerlink" href="#matplotlib" title="Permalink to this heading">#</a></h2>
+<p><a class="reference external" href="https://matplotlib.org">Matplotlib</a> is the main plotting package in Python. It is a large package with lots of subpackages and we primarily use the subpackages <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code> for 2D plotting. Import using th <code class="docutils literal notranslate"><span class="pre">import</span></code> keyword and use the alias <code class="docutils literal notranslate"><span class="pre">plt</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The command <code class="docutils literal notranslate"><span class="pre">plt.plot(x,y)</span></code> creates the line plot which connects the points defined by the vectors <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>. For example, the following script plots the graph of <span class="math notranslate nohighlight">\(y = x^2\)</span> using 7 points:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">9</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">9</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/99f359f75ef63a836c15f68efbe6a4218aa6079354ed4fed023c6f5fa78e4e15.png" src="../_images/99f359f75ef63a836c15f68efbe6a4218aa6079354ed4fed023c6f5fa78e4e15.png" />
+</div>
+</div>
+<p>We need more points to plot the function smoothly but it is inefficient to manually enter the values in the vectors <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> as we did above. Plotting is an instance where vectorization is very useful:</p>
+<ul class="simple">
+<li><p>Create a large number of <span class="math notranslate nohighlight">\(x\)</span> values using <code class="docutils literal notranslate"><span class="pre">np.linspace</span></code></p></li>
+<li><p>Use vector operations and functions to create the corresponding vector of <span class="math notranslate nohighlight">\(y\)</span> values</p></li>
+<li><p>Plot with <code class="docutils literal notranslate"><span class="pre">plt.plot(x,y)</span></code> and add style such as title, colors, line styles, legend, etc.</p></li>
+</ul>
+<p>For example, let’s use vectorization to plot <span class="math notranslate nohighlight">\(y = x^2\)</span> on the interval <span class="math notranslate nohighlight">\([-3,3]\)</span> using 601 points:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">601</span><span class="p">);</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">;</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/67fa473e26e563c3239c26d49a7bd93364572db91dd2a01bb6784e62b5761381.png" src="../_images/67fa473e26e563c3239c26d49a7bd93364572db91dd2a01bb6784e62b5761381.png" />
+</div>
+</div>
+<p>Let’s take a closer look at the function <code class="docutils literal notranslate"><span class="pre">np.linspace</span></code> and vector operation <code class="docutils literal notranslate"><span class="pre">x**2</span></code>.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Check out <a class="reference external" href="https://patrickwalls.github.io/mathematicalpython/scipy/matplotlib/">Mathematical Pyton &gt; Matplotlib</a> for more about plotting with Matplotlib.</p>
+</div>
+</section>
+<section id="np-linspace">
+<h2><code class="docutils literal notranslate"><span class="pre">np.linspace</span></code><a class="headerlink" href="#np-linspace" title="Permalink to this heading">#</a></h2>
+<p>The function <code class="docutils literal notranslate"><span class="pre">np.linspace(a,b,N)</span></code> creates a vector of values from <code class="docutils literal notranslate"><span class="pre">a</span></code> to <code class="docutils literal notranslate"><span class="pre">b</span></code> using <code class="docutils literal notranslate"><span class="pre">N</span></code> equally spaced points. For example, create a vector of 9 evenly spaced values from 0 to 1:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">9</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.    0.125 0.25  0.375 0.5   0.625 0.75  0.875 1.   ]
+</pre></div>
+</div>
+</div>
+</div>
+<p>The connection between the step size <code class="docutils literal notranslate"><span class="pre">h</span></code> and the number of points <code class="docutils literal notranslate"><span class="pre">N</span></code> is given by</p>
+<div class="math notranslate nohighlight">
+\[
+h = \frac{b - a}{N - 1}
+\]</div>
+<p>For example, the following commands create a vector <code class="docutils literal notranslate"><span class="pre">x</span></code> of values from 0 to 1 by step 0.25:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span> <span class="n">h</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.   0.25 0.5  0.75 1.  ]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="vectorized-functions">
+<h2>Vectorized Functions<a class="headerlink" href="#vectorized-functions" title="Permalink to this heading">#</a></h2>
+<p>All the mathematical functions in NumPy such as <code class="docutils literal notranslate"><span class="pre">np.sin</span></code>, <code class="docutils literal notranslate"><span class="pre">np.cos</span></code> and <code class="docutils literal notranslate"><span class="pre">np.exp</span></code> are <em>vectorized</em>. This means that we can apply a function to a vector and the result is the vector of function values. In other words, if <span class="math notranslate nohighlight">\(f(x)\)</span> is a vectorized function and <span class="math notranslate nohighlight">\(\mathbf{x} = \begin{bmatrix} x_1 &amp; x_2 &amp; x_3 &amp; \cdots &amp; x_N \end{bmatrix}\)</span> is a vector then</p>
+<div class="math notranslate nohighlight">
+\[
+f(\mathbf{x}) = \begin{bmatrix} f(x_1) &amp; f(x_2) &amp; f(x_3) &amp; \cdots &amp; f(x_N) \end{bmatrix}
+\]</div>
+<p>For example, the vectors <code class="docutils literal notranslate"><span class="pre">y1</span></code> and <code class="docutils literal notranslate"><span class="pre">y2</span></code> computed below are identical:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.00000000e+00 7.07106781e-01 1.00000000e+00 7.07106781e-01
+ 1.22464680e-16]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">])</span>
+<span class="n">y2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.00000000e+00 7.07106781e-01 1.00000000e+00 7.07106781e-01
+ 1.22464680e-16]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s use just these 5 points to plot <span class="math notranslate nohighlight">\(y = \sin(x)\)</span>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/303d888e530318848ee9583b9d00049b438f9c7334e6d3977d0bdf5e2d75dc0f.png" src="../_images/303d888e530318848ee9583b9d00049b438f9c7334e6d3977d0bdf5e2d75dc0f.png" />
+</div>
+</div>
+<p>Clearly we need more points to plot the function smoothly. Let’s use <code class="docutils literal notranslate"><span class="pre">np.linspace</span></code> to plot the function <span class="math notranslate nohighlight">\(y = \sin(x)\)</span> over the interval <span class="math notranslate nohighlight">\([0,\pi]\)</span> using 100 points:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/29848d207ca9bb6dbcf22520b0b87533f0be1f1cfaea8dc4985c37045cd66d2c.png" src="../_images/29848d207ca9bb6dbcf22520b0b87533f0be1f1cfaea8dc4985c37045cd66d2c.png" />
+</div>
+</div>
+</section>
+<section id="vectorized-arithmetic-operations">
+<h2>Vectorized Arithmetic Operations<a class="headerlink" href="#vectorized-arithmetic-operations" title="Permalink to this heading">#</a></h2>
+<p>Addition and subtraction are already vectorized operations. We also define vectorized multiplication, division and exponentiation:</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>Vectorized Operation</p></th>
+<th class="head text-center"><p>NumPy Syntax</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>addition</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">+</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>subtraction</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">-</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>multiplication</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">*</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>division</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">/</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>exponentiation</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">**</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>For example, the following script creates identical vectors <code class="docutils literal notranslate"><span class="pre">y1</span></code> and <code class="docutils literal notranslate"><span class="pre">y2</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([(</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="o">**</span><span class="mi">2</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[9 4 1 0 1 4 9]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">y2</span> <span class="o">=</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[9 4 1 0 1 4 9]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Use vectorization to plot <span class="math notranslate nohighlight">\(f(x) = 1 - x^2\)</span> over the interval <span class="math notranslate nohighlight">\([-3,3]\)</span>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">100</span><span class="p">);</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">;</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/6f4036b12de6a7c1ad33c5c2cbec49bfd00b29e5cf0cc5e5d38a7ccf4544dd5f.png" src="../_images/6f4036b12de6a7c1ad33c5c2cbec49bfd00b29e5cf0cc5e5d38a7ccf4544dd5f.png" />
+</div>
+</div>
+<p>Create the vector of values <span class="math notranslate nohighlight">\(y = xe^{-x}\)</span> for <span class="math notranslate nohighlight">\(x\)</span> from 0 to 1 with step 0.25:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.         0.1947002  0.30326533 0.35427491 0.36787944]
+</pre></div>
+</div>
+</div>
+</div>
+<p>The values <span class="math notranslate nohighlight">\(y_k\)</span> in the vector <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> correspond to <span class="math notranslate nohighlight">\(x_k\)</span> in the vector <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> by:</p>
+<div class="math notranslate nohighlight">
+\[
+y_k = x_k e^{-x_k}
+\]</div>
+<p>The simple code above produces the same vector as the more verbose code below:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">0</span><span class="p">),</span><span class="mf">0.25</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.25</span><span class="p">),</span><span class="mf">0.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">),</span><span class="mf">0.75</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.75</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.         0.1947002  0.30326533 0.35427491 0.36787944]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Use vectorization to plot <span class="math notranslate nohighlight">\(f(x) = x e^{-x}\)</span> over the interval <span class="math notranslate nohighlight">\([0,10]\)</span>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">101</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/808d2bee9a7f699b332cba5fc25ca7d66f0262de4afbe79c705df63d830b3cf1.png" src="../_images/808d2bee9a7f699b332cba5fc25ca7d66f0262de4afbe79c705df63d830b3cf1.png" />
+</div>
+</div>
+</section>
+<section id="more-plotting-examples">
+<h2>More Plotting Examples<a class="headerlink" href="#more-plotting-examples" title="Permalink to this heading">#</a></h2>
+<p>Plot <span class="math notranslate nohighlight">\(f(x) = \displaystyle \frac{1}{1 + x^2}\)</span> over the interval <span class="math notranslate nohighlight">\([-6,6]\)</span>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/c986e2b61c9e4f7a0d61c2713cde7c02853005feb7f804097652f7628d686fd7.png" src="../_images/c986e2b61c9e4f7a0d61c2713cde7c02853005feb7f804097652f7628d686fd7.png" />
+</div>
+</div>
+<p>Plot <span class="math notranslate nohighlight">\(f(x) = \cos(2 \pi x) + 2 \sin(3 \pi x)\)</span> over the interval <span class="math notranslate nohighlight">\([0,5]\)</span>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">500</span><span class="p">);</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">x</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/429e60ae5825eb3b012b31c78efaaac74199d325307e183a7c1c075902cb329c.png" src="../_images/429e60ae5825eb3b012b31c78efaaac74199d325307e183a7c1c075902cb329c.png" />
+</div>
+</div>
+</section>
+<section id="exercises">
+<h2>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
+<p><strong>Exercise 1.</strong> <em>Without running the code</em>, predict the values <code class="docutils literal notranslate"><span class="pre">y[0]</span></code>, <code class="docutils literal notranslate"><span class="pre">y[10]</span></code> and <code class="docutils literal notranslate"><span class="pre">y[20]</span></code> in the code below.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">21</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">x</span> <span class="o">+</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+</pre></div>
+</div>
+<p><strong>Exercise 2.</strong> <em>Without running the code</em>, predict the values <code class="docutils literal notranslate"><span class="pre">y[0]</span></code>, <code class="docutils literal notranslate"><span class="pre">y[50]</span></code> and <code class="docutils literal notranslate"><span class="pre">y[100]</span></code> in the code below.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">101</span><span class="p">);</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Exercise 3.</strong> Plot <span class="math notranslate nohighlight">\(f(x) = \ln(1 + x)\)</span> over the interval <span class="math notranslate nohighlight">\([0,10]\)</span>.</p>
+<p><strong>Exercise 4.</strong> Plot <span class="math notranslate nohighlight">\(f(x) = \arctan(x)\)</span> over the interval <span class="math notranslate nohighlight">\([-5,5]\)</span>.</p>
+<p><strong>Exercise 5.</strong> Plot <span class="math notranslate nohighlight">\(f(x) = 1/\sqrt{1 + x^2}\)</span> over the interval <span class="math notranslate nohighlight">\([4,4]\)</span>.</p>
+<p><strong>Exercise 6.</strong> Plot <span class="math notranslate nohighlight">\(f(x) = e^{\sin(x)}\)</span> over the interval <span class="math notranslate nohighlight">\([0,4\pi]\)</span>.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -424,6 +790,26 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-plotting-procedure">Basic Plotting Procedure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matplotlib">Matplotlib</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#np-linspace"><code class="docutils literal notranslate"><span class="pre">np.linspace</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vectorized-functions">Vectorized Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vectorized-arithmetic-operations">Vectorized Arithmetic Operations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#more-plotting-examples">More Plotting Examples</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
