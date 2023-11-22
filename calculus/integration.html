@@ -61,6 +61,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'calculus/integration';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -144,7 +146,7 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../getting-started/syzygy.html">JupyterLab and Syzygy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/jupyter.html">JupyterLab</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/mathematics.html">Elementary Mathematics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/matrices.html">Working with Matrices</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/vectorization.html">Vectorization and Plotting</a></li>
@@ -337,7 +339,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -353,6 +357,20 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-riemann-sums">Visualizing Riemann Sums</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-riemann-sums">Computing Riemann Sums</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-the-trapezoid-rule">Computing the Trapezoid Rule</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-riemann-sums-for-double-integrals">Visualizing Riemann Sums for Double Integrals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-riemann-sums-for-double-integrals">Computing Riemann Sums for Double Integrals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#trapezoid-rule-for-double-integrals">Trapezoid Rule for Double Integrals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#triple-integrals">Triple Integrals</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -364,7 +382,542 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="numerical-integration">
 <h1>Numerical Integration<a class="headerlink" href="#numerical-integration" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="visualizing-riemann-sums">
+<h2>Visualizing Riemann Sums<a class="headerlink" href="#visualizing-riemann-sums" title="Permalink to this heading">#</a></h2>
+<p>The definite integral <span class="math notranslate nohighlight">\(\int_a^b f(x) \, dx\)</span> is the (net) area under the curve <span class="math notranslate nohighlight">\(y=f(x)\)</span>. Approximate the area under the curve by the sum of areas of rectangles. In particular, choose an integer <span class="math notranslate nohighlight">\(N\)</span> and define</p>
+<div class="math notranslate nohighlight">
+\[
+x_k = a + k \Delta x \ \ \ , \ \ \Delta x = \frac{b - a}{N} \ \ \ , \ \ k=0,1,\dots,N
+\]</div>
+<p>The values <span class="math notranslate nohighlight">\(x_0,x_1,\dots,x_N\)</span> define a partition of the interval <span class="math notranslate nohighlight">\([a,b]\)</span> with <span class="math notranslate nohighlight">\(N\)</span> subintervals. Note that <span class="math notranslate nohighlight">\(x_0 = a\)</span> and <span class="math notranslate nohighlight">\(x_N = b\)</span>. Define a rectangle over each subinterval <span class="math notranslate nohighlight">\([x_{k-1},x_k]\)</span>, <span class="math notranslate nohighlight">\(k=1,\dots,N\)</span>, with height using the right endpoint <span class="math notranslate nohighlight">\(f(x_k)\)</span> or the left endpoint <span class="math notranslate nohighlight">\(f(x_{k-1})\)</span>. Using the right endpoint we get the <strong>right Riemann sum</strong></p>
+<div class="math notranslate nohighlight">
+\[
+R = \sum_{k=1}^N f(x_k) \Delta x = \left( \frac{b-a}{N} \right) \sum_{k=1}^N f(x_k)
+\]</div>
+<p>Using the left endpoint we get the <strong>left Riemann sum</strong></p>
+<div class="math notranslate nohighlight">
+\[
+L = \sum_{k=1}^N f(x_{k-1}) \Delta x = \left( \frac{b-a}{N} \right) \sum_{k=1}^N f(x_{k-1})
+\]</div>
+<p>Each Riemann sum is an approximation of the definite integral <span class="math notranslate nohighlight">\(\int_a^b f(x) \, dx\)</span>. The definite integral is equal to the limit</p>
+<div class="math notranslate nohighlight">
+\[
+\int_a^b f(x) \, dx = \lim_{N \to \infty} \sum_{k=1}^N f(x_k^*) \Delta x
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(x_k^*\)</span> is any value in the interval <span class="math notranslate nohighlight">\([x_{k-1},x_k]\)</span>.</p>
+<p>Let’s visualize the area under curve approximated by rectangles. Consider the function <span class="math notranslate nohighlight">\(f(x) = 1-x^2\)</span> over the interval <span class="math notranslate nohighlight">\([0,1]\)</span> and plot rectangles for the left Riemann sum.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the function</span>
+<span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="c1"># Define the partition of [a,b] consisting of N subintervals of equal length</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> <span class="n">dx</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="n">N</span><span class="p">;</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Compute the y values at each point x[k] in the partition</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># Plot a rectangle for each subinterval [x[k-1],x[k]]</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+    
+    <span class="c1"># Plot a filled rectangle with base from x[k-1] to x[k] and height y[k-1]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">fill</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">]],[</span><span class="mi">0</span><span class="p">,</span><span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;C0&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+    
+    <span class="c1"># Plot the outline of the rectangle with base from x[k-1] to x[k] and height y[k-1]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">]],[</span><span class="mi">0</span><span class="p">,</span><span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;C0&#39;</span><span class="p">)</span>
+
+<span class="c1"># Compute many values y = f(x) so that we can plot y = f(x) smoothly</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,(</span><span class="n">b</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="s1">&#39;C1&#39;</span><span class="p">)</span>
+
+<span class="c1"># Add style to the figure</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Left Riemann Sums for $f(x) = 1-x^2$ with $N=</span><span class="si">{}</span><span class="s1">$&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">N</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/8955204a6befa8a39d60d0c396824fd36d1c0a21779b368c561c2f635656a0fe.png" src="../_images/8955204a6befa8a39d60d0c396824fd36d1c0a21779b368c561c2f635656a0fe.png" />
+</div>
+</div>
+<p>Let’s do the same example but for right Riemann sums.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the function</span>
+<span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="c1"># Define the partition of [a,b] consisting of N subintervals of equal length</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> <span class="n">dx</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="n">N</span><span class="p">;</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Compute the y values at each point x[k] in the partition</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># Plot a rectangle for each subinterval [x[k-1],x[k]]</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+    
+    <span class="c1"># Plot a filled rectangle with base from x[k-1] to x[k] and height y[k]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">fill</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">]],[</span><span class="mi">0</span><span class="p">,</span><span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;C0&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+    
+    <span class="c1"># Plot the outline of the rectangle with base from x[k-1] to x[k] and height y[k]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">]],[</span><span class="mi">0</span><span class="p">,</span><span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;C0&#39;</span><span class="p">)</span>
+
+<span class="c1"># Compute many values y = f(x) so that we can plot y = f(x) smoothly</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,(</span><span class="n">b</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="s1">&#39;C1&#39;</span><span class="p">)</span>
+
+<span class="c1"># Add style to the figure</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Right Riemann Sums for $f(x) = 1-x^2$ with $N=</span><span class="si">{}</span><span class="s1">$&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">N</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/8aed0efd66140472b324157a27a26f9bacd8936326df7664ba40ecd84aafd39e.png" src="../_images/8aed0efd66140472b324157a27a26f9bacd8936326df7664ba40ecd84aafd39e.png" />
+</div>
+</div>
+</section>
+<section id="computing-riemann-sums">
+<h2>Computing Riemann Sums<a class="headerlink" href="#computing-riemann-sums" title="Permalink to this heading">#</a></h2>
+<p>The right Riemann for the definite integral <span class="math notranslate nohighlight">\(\int_a^b f(x) dx\)</span> is given by</p>
+<div class="math notranslate nohighlight">
+\[
+R = \left( \frac{b - a}{N} \right) \sum_{k=1}^N y_k
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(y_k = f(x_k)\)</span> is the value at the right endpoint of the interval <span class="math notranslate nohighlight">\([x_{k-1},x_k]\)</span> for each <span class="math notranslate nohighlight">\(k=1,\dots,N\)</span>.</p>
+<p>The procedure to compute the right Riemann sum is as follows:</p>
+<ol class="arabic simple">
+<li><p>Define the function <span class="math notranslate nohighlight">\(y = f(x)\)</span> and limits of integration <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span></p></li>
+<li><p>Choose a value <span class="math notranslate nohighlight">\(N\)</span> and compute the value <span class="math notranslate nohighlight">\(\Delta x = (b - a)/N\)</span></p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">np.linspace</span></code> to create the vector of <span class="math notranslate nohighlight">\(x\)</span> values in the partition</p></li>
+<li><p>Use vectorization to compute the vector of <span class="math notranslate nohighlight">\(y\)</span> values</p></li>
+<li><p>Compute the sum of the <span class="math notranslate nohighlight">\(y\)</span> values from index <span class="math notranslate nohighlight">\(k=1\)</span> to <span class="math notranslate nohighlight">\(k=N\)</span> and multiply by <span class="math notranslate nohighlight">\(\Delta x\)</span></p></li>
+</ol>
+<p>Let’s do the example from the previous exercise <span class="math notranslate nohighlight">\(\int_0^1 (1 - x^2) \, dx\)</span>. We know the exact value is <span class="math notranslate nohighlight">\(2/3\)</span> and so we can compare our results. First, define the function <span class="math notranslate nohighlight">\(f(x)\)</span>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Choose a value <span class="math notranslate nohighlight">\(N\)</span>. This is entirely up to us. Higher value <span class="math notranslate nohighlight">\(N\)</span> gives a better approximation but requires more memory and time to compute the sum. Let’s start small and then increase it later.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">dx</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="n">N</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Compute the vector <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> given by the values <span class="math notranslate nohighlight">\(x_k = a + k \Delta x\)</span>, <span class="math notranslate nohighlight">\(k=0,1,\dots,N\)</span>. Note that there are <span class="math notranslate nohighlight">\(N+1\)</span> values in the vector <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Print the vector to verify:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.  0.2 0.4 0.6 0.8 1. ]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Apply the function <span class="math notranslate nohighlight">\(f(x)\)</span> to the vector <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>. The result is the vector</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{y} = f(\mathbf{x}) = \begin{bmatrix} f(x_0) &amp; f(x_1) &amp; \cdots &amp; f(x_N) \end{bmatrix}
+\]</div>
+<p>In other words, the value of <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> at in dex <span class="math notranslate nohighlight">\(k\)</span> is <span class="math notranslate nohighlight">\(y_k = f(x_k)\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Print the vector to verify:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1.   0.96 0.84 0.64 0.36 0.  ]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Select the values of <code class="docutils literal notranslate"><span class="pre">y</span></code> from index 1 to N using the command:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.96, 0.84, 0.64, 0.36, 0.  ])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Approximate the integral using the right Riemann sums:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span><span class="o">*</span><span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="n">N</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">R</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5599999999999998
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s put it all together in one cell and then increase <span class="math notranslate nohighlight">\(N\)</span> to get better approximations:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span> <span class="n">dx</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="n">N</span><span class="p">;</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span><span class="o">*</span><span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="n">N</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">R</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.64125
+</pre></div>
+</div>
+</div>
+</div>
+<p>The left Riemann for the definite integral <span class="math notranslate nohighlight">\(\int_a^b f(x) dx\)</span> is given by</p>
+<div class="math notranslate nohighlight">
+\[
+L = \left( \frac{b - a}{N} \right) \sum_{k=1}^N y_{k-1}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(y_{k-1} = f(x_{k-1})\)</span> is the value at the left endpoint of the interval <span class="math notranslate nohighlight">\([x_{k-1},x_k]\)</span> for each <span class="math notranslate nohighlight">\(k=1,\dots,N\)</span>.</p>
+<p>Note that we can make the substitution in the index <span class="math notranslate nohighlight">\(k - 1 \to k\)</span> to rewrite the sum as</p>
+<div class="math notranslate nohighlight">
+\[
+L = \left( \frac{b - a}{N} \right) \sum_{k=0}^{N-1} y_k
+\]</div>
+<p>The procedure to compute the left Riemann sum is exactly the same but this time we need to select the values of the vector <code class="docutils literal notranslate"><span class="pre">y</span></code> from index 0 to N-1.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span> <span class="n">dx</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="n">N</span><span class="p">;</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1.   0.96 0.84 0.64 0.36 0.  ]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Select the values of <code class="docutils literal notranslate"><span class="pre">y</span></code> from index 0 to N-1 using the command:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="p">[:</span><span class="n">N</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1.  , 0.96, 0.84, 0.64, 0.36])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Approximate the integral using the left Riemann sums:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span> <span class="n">dx</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="n">N</span><span class="p">;</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">L</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y</span><span class="p">[:</span><span class="n">N</span><span class="p">])</span><span class="o">*</span><span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="n">N</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">L</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6912499999999999
+</pre></div>
+</div>
+</div>
+</div>
+<p>We know that <span class="math notranslate nohighlight">\(\int_0^1 (1 - x^2) \, dx = 2/3\)</span> therefore the Riemann sums approach <span class="math notranslate nohighlight">\(2/3\)</span> as <span class="math notranslate nohighlight">\(N \to \infty\)</span>.</p>
+</section>
+<section id="computing-the-trapezoid-rule">
+<h2>Computing the Trapezoid Rule<a class="headerlink" href="#computing-the-trapezoid-rule" title="Permalink to this heading">#</a></h2>
+<p>The left and right Riemann sums are approximations of the definite integral <span class="math notranslate nohighlight">\(\int_a^b f(x) \, dx\)</span>. The <strong>trapezoid rule</strong> is the average of the left and right Riemann sums</p>
+<div class="math notranslate nohighlight">
+\[
+T = \frac{L + R}{2} = \frac{1}{2} \left( \sum_{k=1}^N f(x_{k-1}) \Delta x + \sum_{k=1}^N f(x_k) \Delta x \right)
+= \left( \frac{b-a}{N} \right) \sum_{k=1}^N \left( \frac{f(x_{k-1}) + f(x_k)}{2} \right)
+\]</div>
+<p>The trapezoid rule corresponds to the sum of the areas of the trapezoids below the curve on each subinterval.</p>
+<p>For example, let’s plot the trapezoids for <span class="math notranslate nohighlight">\(f(x) = 1-x^4\)</span> in the interval <span class="math notranslate nohighlight">\([-1,1]\)</span> for <span class="math notranslate nohighlight">\(N=5\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">x</span><span class="o">**</span><span class="mi">4</span>
+<span class="n">a</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># Plot a rectangle for each subinterval [x[k-1],x[k]]</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+    
+    <span class="c1"># Plot a filled trapezoid with base from x[k-1] to x[k] and height y[k]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">fill</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">]],[</span><span class="mi">0</span><span class="p">,</span><span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;C0&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+    
+    <span class="c1"># Plot the outline of the rectangle with base from x[k-1] to x[k] and height y[k]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">]],[</span><span class="mi">0</span><span class="p">,</span><span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;C0&#39;</span><span class="p">)</span>
+
+<span class="c1"># Compute many values y = f(x) so that we can plot y = f(x) smoothly</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,(</span><span class="n">b</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="s1">&#39;C1&#39;</span><span class="p">)</span>
+
+<span class="c1"># Add style to the figure</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Trapezoid Rule for $y = 1-x^4$ with $N=</span><span class="si">{}</span><span class="s1">$&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">N</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/6231471bba72b6f47a07270546bbdbd03fed02e50b8312cb3de6f6f6dc2add01.png" src="../_images/6231471bba72b6f47a07270546bbdbd03fed02e50b8312cb3de6f6f6dc2add01.png" />
+</div>
+</div>
+<p>Let’s compute the average of the left and right Riemann sums:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">x</span><span class="o">**</span><span class="mi">4</span>
+<span class="n">a</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">T</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="n">N</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">y</span><span class="p">[:</span><span class="n">N</span><span class="p">]))</span><span class="o">/</span><span class="mi">2</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;T =&#39;</span><span class="p">,</span><span class="n">T</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>T = 1.5997333440000003
+</pre></div>
+</div>
+</div>
+</div>
+<p>The exact solution is <span class="math notranslate nohighlight">\(\int_{-1}^1 (1 - x^4) \, dx = 8/5\)</span> therefore <span class="math notranslate nohighlight">\(T\)</span> converges to <span class="math notranslate nohighlight">\(1.6\)</span> as <span class="math notranslate nohighlight">\(N \to \infty\)</span>.</p>
+</section>
+<section id="visualizing-riemann-sums-for-double-integrals">
+<h2>Visualizing Riemann Sums for Double Integrals<a class="headerlink" href="#visualizing-riemann-sums-for-double-integrals" title="Permalink to this heading">#</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(R\)</span> be the region bounded between the curves <span class="math notranslate nohighlight">\(y = B(x)\)</span> and <span class="math notranslate nohighlight">\(y = T(x)\)</span> and <span class="math notranslate nohighlight">\(a \leq x \leq b\)</span>. Let <span class="math notranslate nohighlight">\(f(x,y)\)</span> be an integrable function. The <strong>definite integral</strong> of <span class="math notranslate nohighlight">\(f(x,y)\)</span> over the region <span class="math notranslate nohighlight">\(R\)</span> is a limit of Riemann sums</p>
+<div class="math notranslate nohighlight">
+\[
+\iint_R f(x,y) \, dy dx = \int_a^b \int_{B(x)}^{T(x)} f(x,y) \, dy \, dx = \lim_{N \to \infty} \sum_{k=1}^N \left( \int_{B(x_k)}^{T(x_k)} f(x_k,y) dy \right) \Delta x
+= \lim_{N,M \to \infty} \sum_{k=1}^N \sum_{l=1}^M f(x_k,y_{kl}) \Delta y_k \Delta x
+\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[
+x_k = a + k \Delta x \ \ \ , \ \ k = 1,\dots,N \ \ \ , \ \ \Delta x = \frac{b - a}{N}
+\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[
+y_{kl} = B(x_k) + l \Delta y_k \ \ \ , \ \ k = 1,\dots,N \ \ \ , \ \ l = 1,\dots,M \ \ \ , \ \ \Delta y_k = \frac{T(x_k) - B(x_k)}{M}
+\]</div>
+<p>Note that <span class="math notranslate nohighlight">\(x_0=a\)</span> and <span class="math notranslate nohighlight">\(x_N=b\)</span>, and <span class="math notranslate nohighlight">\(y_{k,0},y_{k,1},\dots,y_{k,M}\)</span> is a partition of <span class="math notranslate nohighlight">\([B(x_k),T(x_k)]\)</span> for each <span class="math notranslate nohighlight">\(k=1,\dots,N\)</span>.</p>
+<p>What does any of this mean?!!!</p>
+<p>Let’s plot all the points <span class="math notranslate nohighlight">\((x_k,y_{kl}) \in \mathbb{R}^2\)</span> for <span class="math notranslate nohighlight">\(k=0,\dots,N\)</span> and <span class="math notranslate nohighlight">\(l=0,\dots,M\)</span> for the area bounded by the curves <span class="math notranslate nohighlight">\(T(x) = 1 + \sqrt{x}\)</span> and <span class="math notranslate nohighlight">\(B(x) = x^2\)</span> for <span class="math notranslate nohighlight">\(0 \leq x \leq 1\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">B</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="n">N</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">B</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">]),</span><span class="n">T</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">]),</span><span class="n">M</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">M</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">l</span><span class="p">],</span><span class="s1">&#39;b.&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">T</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="s1">&#39;r&#39;</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">B</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="s1">&#39;g&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/292a858920bd145848ef08c46a0f7c4eeb7cd33be2f0f8a3b0b543871285e375.png" src="../_images/292a858920bd145848ef08c46a0f7c4eeb7cd33be2f0f8a3b0b543871285e375.png" />
+</div>
+</div>
+<p>Now we can see all the points when we partition the <span class="math notranslate nohighlight">\(x\)</span>-interval <span class="math notranslate nohighlight">\([a,b]\)</span> and then partition each <span class="math notranslate nohighlight">\(y\)</span>-interval <span class="math notranslate nohighlight">\([B(x_k),T(x_k)]\)</span> for <span class="math notranslate nohighlight">\(k=1,\dots,N\)</span>.</p>
+<p>A Riemann sum is of the form</p>
+<div class="math notranslate nohighlight">
+\[
+\iint_R f(x,y) \, dy dx = \int_a^b \int_{B(x)}^{T(x)} f(x,y) \, dy \, dx \approx \sum_{k=1}^N \sum_{l=1}^M f(x_k^*,y_{kl}^*) \Delta y_k \Delta x
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(x_k^* \in [x_{k-1},x_k]\)</span> and <span class="math notranslate nohighlight">\(y_{kl}^* \in [y_{k,l-1},y_{k,l}]\)</span>. The right Riemann sum is when we choose the right endpoints <span class="math notranslate nohighlight">\(x_k^* = x_k\)</span> and <span class="math notranslate nohighlight">\(y_{kl}^* = y_{kl}\)</span>.</p>
+<p>The value <span class="math notranslate nohighlight">\(f(x_k^*,y_{kl}^*) \Delta y_k \Delta x\)</span> is the volume of a rectangular prism of height <span class="math notranslate nohighlight">\(f(x_k^*,y_{kl}^*)\)</span> and base <span class="math notranslate nohighlight">\(\Delta y_k \Delta x\)</span>. Let’s use color to show the value <span class="math notranslate nohighlight">\(f(x,y)\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">:</span> <span class="n">x</span><span class="o">*</span><span class="n">y</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">T</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">B</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="n">maxf</span> <span class="o">=</span> <span class="mi">2</span> <span class="c1"># Maximum value of f(x,y) in the region.</span>
+<span class="c1"># We use this for the transparancy alpha=z/maxf of each rectangle</span>
+
+<span class="n">N</span> <span class="o">=</span> <span class="mi">40</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">B</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">]),</span><span class="n">T</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">]),</span><span class="n">M</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">M</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">l</span><span class="p">])</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">fill</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">]],[</span><span class="n">y</span><span class="p">[</span><span class="n">l</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">l</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">l</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">l</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">l</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;C0&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="n">z</span><span class="o">/</span><span class="n">maxf</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">]],[</span><span class="n">y</span><span class="p">[</span><span class="n">l</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">l</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">l</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">l</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">l</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span><span class="s1">&#39;C0&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">T</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="s1">&#39;C1&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">B</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="s1">&#39;C2&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/2ea7b63ab0725b1d3f8474d07f6bf589d5a11da7a6e927a91e2f0daccf0c149f.png" src="../_images/2ea7b63ab0725b1d3f8474d07f6bf589d5a11da7a6e927a91e2f0daccf0c149f.png" />
+</div>
+</div>
+</section>
+<section id="computing-riemann-sums-for-double-integrals">
+<h2>Computing Riemann Sums for Double Integrals<a class="headerlink" href="#computing-riemann-sums-for-double-integrals" title="Permalink to this heading">#</a></h2>
+<p>The procedure to compute the right Riemann sum for a double integral is as follows:</p>
+<ol class="arabic simple">
+<li><p>Define the function <span class="math notranslate nohighlight">\(z = f(x,y)\)</span> and limits of integration <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span>, and <span class="math notranslate nohighlight">\(y=B(x)\)</span> and <span class="math notranslate nohighlight">\(y = T(x)\)</span>.</p></li>
+<li><p>Choose an integer <span class="math notranslate nohighlight">\(N\)</span> and compute the value <span class="math notranslate nohighlight">\(\Delta x = \frac{b-a}{N}\)</span></p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">np.linspace</span></code> to compute the vector of <span class="math notranslate nohighlight">\(x\)</span> values in the partition of <span class="math notranslate nohighlight">\([a,b]\)</span>: <span class="math notranslate nohighlight">\(x_k = a + k \Delta x\)</span></p></li>
+<li><p>For each subinterval <span class="math notranslate nohighlight">\([x_{k-1},x_k]\)</span>, <span class="math notranslate nohighlight">\(k=1,\dots,N\)</span>, approximate the definite integral <span class="math notranslate nohighlight">\(\int_{B(x_k)}^{T(x_k)} f(x_k,y) \, dy\)</span>:</p>
+<ol class="arabic simple">
+<li><p>Choose an integer <span class="math notranslate nohighlight">\(M\)</span> and compute the value <span class="math notranslate nohighlight">\(\Delta y_k = \frac{T(x_k)-B(x_k)}{M}\)</span>.</p></li>
+<li><p>USe <code class="docutils literal notranslate"><span class="pre">np.linspace</span></code> to create the vector of <span class="math notranslate nohighlight">\(y\)</span> values in the partition of <span class="math notranslate nohighlight">\([B(x_k),T(x_k)]\)</span>: <span class="math notranslate nohighlight">\(y_{kl} = B(x_k) + l \Delta y_k\)</span></p></li>
+<li><p>Compute the vector of values <span class="math notranslate nohighlight">\(f(x_k,y_{lk})\)</span></p></li>
+<li><p>Compute and save the sum <span class="math notranslate nohighlight">\(I_k = \sum_{l = 1}^M f(x_k,y_{kl}) \Delta y_k\)</span></p></li>
+</ol>
+</li>
+<li><p>Approximate the double integral by a sum of Riemann sums</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\iint_R f(x,y) \, dy dx = \int_a^b \int_{B(x)}^{T(x)} f(x,y) \, dy \, dx \approx \sum_{k=1}^N \left( \int_{B(x_k)}^{T(x_k)} f(x_k,y) dy \right) \Delta x
+\approx \sum_{k=1}^N I_k \Delta x
+\approx \sum_{k=1}^N \sum_{l=1}^M f(x_k,y_{kl}) \Delta y_k \Delta x
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">:</span> <span class="n">x</span><span class="o">*</span><span class="n">y</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">T</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">B</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="n">N</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">;</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">dx</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="n">N</span>
+
+<span class="n">I</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="mi">1000</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">B</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">]),</span><span class="n">T</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">]),</span><span class="n">M</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">dy</span> <span class="o">=</span> <span class="p">(</span><span class="n">T</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="o">-</span> <span class="n">B</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">]))</span><span class="o">/</span><span class="n">M</span>
+    <span class="n">fk</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+    <span class="n">I</span> <span class="o">=</span> <span class="n">I</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">fk</span><span class="p">)</span><span class="o">*</span><span class="n">dx</span><span class="o">*</span><span class="n">dy</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">I</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7345113601794344
+</pre></div>
+</div>
+</div>
+</div>
+<p>The exact value of the integral is:</p>
+<div class="math notranslate nohighlight">
+\[
+\int_0^1 \int_{x^2}^{1 + \sqrt{x}} xy \, dy dx
+= \frac{1}{2} \int_0^1 x \left( 1 + 2\sqrt{x} + x - x^4 \right) \, dx
+= \frac{1}{2} \left( (1/2)x^2 + (4/5)x^{5/2} + (1/3)x^3 - (1/6)x^6 \right)_0^1
+= \frac{11}{15}
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mi">11</span><span class="o">/</span><span class="mi">15</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7333333333333333
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="trapezoid-rule-for-double-integrals">
+<h2>Trapezoid Rule for Double Integrals<a class="headerlink" href="#trapezoid-rule-for-double-integrals" title="Permalink to this heading">#</a></h2>
+<p>In our code above, we use the right endpoints of the intervals <span class="math notranslate nohighlight">\([x_{k-1},x_k]\)</span> and <span class="math notranslate nohighlight">\([y_{k,l-1},y_{k,l}]\)</span>, <span class="math notranslate nohighlight">\(l=1,\dots,M\)</span>, when we compute the value:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="n">fk</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+</pre></div>
+</div>
+<p>Since we can choose right or left endpoints in both the <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> directoin there are 4 different choices:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="n">fk1</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+    <span class="n">fk2</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+    <span class="n">fk3</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="n">y</span><span class="p">[:</span><span class="n">N</span><span class="p">])</span>
+    <span class="n">fk4</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">y</span><span class="p">[:</span><span class="n">N</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>The <strong>trapezoid rule</strong> is when we use the average of these 4 computations to approximate the double integral.</p>
+</section>
+<section id="triple-integrals">
+<h2>Triple Integrals<a class="headerlink" href="#triple-integrals" title="Permalink to this heading">#</a></h2>
 <p><em>Under construction</em></p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -425,6 +978,26 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-riemann-sums">Visualizing Riemann Sums</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-riemann-sums">Computing Riemann Sums</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-the-trapezoid-rule">Computing the Trapezoid Rule</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-riemann-sums-for-double-integrals">Visualizing Riemann Sums for Double Integrals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-riemann-sums-for-double-integrals">Computing Riemann Sums for Double Integrals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#trapezoid-rule-for-double-integrals">Trapezoid Rule for Double Integrals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#triple-integrals">Triple Integrals</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
