@@ -9,9 +9,11 @@ html:
   home_page_in_navbar: false
 repository:
   url: https://github.com/UBCMath/python
+  branch: main
 html:
   home_page_in_navbar: false
   use_repository_button: true
+  google_analytics_id: G-E4TJ9JBS8H
 launch_buttons:
   jupyterhub_url: https://ubc.syzygy.ca/jupyter
 
