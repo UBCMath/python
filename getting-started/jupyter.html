@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>JupyterLab &#8212; Python and Jupyter for UBC Mathematics</title>
+    <title>Python and Jupyter &#8212; Python and Jupyter for UBC Mathematics</title>
   
   
   
@@ -151,7 +151,7 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">JupyterLab</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Python and Jupyter</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mathematics.html">Elementary Mathematics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="matrices.html">Working with Matrices</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vectorization.html">Vectorization and Plotting</a></li>
@@ -357,7 +357,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>JupyterLab</h1>
+    <h1>Python and Jupyter</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -367,8 +367,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-notebook">Jupyter Notebook</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#syzygy-and-jupyterlab">Syzygy and JupyterLab</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#syzygy">Syzygy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyterlab">JupyterLab</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kernels">Kernels</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anaconda">Anaconda</a></li>
 </ul>
@@ -382,15 +382,24 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="jupyterlab">
-<h1>JupyterLab<a class="headerlink" href="#jupyterlab" title="Permalink to this heading">#</a></h1>
-<section id="jupyter-notebook">
-<h2>Jupyter Notebook<a class="headerlink" href="#jupyter-notebook" title="Permalink to this heading">#</a></h2>
+  <section class="tex2jax_ignore mathjax_ignore" id="python-and-jupyter">
+<h1>Python and Jupyter<a class="headerlink" href="#python-and-jupyter" title="Permalink to this heading">#</a></h1>
 <p>A <a class="reference external" href="https://jupyter.org">Jupyter</a> notebook is a computational document in which we run <a class="reference external" href="https://www.python.org">Python</a> code, write math equations with <a class="reference external" href="https://www.latex-project.org">LaTeX</a> and write explanatory text in <a class="reference external" href="https://daringfireball.net/projects/markdown/">markdown</a>. A Jupyter noteobok has file extension <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> and is in JSON format in its raw form.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Check out <a class="reference external" href="https://patrickwalls.github.io/mathematicalpython/">Mathematical Python</a> for a comprehensive introduction to Python and Jupyter for mathematical computing.</p>
+</div>
+<section id="syzygy">
+<h2>Syzygy<a class="headerlink" href="#syzygy" title="Permalink to this heading">#</a></h2>
+<p><a class="reference external" href="https://ubc.syzygy.ca">Syzygy</a> hosts Jupyter notebooks in the cloud for all UBC students, faculty and staff.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Login to <a class="reference external" href="https://ubc.syzygy.ca">ubc.syzygy.ca</a> with your UBC CWL to get started!</p>
+</div>
 </section>
-<section id="syzygy-and-jupyterlab">
-<h2>Syzygy and JupyterLab<a class="headerlink" href="#syzygy-and-jupyterlab" title="Permalink to this heading">#</a></h2>
-<p><a class="reference external" href="https://jupyter.org">JupyterLab</a> is a development environment for creating and managing Jupyter notebooks. <a class="reference external" href="https://ubc.syzygy.ca">Syzygy</a> runs JupyterLab and hosts Jupyter notebooks in the cloud for all UBC students, faculty and staff. Login to Syzygy with your UBC CWL to get started! Once you login you should see the JupyterLab interface:</p>
+<section id="jupyterlab">
+<h2>JupyterLab<a class="headerlink" href="#jupyterlab" title="Permalink to this heading">#</a></h2>
+<p><a class="reference external" href="https://jupyter.org">JupyterLab</a> is a development environment for creating and managing Jupyter notebooks. Once you login to Syzygy, you should see the JupyterLab interface:</p>
 <ol class="arabic simple">
 <li><p>Click <strong>Notebook &gt; Python 3 (ipykernel)</strong> in the <strong>Launcher</strong> window to create a new Jupyter notebook</p></li>
 <li><p>Manage files and folders in the <strong>Current Folder</strong> window</p></li>
@@ -407,7 +416,7 @@ document.write(`
 </section>
 <section id="kernels">
 <h2>Kernels<a class="headerlink" href="#kernels" title="Permalink to this heading">#</a></h2>
-<p>Every time you open a Jupyter notebook a kernel is launched in JupyterLab. A kernel is a process that runs the Python code in your Jupyter notebook. Click the stop button icon on the left to view open kernels. <strong>It is important to shutdown the kernel when you close a notebook!</strong></p>
+<p>A new kernel is launched in JupyterLab every time you open a Jupyter notebook. A kernel is a process that runs the Python code in your Jupyter notebook. Click the stop button icon on the left to view open kernels. <strong>It is important to shutdown the kernel when you close a notebook!</strong></p>
 <p><img alt="jupyter2.png" src="../_images/jupyter2.png" /></p>
 </section>
 <section id="anaconda">
@@ -483,8 +492,8 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-notebook">Jupyter Notebook</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#syzygy-and-jupyterlab">Syzygy and JupyterLab</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#syzygy">Syzygy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyterlab">JupyterLab</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kernels">Kernels</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anaconda">Anaconda</a></li>
 </ul>
