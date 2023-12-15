@@ -17,4 +17,4 @@ html:
 launch_buttons:
   jupyterhub_url: https://ubc.syzygy.ca/jupyter
 
-#ghp-import -n -p -f _build/html
+# ghp-import -n -p -f _build/html

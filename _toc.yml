@@ -9,7 +9,6 @@ parts:
     - file: getting-started/vectorization.ipynb
   - caption: Linear Algebra
     chapters:
-    - file: linear-algebra/geometry.ipynb
     - file: linear-algebra/systems.ipynb
     - file: linear-algebra/transformations.ipynb
     - file: linear-algebra/eigenvalues.ipynb
