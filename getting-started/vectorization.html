@@ -73,7 +73,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'getting-started/vectorization';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Vector Geometry" href="../linear-algebra/geometry.html" />
+    <link rel="next" title="Systems of Linear Equations" href="../linear-algebra/systems.html" />
     <link rel="prev" title="Working with Matrices" href="matrices.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -153,14 +153,13 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="jupyter.html">JupyterLab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jupyter.html">Python and Jupyter</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mathematics.html">Elementary Mathematics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="matrices.html">Working with Matrices</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Vectorization and Plotting</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Linear Algebra</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../linear-algebra/geometry.html">Vector Geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../linear-algebra/systems.html">Systems of Linear Equations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../linear-algebra/transformations.html">Linear Transformations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../linear-algebra/eigenvalues.html">Eigenvalues and Eigenvectors</a></li>
@@ -396,18 +395,18 @@ document.write(`
 </div>
 </div>
 </div>
-<p>Vectorization is a fundamental concept in mathematical computing. The idea is simple but very powerful: take any function/operation <span class="math notranslate nohighlight">\(f(x)\)</span> and apply it to a vector <span class="math notranslate nohighlight">\(\mathbf{x} = \begin{bmatrix} x_1 &amp; x_2 &amp; x_3 &amp; \cdots &amp; x_N \end{bmatrix}\)</span> elementwise simultaneously:</p>
+<p>Vectorization is a fundamental concept in mathematical computing. The idea is simple but very powerful: take any function/operation <span class="math notranslate nohighlight">\(f(x)\)</span> and apply it to a vector <span class="math notranslate nohighlight">\(\mathbf{x} = \begin{bmatrix} x_0 &amp; x_1 &amp; \cdots &amp; x_N \end{bmatrix}\)</span> elementwise simultaneously:</p>
 <div class="math notranslate nohighlight">
 \[
-f(\mathbf{x}) = \begin{bmatrix} f(x_1) &amp; f(x_2) &amp; f(x_3) &amp; \cdots &amp; f(x_N) \end{bmatrix}
+f(\mathbf{x}) = \begin{bmatrix} f(x_0) &amp; f(x_1) &amp; \cdots &amp; f(x_N) \end{bmatrix}
 \]</div>
 <p>The point is that vectorization simplifies our code and our computational thinking and we use it whenever we plot a function with NumPy and Matplotlib.</p>
 <section id="basic-plotting-procedure">
 <h2>Basic Plotting Procedure<a class="headerlink" href="#basic-plotting-procedure" title="Permalink to this heading">#</a></h2>
 <p>To plot the graph of a function <span class="math notranslate nohighlight">\(y = f(x)\)</span> over an interval <span class="math notranslate nohighlight">\([a,b]\)</span>:</p>
 <ul class="simple">
-<li><p>Choose a finite set of increasing values <span class="math notranslate nohighlight">\(x_1 &lt; x_2 &lt; \cdots &lt; x_N\)</span> with <span class="math notranslate nohighlight">\(x_1 = a\)</span> and <span class="math notranslate nohighlight">\(x_N = b\)</span></p></li>
-<li><p>Compute the corresponding <span class="math notranslate nohighlight">\(y\)</span> values <span class="math notranslate nohighlight">\(f(x_1),f(x_2),\dots,f(x_N)\)</span></p></li>
+<li><p>Choose a finite set of increasing values <span class="math notranslate nohighlight">\(x_0 &lt; x_1 &lt; \cdots &lt; x_N\)</span> with <span class="math notranslate nohighlight">\(x_0 = a\)</span> and <span class="math notranslate nohighlight">\(x_N = b\)</span></p></li>
+<li><p>Compute the corresponding <span class="math notranslate nohighlight">\(y\)</span> values <span class="math notranslate nohighlight">\(f(x_0),f(x_1),\dots,f(x_N)\)</span></p></li>
 <li><p>Connect each pair of consecutive points by a straight line</p></li>
 </ul>
 <p>Let’s make a few simple observations. A larger number <span class="math notranslate nohighlight">\(N\)</span> of <span class="math notranslate nohighlight">\(x\)</span> values over the interval <span class="math notranslate nohighlight">\([a,b]\)</span>:</p>
@@ -420,7 +419,7 @@ f(\mathbf{x}) = \begin{bmatrix} f(x_1) &amp; f(x_2) &amp; f(x_3) &amp; \cdots &a
 </section>
 <section id="matplotlib">
 <h2>Matplotlib<a class="headerlink" href="#matplotlib" title="Permalink to this heading">#</a></h2>
-<p><a class="reference external" href="https://matplotlib.org">Matplotlib</a> is the main plotting package in Python. It is a large package with lots of subpackages and we primarily use the subpackages <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code> for 2D plotting. Import using th <code class="docutils literal notranslate"><span class="pre">import</span></code> keyword and use the alias <code class="docutils literal notranslate"><span class="pre">plt</span></code>.</p>
+<p><a class="reference external" href="https://matplotlib.org">Matplotlib</a> is the main plotting package in Python. It is a large package with lots of subpackages and we primarily use the subpackages <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code> for 2D plotting. Import using the keyword <code class="docutils literal notranslate"><span class="pre">import</span></code> and use the alias <code class="docutils literal notranslate"><span class="pre">plt</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -431,8 +430,8 @@ f(\mathbf{x}) = \begin{bmatrix} f(x_1) &amp; f(x_2) &amp; f(x_3) &amp; \cdots &a
 <p>The command <code class="docutils literal notranslate"><span class="pre">plt.plot(x,y)</span></code> creates the line plot which connects the points defined by the vectors <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>. For example, the following script plots the graph of <span class="math notranslate nohighlight">\(y = x^2\)</span> using 7 points:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">9</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">9</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">3.</span><span class="p">,</span><span class="o">-</span><span class="mf">2.</span><span class="p">,</span><span class="o">-</span><span class="mf">1.</span><span class="p">,</span><span class="mf">0.</span><span class="p">,</span><span class="mf">1.</span><span class="p">,</span><span class="mf">2.</span><span class="p">,</span><span class="mf">3.</span><span class="p">])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">9.</span><span class="p">,</span><span class="mf">4.</span><span class="p">,</span><span class="mf">1.</span><span class="p">,</span><span class="mf">0.</span><span class="p">,</span><span class="mf">1.</span><span class="p">,</span><span class="mf">4.</span><span class="p">,</span><span class="mf">9.</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -444,14 +443,14 @@ f(\mathbf{x}) = \begin{bmatrix} f(x_1) &amp; f(x_2) &amp; f(x_3) &amp; \cdots &a
 </div>
 <p>We need more points to plot the function smoothly but it is inefficient to manually enter the values in the vectors <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> as we did above. Plotting is an instance where vectorization is very useful:</p>
 <ul class="simple">
-<li><p>Create a large number of <span class="math notranslate nohighlight">\(x\)</span> values using <code class="docutils literal notranslate"><span class="pre">np.linspace</span></code></p></li>
+<li><p>Use the function <code class="docutils literal notranslate"><span class="pre">np.linspace</span></code> to create a large number of <span class="math notranslate nohighlight">\(x\)</span> values</p></li>
 <li><p>Use vector operations and functions to create the corresponding vector of <span class="math notranslate nohighlight">\(y\)</span> values</p></li>
 <li><p>Plot with <code class="docutils literal notranslate"><span class="pre">plt.plot(x,y)</span></code> and add style such as title, colors, line styles, legend, etc.</p></li>
 </ul>
-<p>For example, let’s use vectorization to plot <span class="math notranslate nohighlight">\(y = x^2\)</span> on the interval <span class="math notranslate nohighlight">\([-3,3]\)</span> using 601 points:</p>
+<p>For example, let’s use vectorization to plot <span class="math notranslate nohighlight">\(y = x^2\)</span> on the interval <span class="math notranslate nohighlight">\([-3,3]\)</span> using 100 points:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">601</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">100</span><span class="p">);</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">;</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -459,7 +458,7 @@ f(\mathbf{x}) = \begin{bmatrix} f(x_1) &amp; f(x_2) &amp; f(x_3) &amp; \cdots &a
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/67fa473e26e563c3239c26d49a7bd93364572db91dd2a01bb6784e62b5761381.png" src="../_images/67fa473e26e563c3239c26d49a7bd93364572db91dd2a01bb6784e62b5761381.png" />
+<img alt="../_images/292237a340828d9e22db32fff6ad88e09193f2df3299fa0faa1f71096f496efb.png" src="../_images/292237a340828d9e22db32fff6ad88e09193f2df3299fa0faa1f71096f496efb.png" />
 </div>
 </div>
 <p>Let’s take a closer look at the function <code class="docutils literal notranslate"><span class="pre">np.linspace</span></code> and vector operation <code class="docutils literal notranslate"><span class="pre">x**2</span></code>.</p>
@@ -494,7 +493,25 @@ h = \frac{b - a}{N - 1}
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span> <span class="n">h</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.25
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -507,10 +524,10 @@ h = \frac{b - a}{N - 1}
 </section>
 <section id="vectorized-functions">
 <h2>Vectorized Functions<a class="headerlink" href="#vectorized-functions" title="Permalink to this heading">#</a></h2>
-<p>All the mathematical functions in NumPy such as <code class="docutils literal notranslate"><span class="pre">np.sin</span></code>, <code class="docutils literal notranslate"><span class="pre">np.cos</span></code> and <code class="docutils literal notranslate"><span class="pre">np.exp</span></code> are <em>vectorized</em>. This means that we can apply a function to a vector and the result is the vector of function values. In other words, if <span class="math notranslate nohighlight">\(f(x)\)</span> is a vectorized function and <span class="math notranslate nohighlight">\(\mathbf{x} = \begin{bmatrix} x_1 &amp; x_2 &amp; x_3 &amp; \cdots &amp; x_N \end{bmatrix}\)</span> is a vector then</p>
+<p>All the mathematical functions in NumPy such as <code class="docutils literal notranslate"><span class="pre">np.sin</span></code>, <code class="docutils literal notranslate"><span class="pre">np.cos</span></code> and <code class="docutils literal notranslate"><span class="pre">np.exp</span></code> are <em>vectorized</em>. This means that we can apply a function to a vector and the result is the vector of function values. In other words, if <span class="math notranslate nohighlight">\(f(x)\)</span> is a vectorized function and <span class="math notranslate nohighlight">\(\mathbf{x} = \begin{bmatrix} x_0 &amp; x_1 &amp; \cdots &amp; x_N \end{bmatrix}\)</span> is a vector then</p>
 <div class="math notranslate nohighlight">
 \[
-f(\mathbf{x}) = \begin{bmatrix} f(x_1) &amp; f(x_2) &amp; f(x_3) &amp; \cdots &amp; f(x_N) \end{bmatrix}
+f(\mathbf{x}) = \begin{bmatrix} f(x_0) &amp; f(x_1) &amp; \cdots &amp; f(x_N) \end{bmatrix}
 \]</div>
 <p>For example, the vectors <code class="docutils literal notranslate"><span class="pre">y1</span></code> and <code class="docutils literal notranslate"><span class="pre">y2</span></code> computed below are identical:</p>
 <div class="cell docutils container">
@@ -542,6 +559,7 @@ f(\mathbf{x}) = \begin{bmatrix} f(x_1) &amp; f(x_2) &amp; f(x_3) &amp; \cdots &a
 </div>
 </div>
 </div>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">1e-16</span></code> is scientific notation for <span class="math notranslate nohighlight">\(10^{-16}\)</span> which is very, very small. When we do numerical computations, there is sometimes some rounding error. But we usually interpret numbers like <code class="docutils literal notranslate"><span class="pre">1e-16</span></code> as 0.</p>
 <p>Let’s use just these 5 points to plot <span class="math notranslate nohighlight">\(y = \sin(x)\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -573,7 +591,27 @@ f(\mathbf{x}) = \begin{bmatrix} f(x_1) &amp; f(x_2) &amp; f(x_3) &amp; \cdots &a
 </section>
 <section id="vectorized-arithmetic-operations">
 <h2>Vectorized Arithmetic Operations<a class="headerlink" href="#vectorized-arithmetic-operations" title="Permalink to this heading">#</a></h2>
-<p>Addition and subtraction are already vectorized operations. We also define vectorized multiplication, division and exponentiation:</p>
+<p>Vector addition is defined by adding vectors entry-by-entry</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{x} + \mathbf{y}
+= \begin{bmatrix} x_0 \\ x_1 \\ \vdots \\ x_N \end{bmatrix}
++ \begin{bmatrix} y_0 \\ y_1 \\ \vdots \\ y_N \end{bmatrix}
+= \begin{bmatrix} x_0 + y_0 \\ x_1 + y_1 \\ \vdots \\ x_N + y_N \end{bmatrix}
+\end{split}\]</div>
+<p>Scalar multiplication is defined by multiplying a vector entry-by-entry by a scalar</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+c \mathbf{x}
+= c \begin{bmatrix} x_0 \\ x_1 \\ \vdots \\ x_N \end{bmatrix}
+= \begin{bmatrix} c x_0 \\ c x_1 \\ \vdots \\ c x_N \end{bmatrix}
+\end{split}\]</div>
+<p>Then how could we define <span class="math notranslate nohighlight">\(\mathbf{x} + c\)</span> where <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> is a vector and <span class="math notranslate nohighlight">\(c\)</span> is a scalar? Perform the operation entry-by-entry</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{x} + c = \begin{bmatrix} x_0 \\ x_1 \\ \vdots \\ x_N \end{bmatrix} + c = \begin{bmatrix} x_0 + c \\ x_1 + c \\ \vdots \\ x_N + c \end{bmatrix}
+\end{split}\]</div>
+<p>We also define vectorized multiplication, division and exponentiation:</p>
 <table class="table">
 <thead>
 <tr class="row-odd"><th class="head text-center"><p>Vectorized Operation</p></th>
@@ -601,27 +639,27 @@ f(\mathbf{x}) = \begin{bmatrix} f(x_1) &amp; f(x_2) &amp; f(x_3) &amp; \cdots &a
 <p>For example, the following script creates identical vectors <code class="docutils literal notranslate"><span class="pre">y1</span></code> and <code class="docutils literal notranslate"><span class="pre">y2</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([(</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="o">**</span><span class="mi">2</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([(</span><span class="o">-</span><span class="mf">3.</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,(</span><span class="o">-</span><span class="mf">2.</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,(</span><span class="o">-</span><span class="mf">1.</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="mf">0.</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="mf">1.</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="mf">2.</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="mf">3.</span><span class="o">**</span><span class="mi">2</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">y1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[9 4 1 0 1 4 9]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[9. 4. 1. 0. 1. 4. 9.]
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">3.</span><span class="p">,</span><span class="o">-</span><span class="mf">2.</span><span class="p">,</span><span class="o">-</span><span class="mf">1.</span><span class="p">,</span><span class="mf">0.</span><span class="p">,</span><span class="mf">1.</span><span class="p">,</span><span class="mf">2.</span><span class="p">,</span><span class="mf">3.</span><span class="p">])</span>
 <span class="n">y2</span> <span class="o">=</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">y2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[9 4 1 0 1 4 9]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[9. 4. 1. 0. 1. 4. 9.]
 </pre></div>
 </div>
 </div>
@@ -629,7 +667,7 @@ f(\mathbf{x}) = \begin{bmatrix} f(x_1) &amp; f(x_2) &amp; f(x_3) &amp; \cdots &a
 <p>Use vectorization to plot <span class="math notranslate nohighlight">\(f(x) = 1 - x^2\)</span> over the interval <span class="math notranslate nohighlight">\([-3,3]\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">100</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">100</span><span class="p">);</span>
 <span class="n">y</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">;</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -637,7 +675,7 @@ f(\mathbf{x}) = \begin{bmatrix} f(x_1) &amp; f(x_2) &amp; f(x_3) &amp; \cdots &a
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6f4036b12de6a7c1ad33c5c2cbec49bfd00b29e5cf0cc5e5d38a7ccf4544dd5f.png" src="../_images/6f4036b12de6a7c1ad33c5c2cbec49bfd00b29e5cf0cc5e5d38a7ccf4544dd5f.png" />
+<img alt="../_images/a58370ceed1bf9b912291d3f72c90237912a7e7a383b447e0c7858766cd03d15.png" src="../_images/a58370ceed1bf9b912291d3f72c90237912a7e7a383b447e0c7858766cd03d15.png" />
 </div>
 </div>
 <p>Create the vector of values <span class="math notranslate nohighlight">\(y = xe^{-x}\)</span> for <span class="math notranslate nohighlight">\(x\)</span> from 0 to 1 with step 0.25:</p>
@@ -780,11 +818,11 @@ y_k = x_k e^{-x_k}
       </div>
     </a>
     <a class="right-next"
-       href="../linear-algebra/geometry.html"
+       href="../linear-algebra/systems.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Vector Geometry</p>
+        <p class="prev-next-title">Systems of Linear Equations</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
