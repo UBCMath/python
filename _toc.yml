@@ -3,7 +3,7 @@ root: index
 parts:
   - caption: Getting Started
     chapters:
-    - file: getting-started/syzygy.ipynb
+    - file: getting-started/jupyter.ipynb
     - file: getting-started/mathematics.ipynb
     - file: getting-started/matrices.ipynb
     - file: getting-started/vectorization.ipynb
