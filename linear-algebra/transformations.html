@@ -68,6 +68,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'linear-algebra/transformations';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -343,7 +345,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -359,6 +363,19 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-multiplication">Matrix Multiplication</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rotation-matrix">Rotation Matrix</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scaling-matrix">Scaling Matrix</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shear-matrix">Shear Matrix</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#projection-matrix">Projection Matrix</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reflection-matrix">Reflection Matrix</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -370,7 +387,204 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="linear-transformations">
 <h1>Linear Transformations<a class="headerlink" href="#linear-transformations" title="Permalink to this heading">#</a></h1>
-<p><em>Under construction</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.linalg</span> <span class="k">as</span> <span class="nn">la</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="matrix-multiplication">
+<h2>Matrix Multiplication<a class="headerlink" href="#matrix-multiplication" title="Permalink to this heading">#</a></h2>
+<p>Let’s create an asymmetrical figure in the xy-plane by defining lists of <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> coordinates.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span><span class="o">-</span><span class="mf">1.</span><span class="p">,</span><span class="o">-</span><span class="mf">2.</span><span class="p">,</span><span class="mf">0.</span><span class="p">,</span><span class="mf">2.</span><span class="p">,</span><span class="mf">1.</span><span class="p">,</span><span class="mf">0.</span><span class="p">,</span><span class="mf">1.</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span><span class="mf">2.</span><span class="p">,</span><span class="mf">0.</span><span class="p">,</span><span class="o">-</span><span class="mf">2.</span><span class="p">,</span><span class="mf">0.</span><span class="p">,</span><span class="mf">2.</span><span class="p">,</span><span class="mf">0.</span><span class="p">,</span><span class="mf">0.</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="s1">&#39;.-&#39;</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/1ea8f01cc06f630ffc737e87f80bce43664f020cd87b80946eada5b5f0fc8031.png" src="../_images/1ea8f01cc06f630ffc737e87f80bce43664f020cd87b80946eada5b5f0fc8031.png" />
+</div>
+</div>
+<p>Note that we use the command <code class="docutils literal notranslate"><span class="pre">plt.grid(True)</span></code> to include a grid in the figure and <code class="docutils literal notranslate"><span class="pre">plt.axis('equal')</span></code> plots the figure with equal scaling in the <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> directions.</p>
+<p>Stack the vectors of <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> coordinates to create a matrix <span class="math notranslate nohighlight">\(X\)</span>. The columns of <span class="math notranslate nohighlight">\(X\)</span> are the coordinates of the points defining the vertices of the figure above. The row at index 0 are the <span class="math notranslate nohighlight">\(x\)</span>-coordinates and the row at index 1 are the <span class="math notranslate nohighlight">\(y\)</span>-coordinates.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">row_stack</span><span class="p">([</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 0. -1. -2.  0.  2.  1.  0.  1.]
+ [ 0.  2.  0. -2.  0.  2.  0.  0.]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">,:],</span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">,:],</span><span class="s1">&#39;.-&#39;</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/1ea8f01cc06f630ffc737e87f80bce43664f020cd87b80946eada5b5f0fc8031.png" src="../_images/1ea8f01cc06f630ffc737e87f80bce43664f020cd87b80946eada5b5f0fc8031.png" />
+</div>
+</div>
+<p>Any linear transformation of <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span> can be written as a 2 by 2 matrix with respect to the standard basis. Therefore we can apply to the figure above a linear transformation given by matrix <span class="math notranslate nohighlight">\(A\)</span> by computing matrix multiplication:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+AX = A \begin{bmatrix}
+x_0 &amp; x_1 &amp; \cdots &amp; x_N \\ y_0 &amp; y_1 &amp; \cdots &amp; y_N
+\end{bmatrix}
+= \begin{bmatrix}
+A \begin{bmatrix} x_0 \\ y_0 \end{bmatrix} &amp;
+A \begin{bmatrix} x_1 \\ y_1 \end{bmatrix} &amp;
+\cdots &amp;
+A \begin{bmatrix} x_N \\ y_N \end{bmatrix}
+\end{bmatrix}
+\end{split}\]</div>
+<p>where column at index <span class="math notranslate nohighlight">\(k\)</span> corresponds to the point <span class="math notranslate nohighlight">\((x_k,y_k) \in \mathbf{R}^2\)</span>. In other words, the column at index <span class="math notranslate nohighlight">\(k\)</span> in the product <span class="math notranslate nohighlight">\(AX\)</span> are the coordinates of the transformed point <span class="math notranslate nohighlight">\(A \begin{bmatrix} x_k \\ y_k \end{bmatrix}\)</span>.</p>
+</section>
+<section id="rotation-matrix">
+<h2>Rotation Matrix<a class="headerlink" href="#rotation-matrix" title="Permalink to this heading">#</a></h2>
+<p>A rotation matrix is given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+R_{\theta} = \begin{bmatrix} \cos(\theta) &amp; \sin(\theta) \\ -\sin(\theta) &amp; \cos(\theta) \end{bmatrix}
+\end{split}\]</div>
+<p>The linear transformation corresponding to <span class="math notranslate nohighlight">\(R_{\theta}\)</span> is rotation about the origin clockwise by <span class="math notranslate nohighlight">\(\theta\)</span> radians.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">6</span>
+<span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)],[</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)]])</span>
+<span class="n">RX</span> <span class="o">=</span> <span class="n">R</span><span class="nd">@X</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">,:],</span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">,:],</span><span class="s1">&#39;.-&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">RX</span><span class="p">[</span><span class="mi">0</span><span class="p">,:],</span><span class="n">RX</span><span class="p">[</span><span class="mi">1</span><span class="p">,:],</span><span class="s1">&#39;.-&#39;</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/9e2c6ad775fe9ec7324b0216bb7406f36f082a1721cbd0ccaa1fe6c6b4fc4ff3.png" src="../_images/9e2c6ad775fe9ec7324b0216bb7406f36f082a1721cbd0ccaa1fe6c6b4fc4ff3.png" />
+</div>
+</div>
+</section>
+<section id="scaling-matrix">
+<h2>Scaling Matrix<a class="headerlink" href="#scaling-matrix" title="Permalink to this heading">#</a></h2>
+<p>A scaling matrix is given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+C_{a,b} = \begin{bmatrix} a &amp; 0 \\ 0 &amp; b \end{bmatrix}
+\end{split}\]</div>
+<p>The linear transformation corresponding to <span class="math notranslate nohighlight">\(C_{a,b}\)</span> is scaling by <span class="math notranslate nohighlight">\(a\)</span> is the <span class="math notranslate nohighlight">\(x\)</span>-direction and scaling by <span class="math notranslate nohighlight">\(b\)</span> in the <span class="math notranslate nohighlight">\(y\)</span>-direction.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">([</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">])</span>
+<span class="n">CX</span> <span class="o">=</span> <span class="n">C</span><span class="nd">@X</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">,:],</span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">,:],</span><span class="s1">&#39;.-&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">CX</span><span class="p">[</span><span class="mi">0</span><span class="p">,:],</span><span class="n">CX</span><span class="p">[</span><span class="mi">1</span><span class="p">,:],</span><span class="s1">&#39;.-&#39;</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/1a30a1dfeeadd3d99f1c3c318149d8a22a67f1dd0c7178ae3762543f86d15a6e.png" src="../_images/1a30a1dfeeadd3d99f1c3c318149d8a22a67f1dd0c7178ae3762543f86d15a6e.png" />
+</div>
+</div>
+</section>
+<section id="shear-matrix">
+<h2>Shear Matrix<a class="headerlink" href="#shear-matrix" title="Permalink to this heading">#</a></h2>
+<p>A shear matrix is given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+S_u = \begin{bmatrix} 1 &amp; u \\ 0 &amp; 1 \end{bmatrix}
+\end{split}\]</div>
+<p>The linear transformation corresponding to <span class="math notranslate nohighlight">\(S_u\)</span> is shear by factor <span class="math notranslate nohighlight">\(u\)</span> in the <span class="math notranslate nohighlight">\(x\)</span>-direction.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">u</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">S</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="n">u</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">SX</span> <span class="o">=</span> <span class="n">S</span><span class="nd">@X</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">,:],</span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">,:],</span><span class="s1">&#39;.-&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">SX</span><span class="p">[</span><span class="mi">0</span><span class="p">,:],</span><span class="n">SX</span><span class="p">[</span><span class="mi">1</span><span class="p">,:],</span><span class="s1">&#39;.-&#39;</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/1efca1dd31c3703c0d83e16926eb1cac463dcfec8c6523d7c682c8ef944ad05b.png" src="../_images/1efca1dd31c3703c0d83e16926eb1cac463dcfec8c6523d7c682c8ef944ad05b.png" />
+</div>
+</div>
+</section>
+<section id="projection-matrix">
+<h2>Projection Matrix<a class="headerlink" href="#projection-matrix" title="Permalink to this heading">#</a></h2>
+<p>The matrix which projects onto the line at angle <span class="math notranslate nohighlight">\(\theta\)</span> with the <span class="math notranslate nohighlight">\(x\)</span>-axis is given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+P_{\theta} = \begin{bmatrix}
+\cos^2 \theta &amp; \cos \theta \sin \theta \\
+\cos \theta \sin \theta &amp; \sin^2 \theta
+\end{bmatrix}
+\end{split}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">theta</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span>
+<span class="n">P</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)],</span>
+              <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">]])</span>
+<span class="n">PX</span> <span class="o">=</span> <span class="n">P</span><span class="nd">@X</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">,:],</span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">,:],</span><span class="s1">&#39;.-&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">PX</span><span class="p">[</span><span class="mi">0</span><span class="p">,:],</span><span class="n">PX</span><span class="p">[</span><span class="mi">1</span><span class="p">,:],</span><span class="s1">&#39;.-&#39;</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/caada88572c4e9a35e804d6d5e955c23536390956cef8af33571acc535b9cc8f.png" src="../_images/caada88572c4e9a35e804d6d5e955c23536390956cef8af33571acc535b9cc8f.png" />
+</div>
+</div>
+</section>
+<section id="reflection-matrix">
+<h2>Reflection Matrix<a class="headerlink" href="#reflection-matrix" title="Permalink to this heading">#</a></h2>
+<p>The matrix which refelcts through the line at angle <span class="math notranslate nohighlight">\(\theta\)</span> with the <span class="math notranslate nohighlight">\(x\)</span>-axis is given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+F_{\theta} = \begin{bmatrix}
+\cos 2\theta &amp; \sin 2\theta \\
+\sin 2\theta &amp; -\cos 2 \theta
+\end{bmatrix}
+\end{split}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">theta</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span>
+<span class="n">F</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">theta</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">theta</span><span class="p">)],</span>
+              <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">theta</span><span class="p">),</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">theta</span><span class="p">)]])</span>
+<span class="n">FX</span> <span class="o">=</span> <span class="n">F</span><span class="nd">@X</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">,:],</span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">,:],</span><span class="s1">&#39;.-&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">FX</span><span class="p">[</span><span class="mi">0</span><span class="p">,:],</span><span class="n">FX</span><span class="p">[</span><span class="mi">1</span><span class="p">,:],</span><span class="s1">&#39;.-&#39;</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/2c1e55be2478377c443e41ef4caa8c58d1baee12485d0a4e639731452ee528d6.png" src="../_images/2c1e55be2478377c443e41ef4caa8c58d1baee12485d0a4e639731452ee528d6.png" />
+</div>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -431,6 +645,25 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-multiplication">Matrix Multiplication</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rotation-matrix">Rotation Matrix</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scaling-matrix">Scaling Matrix</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shear-matrix">Shear Matrix</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#projection-matrix">Projection Matrix</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reflection-matrix">Reflection Matrix</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
