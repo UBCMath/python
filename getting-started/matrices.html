@@ -73,7 +73,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'getting-started/matrices';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Vectorization and Plotting" href="vectorization.html" />
+    <link rel="next" title="Defininng Functions" href="functions.html" />
     <link rel="prev" title="Elementary Mathematics" href="mathematics.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -156,6 +156,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="jupyter.html">Python and Jupyter</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mathematics.html">Elementary Mathematics</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Working with Matrices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions.html">Defininng Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vectorization.html">Vectorization and Plotting</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Linear Algebra</span></p>
@@ -373,6 +374,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stacking">Stacking</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#addition-and-multiplication">Addition and Multiplication</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#indexing">Indexing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-functions">Vector Functions</a></li>
 </ul>
             </nav>
         </div>
@@ -690,6 +692,62 @@ A = \left[ \begin{array}{rrrrr}
 </div>
 </div>
 </section>
+<section id="vector-functions">
+<h2>Vector Functions<a class="headerlink" href="#vector-functions" title="Permalink to this heading">#</a></h2>
+<p>Compute the maximum value in a vector with the function <code class="docutils literal notranslate"><span class="pre">np.max</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">4.9</span><span class="p">,</span><span class="mf">1.4</span><span class="p">,</span><span class="mf">2.2</span><span class="p">,</span><span class="mf">6.5</span><span class="p">,</span><span class="o">-</span><span class="mf">4.3</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[-4.9  1.4  2.2  6.5 -4.3]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6.5
+</pre></div>
+</div>
+</div>
+</div>
+<p>Compute the minimum value with the function <code class="docutils literal notranslate"><span class="pre">np.min</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-4.9
+</pre></div>
+</div>
+</div>
+</div>
+<p>Compute the sum of the values in a vector with the function <code class="docutils literal notranslate"><span class="pre">np.sum</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8999999999999995
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note that numerical computing always includes a little bit rounding error.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -733,11 +791,11 @@ A = \left[ \begin{array}{rrrrr}
       </div>
     </a>
     <a class="right-next"
-       href="vectorization.html"
+       href="functions.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Vectorization and Plotting</p>
+        <p class="prev-next-title">Defininng Functions</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -764,6 +822,7 @@ A = \left[ \begin{array}{rrrrr}
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stacking">Stacking</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#addition-and-multiplication">Addition and Multiplication</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#indexing">Indexing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-functions">Vector Functions</a></li>
 </ul>
   </nav></div>
 

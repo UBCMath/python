@@ -156,6 +156,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/jupyter.html">Python and Jupyter</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/mathematics.html">Elementary Mathematics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/matrices.html">Working with Matrices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/functions.html">Defininng Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/vectorization.html">Vectorization and Plotting</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Linear Algebra</span></p>
@@ -369,7 +370,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-slope-field">What is a Slope Field?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#slopefield"><code class="docutils literal notranslate"><span class="pre">slopefield</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#autonomous-equation">Autonomous Equation</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convergent-solutions">Convergent Solutions</a></li>
@@ -388,7 +389,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="slope-fields">
 <h1>Slope Fields<a class="headerlink" href="#slope-fields" title="Permalink to this heading">#</a></h1>
-<p>Most differential equations cannot be solved analytically in terms of elementary functions. So what do we do? We can always <em>approximate</em>. A slope field is a visualization of the slopes of solutions of a first order differential equation. We can study the slope field of an equation to approximate quantitative properties and describe qualitative properties of solutions.</p>
+<p>Most differential equations cannot be solved analytically in terms of elementary functions. So what do we do? We can <em>always</em> approximate! A slope field is a visualization of the slopes of solutions of a first order differential equation. We can study the slope field of an equation to approximate quantitative properties and describe qualitative properties of solutions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -400,155 +401,121 @@ document.write(`
 <section id="what-is-a-slope-field">
 <h2>What is a Slope Field?<a class="headerlink" href="#what-is-a-slope-field" title="Permalink to this heading">#</a></h2>
 <p>Let <span class="math notranslate nohighlight">\(y' = f(t,y)\)</span> be a first order differential equation. The function <span class="math notranslate nohighlight">\(f(t,y)\)</span> gives us complete information about the slope of any solution of the equation. In particular, the number <span class="math notranslate nohighlight">\(f(t,y)\)</span> at point <span class="math notranslate nohighlight">\((t,y)\)</span> is the slope at <span class="math notranslate nohighlight">\(t\)</span> of the unique solution <span class="math notranslate nohighlight">\(y(t)\)</span> which passes through the point <span class="math notranslate nohighlight">\((t,y)\)</span>. Therefore if we plot a short line of slope <span class="math notranslate nohighlight">\(f(t,y)\)</span> at a bunch of points in the <span class="math notranslate nohighlight">\(ty\)</span>-plane then the resulting figure should show roughly what solutions look like.</p>
+<p>Consider a first order differential equation <span class="math notranslate nohighlight">\(y' = f(t,y)\)</span>. We can represent the function <span class="math notranslate nohighlight">\(f(t,y)\)</span> as a Python function. For example, consider the equation <span class="math notranslate nohighlight">\(y' = -ty\)</span>. The code below defines a Python function <code class="docutils literal notranslate"><span class="pre">f</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">,</span><span class="n">y</span><span class="p">:</span> <span class="o">-</span><span class="n">t</span><span class="o">*</span><span class="n">y</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The keyword <code class="docutils literal notranslate"><span class="pre">lambda</span></code> starts the function definition. The symbols <code class="docutils literal notranslate"><span class="pre">t,y</span></code> set the input variables as <code class="docutils literal notranslate"><span class="pre">t</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>, the colon <code class="docutils literal notranslate"><span class="pre">:</span></code> begins the function formula <code class="docutils literal notranslate"><span class="pre">-t*y</span></code> where <code class="docutils literal notranslate"><span class="pre">*</span></code> is multiplication. Plug in some values for <code class="docutils literal notranslate"><span class="pre">t</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> to verify. For example, <span class="math notranslate nohighlight">\(f(1.2,-0.2) = -(1.2)(-0.2) = 0.24\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="p">(</span><span class="mf">1.2</span><span class="p">,</span><span class="o">-</span><span class="mf">0.2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.24
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now the goal is to use the Python function <code class="docutils literal notranslate"><span class="pre">f</span></code> to compute slopes at a grid of points in the <span class="math notranslate nohighlight">\(ty\)</span>-plane and plot the slope field.</p>
 </section>
-<section id="implementation">
-<h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this heading">#</a></h2>
-<p>To create a slope field, we define a grid of points in the <span class="math notranslate nohighlight">\(ty\)</span>-plane, compute the slope <span class="math notranslate nohighlight">\(m_{ij} = f(t_i,y_j)\)</span> at each point <span class="math notranslate nohighlight">\((t_i,y_j)\)</span> in the grid, and then plot a line of slope <span class="math notranslate nohighlight">\(m_{ij}\)</span> at each point. The Python code below accomplishes the following tasks:</p>
-<ol class="arabic simple">
-<li><p>Define the right had side of the differential equation <span class="math notranslate nohighlight">\(y' = f(t,y)\)</span> as a Python function.</p></li>
-<li><p>Choose an interval <span class="math notranslate nohighlight">\([t_0,t_f]\)</span> and the number <span class="math notranslate nohighlight">\(N\)</span> of points in the grid from <span class="math notranslate nohighlight">\(t_0\)</span> to <span class="math notranslate nohighlight">\(t_f\)</span>.</p></li>
-<li><p>Create the vector (of length <span class="math notranslate nohighlight">\(N\)</span>) of <span class="math notranslate nohighlight">\(t\)</span> values from <span class="math notranslate nohighlight">\(t_0\)</span> to <span class="math notranslate nohighlight">\(t_f\)</span>.</p></li>
-<li><p>Choose an interval <span class="math notranslate nohighlight">\([y_0,y_f]\)</span> and the number <span class="math notranslate nohighlight">\(M\)</span> of points in the grid from <span class="math notranslate nohighlight">\(y_0\)</span> to <span class="math notranslate nohighlight">\(y_f\)</span>.</p></li>
-<li><p>Create the vector (of length <span class="math notranslate nohighlight">\(M\)</span>) of <span class="math notranslate nohighlight">\(y\)</span> values from <span class="math notranslate nohighlight">\(y_0\)</span> to <span class="math notranslate nohighlight">\(y_f\)</span>.</p></li>
-<li><p>Define a length <span class="math notranslate nohighlight">\(L\)</span> for the lines in the slope field.</p></li>
-<li><p>For each <span class="math notranslate nohighlight">\(t_i\)</span> and <span class="math notranslate nohighlight">\(y_j\)</span> in the grid, compute <span class="math notranslate nohighlight">\(m_{ij} = f(t_i,y_j)\)</span> and plot a line of slope <span class="math notranslate nohighlight">\(m_{ij}\)</span> and length <span class="math notranslate nohighlight">\(L\)</span>.</p></li>
-</ol>
-<p>Let’s plot the slope field for the equaiton <span class="math notranslate nohighlight">\(y' = t - y^2\)</span> for <span class="math notranslate nohighlight">\(0 \leq t \leq 3\)</span> and <span class="math notranslate nohighlight">\(-1 \leq y \leq 2\)</span>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">,</span><span class="n">y</span><span class="p">:</span> <span class="n">t</span> <span class="o">-</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span>
-
-<span class="n">t0</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">tf</span> <span class="o">=</span> <span class="mi">8</span><span class="p">;</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">21</span><span class="p">;</span>
-<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span><span class="n">tf</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
-
-<span class="n">y0</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span><span class="p">;</span> <span class="n">yf</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="n">M</span> <span class="o">=</span> <span class="mi">21</span><span class="p">;</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">y0</span><span class="p">,</span><span class="n">yf</span><span class="p">,</span><span class="n">M</span><span class="p">)</span>
-
-<span class="n">L</span> <span class="o">=</span> <span class="mf">0.7</span><span class="o">*</span><span class="nb">min</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
-
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">M</span><span class="p">):</span>
-        <span class="n">m</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
-        <span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-        <span class="n">dy</span> <span class="o">=</span> <span class="n">L</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
-        <span class="n">dt</span> <span class="o">=</span> <span class="n">L</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">dt</span><span class="p">],[</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">dy</span><span class="p">],</span><span class="s1">&#39;C0&#39;</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="n">t0</span><span class="p">,</span><span class="n">tf</span><span class="p">,</span><span class="n">y0</span><span class="p">,</span><span class="n">yf</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/cc2f2906dfc615d4a74f4fb04e9d6692512487b48e80a4f0a9324fae344e170f.png" src="../_images/cc2f2906dfc615d4a74f4fb04e9d6692512487b48e80a4f0a9324fae344e170f.png" />
-</div>
-</div>
-<p>How do we know how to choose parameters <span class="math notranslate nohighlight">\(t_0,t_f,y_0,y_f,N,M,L\)</span>? Let’s make some observations:</p>
+<section id="slopefield">
+<h2><code class="docutils literal notranslate"><span class="pre">slopefield</span></code><a class="headerlink" href="#slopefield" title="Permalink to this heading">#</a></h2>
+<p>Define a function called <code class="docutils literal notranslate"><span class="pre">slopefield</span></code> which takes input parameters <code class="docutils literal notranslate"><span class="pre">f</span></code>, <code class="docutils literal notranslate"><span class="pre">tinterval</span></code>, <code class="docutils literal notranslate"><span class="pre">yinterval</span></code>, <code class="docutils literal notranslate"><span class="pre">tstep</span></code> and <code class="docutils literal notranslate"><span class="pre">ystep</span></code> where:</p>
 <ul class="simple">
-<li><p>Choose different intervals <span class="math notranslate nohighlight">\([t_0,t_f]\)</span> and <span class="math notranslate nohighlight">\([y_0,y_f]\)</span> to focus on different parts of the <span class="math notranslate nohighlight">\(ty\)</span>-plane.</p></li>
-<li><p>Choose larger values <span class="math notranslate nohighlight">\(N\)</span> and <span class="math notranslate nohighlight">\(M\)</span> to make a finer grid (but not too large such that the plot is unclear).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">f</span></code> is a Python function which represents the right hand side of a first order differential equation <span class="math notranslate nohighlight">\(y' = f(t,y)\)</span></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tinterval</span></code> is a Python list of length 2 which represents the interval <span class="math notranslate nohighlight">\([t_0,t_1]\)</span> of the grid in the slope field</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">yinterval</span></code> is a Python list of length 2 which represents the interval <span class="math notranslate nohighlight">\([y_0,y_1]\)</span> of the grid in the slope field</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tstep</span></code> is the step size between points in the <span class="math notranslate nohighlight">\(t\)</span> direction</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ystep</span></code> is the step size between points in the <span class="math notranslate nohighlight">\(y\)</span> direction</p></li>
 </ul>
-<p>For example, there seems to be some interesting behaviour of solutions of the equation <span class="math notranslate nohighlight">\(y' = t - y^2\)</span> near <span class="math notranslate nohighlight">\(t=0\)</span> and <span class="math notranslate nohighlight">\(y=-0.75\)</span>. Let’s focus our slope field near that point:</p>
+<p>The function accomplishes the following tasks:</p>
+<ul class="simple">
+<li><p>Create the vector <code class="docutils literal notranslate"><span class="pre">t</span></code> of values from <span class="math notranslate nohighlight">\(t_0\)</span> to <span class="math notranslate nohighlight">\(t_1\)</span> with step size <code class="docutils literal notranslate"><span class="pre">tstep</span></code></p></li>
+<li><p>Create the vector <code class="docutils literal notranslate"><span class="pre">y</span></code> of values from <span class="math notranslate nohighlight">\(y_0\)</span> to <span class="math notranslate nohighlight">\(y_1\)</span> with step size <code class="docutils literal notranslate"><span class="pre">ystep</span></code></p></li>
+<li><p>Define a length <span class="math notranslate nohighlight">\(L\)</span> for the lines in the slope field (small enough not to overlap)</p></li>
+<li><p>For each <span class="math notranslate nohighlight">\(t_i\)</span> and <span class="math notranslate nohighlight">\(y_j\)</span> in the grid, compute <span class="math notranslate nohighlight">\(m_{ij} = f(t_i,y_j)\)</span> and plot a line of slope <span class="math notranslate nohighlight">\(m_{ij}\)</span> and length <span class="math notranslate nohighlight">\(L\)</span></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">slopefield</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">tinterval</span><span class="p">,</span><span class="n">yinterval</span><span class="p">,</span><span class="n">tstep</span><span class="p">,</span><span class="n">ystep</span><span class="p">):</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">tinterval</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">tinterval</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">tstep</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">yinterval</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">yinterval</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">ystep</span><span class="p">)</span>
+    <span class="n">L</span> <span class="o">=</span> <span class="mf">0.7</span><span class="o">*</span><span class="nb">min</span><span class="p">(</span><span class="n">tstep</span><span class="p">,</span><span class="n">ystep</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)):</span>
+            <span class="n">slope</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+            <span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">slope</span><span class="p">)</span>
+            <span class="n">dy</span> <span class="o">=</span> <span class="n">L</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+            <span class="n">dt</span> <span class="o">=</span> <span class="n">L</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">dt</span><span class="p">],[</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">dy</span><span class="p">],</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>For example, let’s plot the slope field for the equaiton <span class="math notranslate nohighlight">\(y' = t - y^2\)</span> over the intervals <span class="math notranslate nohighlight">\(0 \leq t \leq 3\)</span> and <span class="math notranslate nohighlight">\(-1 \leq y \leq 2\)</span> with step size 0.2 in both directions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">,</span><span class="n">y</span><span class="p">:</span> <span class="n">t</span> <span class="o">-</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span>
-
-<span class="n">t0</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">tf</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">21</span><span class="p">;</span>
-<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span><span class="n">tf</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
-
-<span class="n">y0</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.25</span><span class="p">;</span> <span class="n">yf</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.25</span><span class="p">;</span> <span class="n">M</span> <span class="o">=</span> <span class="mi">21</span><span class="p">;</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">y0</span><span class="p">,</span><span class="n">yf</span><span class="p">,</span><span class="n">M</span><span class="p">)</span>
-
-<span class="n">L</span> <span class="o">=</span> <span class="mf">0.7</span><span class="o">*</span><span class="nb">min</span><span class="p">((</span><span class="n">tf</span><span class="o">-</span><span class="n">t0</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">),(</span><span class="n">yf</span><span class="o">-</span><span class="n">y0</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">M</span><span class="o">-</span><span class="mi">1</span><span class="p">));</span>
-
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">M</span><span class="p">):</span>
-        <span class="n">m</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
-        <span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-        <span class="n">dy</span> <span class="o">=</span> <span class="n">L</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
-        <span class="n">dt</span> <span class="o">=</span> <span class="n">L</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">dt</span><span class="p">],[</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">dy</span><span class="p">],</span><span class="s1">&#39;C0&#39;</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="n">t0</span><span class="p">,</span><span class="n">tf</span><span class="p">,</span><span class="n">y0</span><span class="p">,</span><span class="n">yf</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">slopefield</span><span class="p">(</span><span class="n">f</span><span class="p">,[</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/9df76cd914e29cf4f864c6527d515e743580e55b6c5dea85cba1d3836d340878.png" src="../_images/9df76cd914e29cf4f864c6527d515e743580e55b6c5dea85cba1d3836d340878.png" />
+<img alt="../_images/fcd053408aa1b359bc0517391eb0fd46b0f815273f1846b8f8d25c4a14253ee9.png" src="../_images/fcd053408aa1b359bc0517391eb0fd46b0f815273f1846b8f8d25c4a14253ee9.png" />
 </div>
 </div>
-<p>We may conclude from inspecting the plot that there exists an initial value <span class="math notranslate nohighlight">\(\alpha\)</span> between <span class="math notranslate nohighlight">\(-0.7\)</span> and <span class="math notranslate nohighlight">\(-0.8\)</span> such that if <span class="math notranslate nohighlight">\(y(t)\)</span> is a solution which satisfies <span class="math notranslate nohighlight">\(y(0) &lt; \alpha\)</span> then <span class="math notranslate nohighlight">\(\lim_{t \to \infty} y(t) = -\infty\)</span>.</p>
+<p>Now let’s plot the slope field of <span class="math notranslate nohighlight">\(y' = -ty\)</span> over the intervals intervals <span class="math notranslate nohighlight">\(0 \leq t \leq 5\)</span> and <span class="math notranslate nohighlight">\(-1 \leq y \leq 1\)</span> with step size 0.25 in the <span class="math notranslate nohighlight">\(t\)</span> direction and step size 0.1 in the <span class="math notranslate nohighlight">\(y\)</span> direction.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">,</span><span class="n">y</span><span class="p">:</span> <span class="o">-</span><span class="n">t</span><span class="o">*</span><span class="n">y</span>
+<span class="n">slopefield</span><span class="p">(</span><span class="n">f</span><span class="p">,[</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">],[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="mf">0.25</span><span class="p">,</span><span class="mf">0.1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/03b783d253ae89ec0ff1970e09a06e0799a416a49db52a3417e3d4368e293ab1.png" src="../_images/03b783d253ae89ec0ff1970e09a06e0799a416a49db52a3417e3d4368e293ab1.png" />
+</div>
+</div>
 </section>
 <section id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">#</a></h2>
 <section id="autonomous-equation">
 <h3>Autonomous Equation<a class="headerlink" href="#autonomous-equation" title="Permalink to this heading">#</a></h3>
-<p>Plot the slope field of <span class="math notranslate nohighlight">\(y' = 1 - y^2\)</span>. Copy, paste and modify the code above into the cell below:</p>
+<p>Plot the slope field of <span class="math notranslate nohighlight">\(y' = 1 - y^2\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">,</span><span class="n">y</span><span class="p">:</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span>
-
-<span class="n">t0</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">tf</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">21</span><span class="p">;</span>
-<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span><span class="n">tf</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
-
-<span class="n">y0</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span><span class="p">;</span> <span class="n">yf</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">M</span> <span class="o">=</span> <span class="mi">21</span><span class="p">;</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">y0</span><span class="p">,</span><span class="n">yf</span><span class="p">,</span><span class="n">M</span><span class="p">)</span>
-
-<span class="n">L</span> <span class="o">=</span> <span class="mf">0.7</span><span class="o">*</span><span class="nb">min</span><span class="p">((</span><span class="n">tf</span><span class="o">-</span><span class="n">t0</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">),(</span><span class="n">yf</span><span class="o">-</span><span class="n">y0</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">M</span><span class="o">-</span><span class="mi">1</span><span class="p">));</span>
-
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">M</span><span class="p">):</span>
-        <span class="n">m</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
-        <span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-        <span class="n">dy</span> <span class="o">=</span> <span class="n">L</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
-        <span class="n">dt</span> <span class="o">=</span> <span class="n">L</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">dt</span><span class="p">],[</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">dy</span><span class="p">],</span><span class="s1">&#39;C0&#39;</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="n">t0</span><span class="p">,</span><span class="n">tf</span><span class="p">,</span><span class="n">y0</span><span class="p">,</span><span class="n">yf</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">slopefield</span><span class="p">(</span><span class="n">f</span><span class="p">,[</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">],[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/68e6e0ad27f35cd5920fdf0e8653a6fe713482753fe2d19c43f36981a7b32dcd.png" src="../_images/68e6e0ad27f35cd5920fdf0e8653a6fe713482753fe2d19c43f36981a7b32dcd.png" />
+<img alt="../_images/37f7eab063aa368212e195b08529ad7c8d92b95fcc0b76ba50fae6189124c5d8.png" src="../_images/37f7eab063aa368212e195b08529ad7c8d92b95fcc0b76ba50fae6189124c5d8.png" />
 </div>
 </div>
 <p>The equation is autonomous since the right hand function <span class="math notranslate nohighlight">\(f(t,y) = 1-y^2\)</span> does not depend on <span class="math notranslate nohighlight">\(t\)</span>. We can also see this in the slope field: the slopes are constant in the <span class="math notranslate nohighlight">\(t\)</span> direction. The slope field also shows that <span class="math notranslate nohighlight">\(y = 1\)</span> is a stable equilibirum solution and <span class="math notranslate nohighlight">\(y=-1\)</span> is an unstable equilibrium solution.</p>
 </section>
 <section id="convergent-solutions">
 <h3>Convergent Solutions<a class="headerlink" href="#convergent-solutions" title="Permalink to this heading">#</a></h3>
-<p>Plot the slope field of <span class="math notranslate nohighlight">\(\displaystyle y' = -\frac{y}{2 + \cos(t)}\)</span>. Copy, paste and modify the code above into the cell below:</p>
+<p>Plot the slope field of <span class="math notranslate nohighlight">\(\displaystyle y' = -\frac{y}{2 + \cos(t)}\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">,</span><span class="n">y</span><span class="p">:</span> <span class="o">-</span><span class="n">y</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
-
-<span class="n">t0</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">tf</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">31</span><span class="p">;</span>
-<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span><span class="n">tf</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
-
-<span class="n">y0</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">;</span> <span class="n">yf</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span> <span class="n">M</span> <span class="o">=</span> <span class="mi">31</span><span class="p">;</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">y0</span><span class="p">,</span><span class="n">yf</span><span class="p">,</span><span class="n">M</span><span class="p">)</span>
-
-<span class="n">L</span> <span class="o">=</span> <span class="mf">0.7</span><span class="o">*</span><span class="nb">min</span><span class="p">((</span><span class="n">tf</span><span class="o">-</span><span class="n">t0</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">),(</span><span class="n">yf</span><span class="o">-</span><span class="n">y0</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">M</span><span class="o">-</span><span class="mi">1</span><span class="p">));</span>
-
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">M</span><span class="p">):</span>
-        <span class="n">m</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
-        <span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-        <span class="n">dy</span> <span class="o">=</span> <span class="n">L</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
-        <span class="n">dt</span> <span class="o">=</span> <span class="n">L</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">dt</span><span class="p">],[</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">dy</span><span class="p">],</span><span class="s1">&#39;C0&#39;</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="n">t0</span><span class="p">,</span><span class="n">tf</span><span class="p">,</span><span class="n">y0</span><span class="p">,</span><span class="n">yf</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">slopefield</span><span class="p">(</span><span class="n">f</span><span class="p">,[</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">],[</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/86415f26e18f32ece95c01a78226f78595ad106013cd878c724a28981320624f.png" src="../_images/86415f26e18f32ece95c01a78226f78595ad106013cd878c724a28981320624f.png" />
+<img alt="../_images/64717662eae0cad7f542067869394bac401af8f6725dccf4d8bfd0a375aaaaed.png" src="../_images/64717662eae0cad7f542067869394bac401af8f6725dccf4d8bfd0a375aaaaed.png" />
 </div>
 </div>
-<p>We may conclude from the slope field that if <span class="math notranslate nohighlight">\(y(t)\)</span> is any solution such that <span class="math notranslate nohighlight">\(|y(0)|\leq 5\)</span> then <span class="math notranslate nohighlight">\(y(t) \to 0\)</span> as <span class="math notranslate nohighlight">\(t \to \infty\)</span>. The figure suggests that <span class="math notranslate nohighlight">\(y(t) \to 0\)</span> as <span class="math notranslate nohighlight">\(t \to \infty\)</span> for any solution but we need some more analysis to <em>prove</em> this.</p>
+<p>The figure suggests that <span class="math notranslate nohighlight">\(y(t) \to 0\)</span> as <span class="math notranslate nohighlight">\(t \to \infty\)</span> for any solution but we need some more analysis to <em>prove</em> this.</p>
 </section>
 </section>
 </section>
@@ -621,7 +588,7 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-slope-field">What is a Slope Field?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#slopefield"><code class="docutils literal notranslate"><span class="pre">slopefield</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#autonomous-equation">Autonomous Equation</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convergent-solutions">Convergent Solutions</a></li>

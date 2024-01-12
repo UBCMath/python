@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Elementary Mathematics &#8212; Python and Jupyter for UBC Mathematics</title>
+    <title>Defininng Functions &#8212; Python and Jupyter for UBC Mathematics</title>
   
   
   
@@ -70,11 +70,11 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'getting-started/mathematics';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'getting-started/functions';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Working with Matrices" href="matrices.html" />
-    <link rel="prev" title="Python and Jupyter" href="jupyter.html" />
+    <link rel="next" title="Vectorization and Plotting" href="vectorization.html" />
+    <link rel="prev" title="Working with Matrices" href="matrices.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -154,9 +154,9 @@ const thebe_selector_output = ".output, .cell_output"
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="jupyter.html">Python and Jupyter</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Elementary Mathematics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mathematics.html">Elementary Mathematics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="matrices.html">Working with Matrices</a></li>
-<li class="toctree-l1"><a class="reference internal" href="functions.html">Defininng Functions</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Defininng Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vectorization.html">Vectorization and Plotting</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Linear Algebra</span></p>
@@ -231,7 +231,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://ubc.syzygy.ca/jupyter/hub/user-redirect/git-pull?repo=https%3A//github.com/UBCMath/python&urlpath=tree/python/getting-started/mathematics.ipynb&branch=main" target="_blank"
+      <li><a href="https://ubc.syzygy.ca/jupyter/hub/user-redirect/git-pull?repo=https%3A//github.com/UBCMath/python&urlpath=tree/python/getting-started/functions.ipynb&branch=main" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch onJupyterHub"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -277,7 +277,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/getting-started/mathematics.ipynb" target="_blank"
+      <li><a href="../_sources/getting-started/functions.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -359,7 +359,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Elementary Mathematics</h1>
+    <h1>Defininng Functions</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -369,10 +369,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy">NumPy</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numbers">Numbers</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#constants-pi-and-e">Constants <span class="math notranslate nohighlight">\(\pi\)</span> and <span class="math notranslate nohighlight">\(e\)</span></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables">Variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-functions">Mathematical Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-functions">Defining Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lambda-functions"><code class="docutils literal notranslate"><span class="pre">lambda</span></code> Functions</a></li>
 </ul>
             </nav>
         </div>
@@ -384,16 +383,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="elementary-mathematics">
-<h1>Elementary Mathematics<a class="headerlink" href="#elementary-mathematics" title="Permalink to this heading">#</a></h1>
-<p>We can use Python to solve all kinds of problems in calculus, linear algebra, differential equations and beyond. Let’s take a look at some foundational concepts in Python that are relavant in all branches of mathematics such as numbers, vectors, matrices and functions.</p>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<p>Check out <a class="reference external" href="https://patrickwalls.github.io/mathematicalpython/python/numbers/">Mathematical Python &gt; Python</a> for more about numbers, variables and functions.</p>
-</div>
-<section id="numpy">
-<h2>NumPy<a class="headerlink" href="#numpy" title="Permalink to this heading">#</a></h2>
-<p><a class="reference external" href="https://numpy.org">NumPy</a> is an essential Python package for numerical computations. It includes all the mathematical objects and functions that we need to solve problems in calculus, linear algeabra and differential equations. Import the package with the keyword <code class="docutils literal notranslate"><span class="pre">import</span></code> and use the alias <code class="docutils literal notranslate"><span class="pre">np</span></code>.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="defininng-functions">
+<h1>Defininng Functions<a class="headerlink" href="#defininng-functions" title="Permalink to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -401,143 +392,255 @@ document.write(`
 </div>
 </div>
 </div>
-</section>
-<section id="numbers">
-<h2>Numbers<a class="headerlink" href="#numbers" title="Permalink to this heading">#</a></h2>
-<p>We can use Python to perform all the usual arithmetic operations:</p>
+<section id="mathematical-functions">
+<h2>Mathematical Functions<a class="headerlink" href="#mathematical-functions" title="Permalink to this heading">#</a></h2>
+<p>All the standard mathematical functions are available in NumPy:</p>
 <table class="table">
 <thead>
-<tr class="row-odd"><th class="head text-center"><p>Operation</p></th>
-<th class="head text-center"><p>Python Syntax</p></th>
+<tr class="row-odd"><th class="head text-center"><p>Function</p></th>
+<th class="head text-center"><p>NumPy Syntax</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-center"><p>addition</p></td>
-<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">+</span></code></p></td>
+<tr class="row-even"><td class="text-center"><p><span class="math notranslate nohighlight">\(\sin(x)\)</span></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">np.sin(x)</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-center"><p>subtraction</p></td>
-<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">-</span></code></p></td>
+<tr class="row-odd"><td class="text-center"><p><span class="math notranslate nohighlight">\(\cos(x)\)</span></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">np.cos(x)</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-center"><p>multiplication</p></td>
-<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">*</span></code></p></td>
+<tr class="row-even"><td class="text-center"><p><span class="math notranslate nohighlight">\(\tan(x)\)</span></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">np.tan(x)</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-center"><p>division</p></td>
-<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">/</span></code></p></td>
+<tr class="row-odd"><td class="text-center"><p><span class="math notranslate nohighlight">\(\tan^{-1}(x)\)</span></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">np.arctan(x)</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-center"><p>exponentiation</p></td>
-<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">**</span></code></p></td>
+<tr class="row-even"><td class="text-center"><p><span class="math notranslate nohighlight">\(e^x\)</span></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">np.exp(x)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p><span class="math notranslate nohighlight">\(\ln(x)\)</span></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">np.log(x)</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p><span class="math notranslate nohighlight">\(\log_{10}(x)\)</span></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">np.log10(x)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p><span class="math notranslate nohighlight">\(\sqrt{x}\)</span></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">np.sqrt(x)</span></code></p></td>
 </tr>
 </tbody>
 </table>
-<p>Let’s do an example from calculus. Recall the <a class="reference external" href="https://en.wikipedia.org/wiki/Taylor_series">Taylor series</a> of the exponential function is:</p>
+<p>Let’s compute some examples:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7071067811865476
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7071067811865475
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6931471805599453
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7853981633974483
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.3010299956639812
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mi">10</span><span class="o">**</span><span class="mf">0.3010299956639812</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2.0
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="defining-functions">
+<h2>Defining Functions<a class="headerlink" href="#defining-functions" title="Permalink to this heading">#</a></h2>
+<p>We can define our own custom functions. For example, let’s write a function called <code class="docutils literal notranslate"><span class="pre">fun</span></code> which takes input parameters <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> and returns the value</p>
 <div class="math notranslate nohighlight">
 \[
-e^x = \sum_{n=0}^{\infty} \frac{x^n}{n!} =  1 + x + \frac{x^2}{2} + \frac{x^3}{2 \cdot 3} + \frac{x^4}{2 \cdot 3 \cdot 4} + \frac{x^5}{2 \cdot 3 \cdot 4 \cdot 5} + \cdots
+\sqrt{x^2 + y^2}
 \]</div>
-<p>Let’s use the first 6 terms of the Taylor series to approximate the value:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fun</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">value</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s make some key observations about the construction:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">def</span></code> is a keyword that starts the function definition</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fun</span></code> is the name of the function</p></li>
+<li><p>the input parameters are listed within parentheses <code class="docutils literal notranslate"><span class="pre">(x,y)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">def</span></code> statement ends with a colon <code class="docutils literal notranslate"><span class="pre">:</span></code></p></li>
+<li><p>body of the function is indented 4 spaces</p></li>
+<li><p>output value follows the <code class="docutils literal notranslate"><span class="pre">return</span></code> keyword</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fun</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2.23606797749979
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fun</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.4142135623730951
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="lambda-functions">
+<h2><code class="docutils literal notranslate"><span class="pre">lambda</span></code> Functions<a class="headerlink" href="#lambda-functions" title="Permalink to this heading">#</a></h2>
+<p>We can also create simple functions using the <code class="docutils literal notranslate"><span class="pre">lambda</span></code> keyword. For example, let’s create the function:</p>
 <div class="math notranslate nohighlight">
 \[
-e^{-1/2} = \frac{1}{\sqrt{e}} \approx  1 - (1/2) + \frac{(1/2)^2}{2} - \frac{(1/2)^3}{2 \cdot 3} + \frac{(1/2)^4}{2 \cdot 3 \cdot 4} - \frac{(1/2)^5}{2 \cdot 3 \cdot 4 \cdot 5}
+f(x) = \frac{1}{1 + x^2}
 \]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mi">3</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mi">4</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="mi">3</span><span class="o">*</span><span class="mi">4</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mi">5</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="mi">3</span><span class="o">*</span><span class="mi">4</span><span class="o">*</span><span class="mi">5</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6065104166666666
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>Note that we group operations together using parentheses <code class="docutils literal notranslate"><span class="pre">(</span> <span class="pre">...</span> <span class="pre">)</span></code> in the computation above.</p>
-</section>
-<section id="constants-pi-and-e">
-<h2>Constants <span class="math notranslate nohighlight">\(\pi\)</span> and <span class="math notranslate nohighlight">\(e\)</span><a class="headerlink" href="#constants-pi-and-e" title="Permalink to this heading">#</a></h2>
-<p>The constant <span class="math notranslate nohighlight">\(\pi\)</span> is entered as <code class="docutils literal notranslate"><span class="pre">np.pi</span></code>:</p>
+<p>The keyword <code class="docutils literal notranslate"><span class="pre">lambda</span></code> starts the function definition, the input variable is <code class="docutils literal notranslate"><span class="pre">x</span></code> and the formula for the funciton output follows a colon <code class="docutils literal notranslate"><span class="pre">:</span></code>.</p>
+<p>Compute some values of <span class="math notranslate nohighlight">\(f(x)\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.141592653589793
-</pre></div>
-</div>
-</div>
-</div>
-<p>The constant <span class="math notranslate nohighlight">\(e\)</span> is entered as <code class="docutils literal notranslate"><span class="pre">np.e</span></code>:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">e</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2.718281828459045
-</pre></div>
-</div>
-</div>
-</div>
-<p>The exponential function <span class="math notranslate nohighlight">\(e^x\)</span> is entered as <code class="docutils literal notranslate"><span class="pre">np.exp</span></code> therefore <span class="math notranslate nohighlight">\(e=e^1\)</span> is also <code class="docutils literal notranslate"><span class="pre">np.exp(1)</span></code>:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2.718281828459045
-</pre></div>
-</div>
-</div>
-</div>
-<p>We should use the function <code class="docutils literal notranslate"><span class="pre">np.exp(x)</span></code> when computing values of <span class="math notranslate nohighlight">\(e^x\)</span> instead of the exponentiation operation <code class="docutils literal notranslate"><span class="pre">np.e**x</span></code>.</p>
-</section>
-<section id="variables">
-<h2>Variables<a class="headerlink" href="#variables" title="Permalink to this heading">#</a></h2>
-<p>Just like the familiar variables <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> in mathematics, we use variables in programming to easily manipulate values. The assignment operator <code class="docutils literal notranslate"><span class="pre">=</span></code> assigns a value to a variable in Python. For example, let’s compute the values <span class="math notranslate nohighlight">\(y = 1 + x + x^2\)</span> and <span class="math notranslate nohighlight">\(y' = 1 + 2x\)</span> for <span class="math notranslate nohighlight">\(x = 2\)</span>. Use the Python function <code class="docutils literal notranslate"><span class="pre">print</span></code> to display the values of a variable.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.0
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">x</span> <span class="o">+</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dy</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">dy</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.2
 </pre></div>
 </div>
 </div>
 </div>
+<p>Now let’s construct the function</p>
+<div class="math notranslate nohighlight">
+\[
+h(x,y) = \sqrt{x^2 + y^2}
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">h</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">h</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2.23606797749979
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">h</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.4142135623730951
+</pre></div>
+</div>
+</div>
+</div>
+<p>Lambda functions are helpful for defining simple functions but longer more complicated functions require the <code class="docutils literal notranslate"><span class="pre">def</span></code> construction.</p>
 </section>
 </section>
 
@@ -573,20 +676,20 @@ e^{-1/2} = \frac{1}{\sqrt{e}} \approx  1 - (1/2) + \frac{(1/2)^2}{2} - \frac{(1/
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="jupyter.html"
+       href="matrices.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Python and Jupyter</p>
+        <p class="prev-next-title">Working with Matrices</p>
       </div>
     </a>
     <a class="right-next"
-       href="matrices.html"
+       href="vectorization.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Working with Matrices</p>
+        <p class="prev-next-title">Vectorization and Plotting</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -608,10 +711,9 @@ e^{-1/2} = \frac{1}{\sqrt{e}} \approx  1 - (1/2) + \frac{(1/2)^2}{2} - \frac{(1/
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy">NumPy</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numbers">Numbers</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#constants-pi-and-e">Constants <span class="math notranslate nohighlight">\(\pi\)</span> and <span class="math notranslate nohighlight">\(e\)</span></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables">Variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-functions">Mathematical Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-functions">Defining Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lambda-functions"><code class="docutils literal notranslate"><span class="pre">lambda</span></code> Functions</a></li>
 </ul>
   </nav></div>
 
