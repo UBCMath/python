@@ -6,6 +6,7 @@ parts:
     - file: getting-started/jupyter.ipynb
     - file: getting-started/mathematics.ipynb
     - file: getting-started/matrices.ipynb
+    - file: getting-started/functions.ipynb
     - file: getting-started/vectorization.ipynb
   - caption: Linear Algebra
     chapters:
