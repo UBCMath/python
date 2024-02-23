@@ -1,0 +1,1029 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Discrete Distributions &#8212; Python and Jupyter for UBC Mathematics</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-E4TJ9JBS8H"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-E4TJ9JBS8H');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'probability/discrete';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Continuous Distributions" href="continuous.html" />
+    <link rel="prev" title="Optimization" href="../calculus/optimization.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">Python and Jupyter for UBC Mathematics</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/jupyter.html">Python and Jupyter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/mathematics.html">Elementary Mathematics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/matrices.html">Working with Matrices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/functions.html">Defining Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/vectorization.html">Vectorization and Plotting</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Linear Algebra</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../linear-algebra/systems.html">Systems of Linear Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linear-algebra/transformations.html">Linear Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linear-algebra/eigenvalues.html">Eigenvalues and Eigenvectors</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Differential Equations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../differential-equations/slope-fields.html">Slope Fields</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential-equations/eulers-method.html">Euler’s Method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential-equations/odeint.html">Numerical Solutions with odeint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential-equations/systems.html">Systems of Differential Equations</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Calculus</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../calculus/contour.html">Contour Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../calculus/integration.html">Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../calculus/optimization.html">Optimization</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Probability</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Discrete Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="continuous.html">Continuous Distributions</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://ubc.syzygy.ca/jupyter/hub/user-redirect/git-pull?repo=https%3A//github.com/UBCMath/python&urlpath=tree/python/probability/discrete.ipynb&branch=main" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onJupyterHub"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_jupyterhub.svg">
+  </span>
+<span class="btn__text-container">JupyterHub</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+<a href="https://github.com/UBCMath/python" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/probability/discrete.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Discrete Distributions</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#binomial-coefficient">Binomial Coefficient</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#random-sampling">Random Sampling</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#flipping-coins">Flipping Coins</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rolling-dice">Rolling Dice</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#drawing-cards">Drawing Cards</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-distributions">Custom Distributions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#random-variables">Random Variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#histograms">Histograms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Rolling Dice</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#weighted-coin">Weighted Coin</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="discrete-distributions">
+<h1>Discrete Distributions<a class="headerlink" href="#discrete-distributions" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">scipy.special</span> <span class="k">as</span> <span class="nn">sp</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="binomial-coefficient">
+<h2>Binomial Coefficient<a class="headerlink" href="#binomial-coefficient" title="Permalink to this heading">#</a></h2>
+<p>The Python package <code class="docutils literal notranslate"><span class="pre">scipy.special</span></code> includes the function <code class="docutils literal notranslate"><span class="pre">scipy.special.factorial</span></code> to compute the factorial</p>
+<div class="math notranslate nohighlight">
+\[
+n! = n(n-1)(n-2) \cdots (2)(1)
+\]</div>
+<p>and the function <code class="docutils literal notranslate"><span class="pre">scipy.special.comb</span></code> to compute the <a class="reference external" href="https://en.wikipedia.org/wiki/Binomial_coefficient">binomial coefficient</a></p>
+<div class="math notranslate nohighlight">
+\[
+{ n \choose k } = \frac{n!}{k!(n-k)!}
+\]</div>
+<p>The binomial coefficient <span class="math notranslate nohighlight">\({n \choose k}\)</span> is the number of combinations of <span class="math notranslate nohighlight">\(k\)</span> elements chosen from a set of <span class="math notranslate nohighlight">\(n\)</span> elements.</p>
+<p>For example, compute <span class="math notranslate nohighlight">\(7!\)</span>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">factorial</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5040.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>Compute <span class="math notranslate nohighlight">\({5 \choose 2}\)</span>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">comb</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>Compute <span class="math notranslate nohighlight">\({5 \choose 2}\)</span> using the formula <span class="math notranslate nohighlight">\(\frac{5!}{2!(5-2)!}\)</span>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">factorial</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">factorial</span><span class="p">(</span><span class="mi">5</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">sp</span><span class="o">.</span><span class="n">factorial</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s plot the binomial coefficient (for fixed <code class="docutils literal notranslate"><span class="pre">n</span></code>) as a function of <code class="docutils literal notranslate"><span class="pre">k</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">k</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">comb</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">k</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/c3360296dcdfe220043baad609b81b730be73e30c8b54d942ec901b1b26b6961.png" src="../_images/c3360296dcdfe220043baad609b81b730be73e30c8b54d942ec901b1b26b6961.png" />
+</div>
+</div>
+<p>Look at the array of binomial coefficients:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[  1.  10.  45. 120. 210. 252. 210. 120.  45.  10.   1.]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="random-sampling">
+<h2>Random Sampling<a class="headerlink" href="#random-sampling" title="Permalink to this heading">#</a></h2>
+<p>The Python package NumPy contains a subpackage <code class="docutils literal notranslate"><span class="pre">numpy.random</span></code> which includes functions to generate random numbers. For example, the function <code class="docutils literal notranslate"><span class="pre">np.random.randint(a,b,size=(n,m))</span></code> generates a <span class="math notranslate nohighlight">\(n \times m\)</span> matrix of integers sampled from the half-closed interval <span class="math notranslate nohighlight">\([a,b)\)</span> with equal probability.</p>
+<section id="flipping-coins">
+<h3>Flipping Coins<a class="headerlink" href="#flipping-coins" title="Permalink to this heading">#</a></h3>
+<p>Simulate flipping 2 coins 5 times (where tails is 0 and heads is 1):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flips</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">flips</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[0 1]
+ [1 0]
+ [1 0]
+ [0 0]
+ [1 0]]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="rolling-dice">
+<h3>Rolling Dice<a class="headerlink" href="#rolling-dice" title="Permalink to this heading">#</a></h3>
+<p>Simulate rolling 3 dice 10 times:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rolls</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">rolls</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[2 6 5]
+ [6 5 3]
+ [3 3 5]
+ [2 5 4]
+ [6 5 2]
+ [6 4 5]
+ [3 6 3]
+ [2 5 1]
+ [6 1 3]
+ [6 1 1]]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="drawing-cards">
+<h3>Drawing Cards<a class="headerlink" href="#drawing-cards" title="Permalink to this heading">#</a></h3>
+<p>Use the function <code class="docutils literal notranslate"><span class="pre">numpy.random.choice</span></code> to randomly choose elements from a set. For example, we can create a deck of cards as a Python list with text entries (each text entry represents a card in the standard deck) and then draw a certain number of them (without replacement).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">deck</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;2H&#39;</span><span class="p">,</span><span class="s1">&#39;3H&#39;</span><span class="p">,</span><span class="s1">&#39;4H&#39;</span><span class="p">,</span><span class="s1">&#39;5H&#39;</span><span class="p">,</span><span class="s1">&#39;6H&#39;</span><span class="p">,</span><span class="s1">&#39;7H&#39;</span><span class="p">,</span><span class="s1">&#39;8H&#39;</span><span class="p">,</span><span class="s1">&#39;9H&#39;</span><span class="p">,</span><span class="s1">&#39;10H&#39;</span><span class="p">,</span><span class="s1">&#39;JH&#39;</span><span class="p">,</span><span class="s1">&#39;QH&#39;</span><span class="p">,</span><span class="s1">&#39;KH&#39;</span><span class="p">,</span><span class="s1">&#39;AH&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;2D&#39;</span><span class="p">,</span><span class="s1">&#39;3D&#39;</span><span class="p">,</span><span class="s1">&#39;4D&#39;</span><span class="p">,</span><span class="s1">&#39;5D&#39;</span><span class="p">,</span><span class="s1">&#39;6D&#39;</span><span class="p">,</span><span class="s1">&#39;7D&#39;</span><span class="p">,</span><span class="s1">&#39;8D&#39;</span><span class="p">,</span><span class="s1">&#39;9D&#39;</span><span class="p">,</span><span class="s1">&#39;10D&#39;</span><span class="p">,</span><span class="s1">&#39;JD&#39;</span><span class="p">,</span><span class="s1">&#39;QD&#39;</span><span class="p">,</span><span class="s1">&#39;KD&#39;</span><span class="p">,</span><span class="s1">&#39;AD&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;2S&#39;</span><span class="p">,</span><span class="s1">&#39;3S&#39;</span><span class="p">,</span><span class="s1">&#39;4S&#39;</span><span class="p">,</span><span class="s1">&#39;5S&#39;</span><span class="p">,</span><span class="s1">&#39;6S&#39;</span><span class="p">,</span><span class="s1">&#39;7S&#39;</span><span class="p">,</span><span class="s1">&#39;8S&#39;</span><span class="p">,</span><span class="s1">&#39;9S&#39;</span><span class="p">,</span><span class="s1">&#39;10S&#39;</span><span class="p">,</span><span class="s1">&#39;JS&#39;</span><span class="p">,</span><span class="s1">&#39;QS&#39;</span><span class="p">,</span><span class="s1">&#39;KS&#39;</span><span class="p">,</span><span class="s1">&#39;AS&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;2C&#39;</span><span class="p">,</span><span class="s1">&#39;3C&#39;</span><span class="p">,</span><span class="s1">&#39;4C&#39;</span><span class="p">,</span><span class="s1">&#39;5C&#39;</span><span class="p">,</span><span class="s1">&#39;6C&#39;</span><span class="p">,</span><span class="s1">&#39;7C&#39;</span><span class="p">,</span><span class="s1">&#39;8C&#39;</span><span class="p">,</span><span class="s1">&#39;9C&#39;</span><span class="p">,</span><span class="s1">&#39;10C&#39;</span><span class="p">,</span><span class="s1">&#39;JC&#39;</span><span class="p">,</span><span class="s1">&#39;QC&#39;</span><span class="p">,</span><span class="s1">&#39;KC&#39;</span><span class="p">,</span><span class="s1">&#39;AC&#39;</span><span class="p">]</span>
+
+<span class="n">hand</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">deck</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">hand</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;7D&#39; &#39;AD&#39; &#39;10D&#39; &#39;7H&#39; &#39;8C&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Write a list comprehension to simulate drawing 5 cards 10 times:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hands</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">deck</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">hands</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[&#39;4D&#39; &#39;2S&#39; &#39;KH&#39; &#39;3D&#39; &#39;JD&#39;]
+ [&#39;AC&#39; &#39;7S&#39; &#39;JH&#39; &#39;5S&#39; &#39;3H&#39;]
+ [&#39;4S&#39; &#39;KH&#39; &#39;8H&#39; &#39;8D&#39; &#39;5C&#39;]
+ [&#39;KH&#39; &#39;3H&#39; &#39;7C&#39; &#39;5H&#39; &#39;AH&#39;]
+ [&#39;4S&#39; &#39;2S&#39; &#39;9H&#39; &#39;7S&#39; &#39;8H&#39;]
+ [&#39;6C&#39; &#39;9C&#39; &#39;AC&#39; &#39;9D&#39; &#39;KD&#39;]
+ [&#39;3S&#39; &#39;10D&#39; &#39;5C&#39; &#39;7C&#39; &#39;KH&#39;]
+ [&#39;6H&#39; &#39;7C&#39; &#39;AH&#39; &#39;9C&#39; &#39;AC&#39;]
+ [&#39;7S&#39; &#39;2C&#39; &#39;5H&#39; &#39;AH&#39; &#39;AS&#39;]
+ [&#39;7D&#39; &#39;10C&#39; &#39;8C&#39; &#39;7H&#39; &#39;JS&#39;]]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="custom-distributions">
+<h3>Custom Distributions<a class="headerlink" href="#custom-distributions" title="Permalink to this heading">#</a></h3>
+<p>We can also define our own custom distributions using the fucntion <code class="docutils literal notranslate"><span class="pre">np.random.choice</span></code>. We specify the sample space <code class="docutils literal notranslate"><span class="pre">omega</span></code> and the corresponding vector of probabilities <code class="docutils literal notranslate"><span class="pre">probs</span></code>.</p>
+<p>For example, let’s consider a weighted coin such that flips result in heads with probability 2/3 and tails with probability 1/3. Genreate 10 samples of flipping the weighted coin three times.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">omega</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">probs</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">t</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">samples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">omega</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">t</span><span class="p">),</span><span class="n">p</span><span class="o">=</span><span class="n">probs</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">samples</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[0 1 1]
+ [1 1 0]
+ [1 1 1]
+ [0 1 0]
+ [1 0 0]
+ [0 1 0]
+ [1 1 1]
+ [1 1 1]
+ [1 0 1]
+ [1 1 1]]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="random-variables">
+<h2>Random Variables<a class="headerlink" href="#random-variables" title="Permalink to this heading">#</a></h2>
+<p>A <strong>random variable</strong> on a sample space <span class="math notranslate nohighlight">\(\Omega\)</span> is a function <span class="math notranslate nohighlight">\(X : \Omega \to \mathbb{R}\)</span>. In the previous section, we constructed random samples as NumPy arrays where each row was the result of a random experiment. In other words, each row was an element in the sample space <span class="math notranslate nohighlight">\(\Omega\)</span>. Apply NumPy functions such as <code class="docutils literal notranslate"><span class="pre">np.sum</span></code>, <code class="docutils literal notranslate"><span class="pre">np.max</span></code>, <code class="docutils literal notranslate"><span class="pre">np.min</span></code> and <code class="docutils literal notranslate"><span class="pre">np.any</span></code> to simulate random variables.</p>
+<p>For example, let’s generate random samples of rolling 4 dice.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rolls</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">rolls</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[2 3 4 2]
+ [5 6 4 1]
+ [6 5 5 4]
+ [6 5 4 3]
+ [1 6 4 5]
+ [4 6 6 5]
+ [6 4 2 3]
+ [1 2 1 5]
+ [3 1 1 4]
+ [2 3 6 5]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Use the function <code class="docutils literal notranslate"><span class="pre">np.sum</span></code> to compute the sum of each row.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sum_rolls</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">rolls</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sum_rolls</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[11 16 20 18 16 21 15  9  9 16]
+</pre></div>
+</div>
+</div>
+</div>
+<p>The parameter <code class="docutils literal notranslate"><span class="pre">axis=1</span></code> specifies that we sum the values of <code class="docutils literal notranslate"><span class="pre">rolls</span></code> across the rows. If we had entered <code class="docutils literal notranslate"><span class="pre">axis=0</span></code> then the result would be the sum down the columns, and if we don’t specify then the result is the sum of all values in the array.</p>
+<p>We can also use <code class="docutils literal notranslate"><span class="pre">np.max</span></code> and <code class="docutils literal notranslate"><span class="pre">np.min</span></code> to comute the maximum and minimum values in each roll:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">max_rolls</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">rolls</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">max_rolls</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[4 6 6 6 6 6 6 5 4 6]
+</pre></div>
+</div>
+</div>
+</div>
+<p>The following code computes the random variable which returns 1 if the roll includes a 3 and 0 otherwise.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">roll_3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">rolls</span> <span class="o">==</span> <span class="mi">3</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">roll_3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1 0 0 1 0 0 1 0 1 1]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="histograms">
+<h2>Histograms<a class="headerlink" href="#histograms" title="Permalink to this heading">#</a></h2>
+<p>Now that we can compute values of random variables on sample spaces of rolling dice and flipping coins, let’s visualize results as <a class="reference external" href="https://en.wikipedia.org/wiki/Histogram">histograms</a>.</p>
+<p>For example, construct the histogram of 5000 random samples of flipping 5 coins and counting the number of heads.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ncoins</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">nsamples</span> <span class="o">=</span> <span class="mi">5000</span>
+<span class="n">flips</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">nsamples</span><span class="p">,</span><span class="n">ncoins</span><span class="p">))</span>
+<span class="n">heads</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">flips</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Look at the first 10 samples:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flips</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0, 0, 0, 0, 1],
+       [0, 0, 0, 1, 1],
+       [0, 0, 1, 1, 1],
+       [0, 0, 0, 0, 0],
+       [0, 1, 1, 0, 1],
+       [1, 1, 0, 0, 0],
+       [1, 0, 1, 1, 1],
+       [0, 0, 0, 0, 1],
+       [1, 1, 1, 1, 0],
+       [1, 1, 0, 0, 0]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Look at the sum of the first 10 samples to verify:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">heads</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1, 2, 3, 0, 3, 2, 4, 1, 4, 2])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now let’s contruct the histogram:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">freqs</span><span class="p">,</span><span class="n">bins</span><span class="p">,</span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">heads</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">ncoins</span><span class="o">+</span><span class="mi">2</span><span class="p">),</span><span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">align</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span><span class="n">rwidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/023127fa889a9f4504c3bc33c527fb4a7efa0cccfd77faeeea9212c127e01cb5.png" src="../_images/023127fa889a9f4504c3bc33c527fb4a7efa0cccfd77faeeea9212c127e01cb5.png" />
+</div>
+</div>
+<p>Take a closer look at the values of the parameters entered in</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">bins=range(0,ncoins+2)</span></code> specifies the limits of the bins are the integers from <code class="docutils literal notranslate"><span class="pre">0</span></code> to <code class="docutils literal notranslate"><span class="pre">ncoins+2</span></code> (exclusive). Therefore the bins in this case are <span class="math notranslate nohighlight">\([0,1),[1,2),[2,3),[3,4),[4,5),[5,6)\)</span>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">density=True</span></code> specifies that the height of each bar is the relative frequency of each value as opposed to the total count of each value.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">align='left'</span></code> and <code class="docutils literal notranslate"><span class="pre">rwidth=0.5</span></code> specify that the center of each bar is located at the edge of the bin and the width of each bar is 0.5 times the width of the bin.</p></li>
+</ul>
+<p>Finally, the function <code class="docutils literal notranslate"><span class="pre">plt.hist</span></code> returns 3 objects:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">freqs</span></code> is the array of relative frequencies (in other words, the height of each bar in the graph)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bins</span></code> is the array of limits of the bins</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fig</span></code> is the Matplotlib figure object (in case we want to further modify or style the figure)</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">freqs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.0366 0.1558 0.3138 0.3016 0.163  0.0292]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">bins</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0. 1. 2. 3. 4. 5. 6.]
+</pre></div>
+</div>
+</div>
+</div>
+<p>We know that the probability of getting <span class="math notranslate nohighlight">\(k\)</span> heads when flipping <span class="math notranslate nohighlight">\(n\)</span> coins is given by</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{n \choose k}{2^n}
+\]</div>
+<p>Therefore the histogram above should match approximately the figure below:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="n">ncoins</span>
+<span class="n">k</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">comb</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">k</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">b</span><span class="o">/</span><span class="mi">2</span><span class="o">**</span><span class="n">n</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/33eeff0828098340c28a88cd5ec79cb7a60823ce0bc001b3cb8eeb180a4b23d4.png" src="../_images/33eeff0828098340c28a88cd5ec79cb7a60823ce0bc001b3cb8eeb180a4b23d4.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="o">/</span><span class="mi">2</span><span class="o">**</span><span class="n">n</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.03125 0.15625 0.3125  0.3125  0.15625 0.03125]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">#</a></h2>
+<section id="id1">
+<h3>Rolling Dice<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<p>Generate 10000 random samples of the sum of 3 dice and construct the histogram.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ndice</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">nsides</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="n">nsamples</span> <span class="o">=</span> <span class="mi">10000</span>
+<span class="n">samples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">nsides</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">nsamples</span><span class="p">,</span><span class="n">ndice</span><span class="p">))</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">freqs</span><span class="p">,</span><span class="n">bins</span><span class="p">,</span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">results</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="n">ndice</span><span class="p">,</span><span class="n">nsides</span><span class="o">*</span><span class="n">ndice</span><span class="o">+</span><span class="mi">2</span><span class="p">),</span><span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">align</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span><span class="n">rwidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/9079cbd7993e13708e64cf815d4875884a16a636056750fac61f3fa38b67a287.png" src="../_images/9079cbd7993e13708e64cf815d4875884a16a636056750fac61f3fa38b67a287.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Relative Frequencies:&quot;</span><span class="p">,</span><span class="n">freqs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Relative Frequencies: [0.0063 0.0154 0.0262 0.0462 0.0701 0.0956 0.1139 0.1274 0.1276 0.1139
+ 0.0989 0.0706 0.0455 0.0245 0.0136 0.0043]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="weighted-coin">
+<h3>Weighted Coin<a class="headerlink" href="#weighted-coin" title="Permalink to this heading">#</a></h3>
+<p>Consider an unfair coin which flips to heads with probability 2/3. Generate 1000 random samples of 7 flips, count the number of heads and construct the histogram.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">omega</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">probs</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">nsamples</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">nflips</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="n">samples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">omega</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">nsamples</span><span class="p">,</span><span class="n">nflips</span><span class="p">),</span><span class="n">p</span><span class="o">=</span><span class="n">probs</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">freqs</span><span class="p">,</span><span class="n">bins</span><span class="p">,</span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">results</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">nflips</span><span class="o">+</span><span class="mi">2</span><span class="p">),</span><span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">align</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span><span class="n">rwidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/e62655f8668d635f7c8718fea17a52010fcb78f43e94fcd740f7d4819df1d5e1.png" src="../_images/e62655f8668d635f7c8718fea17a52010fcb78f43e94fcd740f7d4819df1d5e1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">freqs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.    0.006 0.05  0.119 0.266 0.305 0.189 0.065]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./probability"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../calculus/optimization.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Optimization</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="continuous.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Continuous Distributions</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#binomial-coefficient">Binomial Coefficient</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#random-sampling">Random Sampling</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#flipping-coins">Flipping Coins</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rolling-dice">Rolling Dice</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#drawing-cards">Drawing Cards</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-distributions">Custom Distributions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#random-variables">Random Variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#histograms">Histograms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Rolling Dice</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#weighted-coin">Weighted Coin</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By UBC Math
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
