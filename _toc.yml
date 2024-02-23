@@ -24,3 +24,7 @@ parts:
     - file: calculus/contour.ipynb
     - file: calculus/integration.ipynb
     - file: calculus/optimization.ipynb
+  - caption: Probability
+    chapters:
+    - file: probability/discrete.ipynb
+    - file: probability/continuous.ipynb

@@ -1,6 +1,6 @@
 title: Python and Jupyter for UBC Mathematics
 author: UBC Math
-copyright: "2023"
+copyright: "2024"
 sphinx:
   config:
     mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
