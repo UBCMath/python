@@ -31,4 +31,4 @@ parts:
   - caption: Linear Programming
     chapters:
     - file: linear-programming/simplex.ipynb
-    - file: linear-programming/solvers.ipynb
+#    - file: linear-programming/solvers.ipynb
