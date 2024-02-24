@@ -186,7 +186,6 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Linear Programming</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../linear-programming/simplex.html">Simplex Method</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../linear-programming/solvers.html">LP Solvers</a></li>
 </ul>
 
     </div>
@@ -511,11 +510,11 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[1 0]
- [0 1]
- [1 1]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[0 1]
  [0 0]
- [0 1]]
+ [0 1]
+ [0 1]
+ [1 1]]
 </pre></div>
 </div>
 </div>
@@ -532,16 +531,16 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[5 5 4]
- [4 5 1]
- [6 2 3]
- [3 3 1]
- [3 2 2]
- [1 5 4]
- [3 1 5]
- [6 3 6]
- [1 1 3]
- [1 2 2]]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[4 6 1]
+ [2 1 3]
+ [6 5 2]
+ [1 5 6]
+ [5 1 5]
+ [2 5 4]
+ [3 5 2]
+ [2 1 5]
+ [2 1 4]
+ [6 4 1]]
 </pre></div>
 </div>
 </div>
@@ -563,7 +562,7 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;7H&#39; &#39;8D&#39; &#39;4H&#39; &#39;4S&#39; &#39;AD&#39;]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;6D&#39; &#39;QS&#39; &#39;9D&#39; &#39;KH&#39; &#39;2D&#39;]
 </pre></div>
 </div>
 </div>
@@ -577,16 +576,16 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[&#39;4H&#39; &#39;7C&#39; &#39;KS&#39; &#39;8D&#39; &#39;AD&#39;]
- [&#39;JS&#39; &#39;JH&#39; &#39;AS&#39; &#39;2H&#39; &#39;QC&#39;]
- [&#39;KD&#39; &#39;5D&#39; &#39;3H&#39; &#39;QH&#39; &#39;3D&#39;]
- [&#39;8H&#39; &#39;9S&#39; &#39;4H&#39; &#39;6S&#39; &#39;JS&#39;]
- [&#39;8S&#39; &#39;6H&#39; &#39;4C&#39; &#39;5H&#39; &#39;QC&#39;]
- [&#39;KC&#39; &#39;10H&#39; &#39;3D&#39; &#39;10S&#39; &#39;10D&#39;]
- [&#39;KC&#39; &#39;AH&#39; &#39;9H&#39; &#39;6C&#39; &#39;7C&#39;]
- [&#39;KC&#39; &#39;5S&#39; &#39;9S&#39; &#39;JD&#39; &#39;10D&#39;]
- [&#39;3C&#39; &#39;6C&#39; &#39;4D&#39; &#39;AC&#39; &#39;6S&#39;]
- [&#39;JS&#39; &#39;KS&#39; &#39;5C&#39; &#39;JD&#39; &#39;QH&#39;]]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[&#39;10S&#39; &#39;7S&#39; &#39;KH&#39; &#39;KC&#39; &#39;8D&#39;]
+ [&#39;10C&#39; &#39;KC&#39; &#39;6S&#39; &#39;4H&#39; &#39;8H&#39;]
+ [&#39;9C&#39; &#39;4S&#39; &#39;9D&#39; &#39;JH&#39; &#39;QS&#39;]
+ [&#39;AD&#39; &#39;AS&#39; &#39;JS&#39; &#39;3H&#39; &#39;QH&#39;]
+ [&#39;2S&#39; &#39;5S&#39; &#39;10S&#39; &#39;QC&#39; &#39;QH&#39;]
+ [&#39;10D&#39; &#39;8C&#39; &#39;4H&#39; &#39;JC&#39; &#39;JD&#39;]
+ [&#39;6D&#39; &#39;10H&#39; &#39;KC&#39; &#39;8H&#39; &#39;9C&#39;]
+ [&#39;6H&#39; &#39;10D&#39; &#39;KS&#39; &#39;AC&#39; &#39;QH&#39;]
+ [&#39;JS&#39; &#39;3H&#39; &#39;AC&#39; &#39;4H&#39; &#39;8H&#39;]
+ [&#39;8D&#39; &#39;QD&#39; &#39;JS&#39; &#39;10D&#39; &#39;4S&#39;]]
 </pre></div>
 </div>
 </div>
@@ -608,15 +607,15 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[1 0 0]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[1 1 1]
+ [1 1 0]
  [1 1 1]
- [1 1 1]
- [1 1 1]
- [1 1 1]
- [1 1 1]
- [0 1 0]
+ [0 0 1]
  [1 0 1]
- [1 1 1]
+ [1 1 0]
+ [0 1 0]
+ [0 0 1]
+ [1 0 1]
  [1 0 1]]
 </pre></div>
 </div>
@@ -636,16 +635,16 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[1 2 5 4]
- [1 2 2 1]
- [2 5 6 2]
- [3 5 1 3]
- [3 4 3 5]
- [4 4 6 1]
- [4 2 6 5]
- [4 2 5 1]
- [1 5 6 1]
- [3 1 3 6]]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[4 6 4 1]
+ [4 3 2 3]
+ [3 1 2 1]
+ [5 1 5 3]
+ [3 5 1 2]
+ [6 6 4 3]
+ [1 5 3 6]
+ [3 6 2 4]
+ [5 1 3 2]
+ [5 6 3 4]]
 </pre></div>
 </div>
 </div>
@@ -659,7 +658,7 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[12  6 15 12 15 15 17 12 13 13]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[15 12  7 14 11 19 15 15 11 18]
 </pre></div>
 </div>
 </div>
@@ -674,7 +673,7 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[5 2 6 5 5 6 6 5 6 6]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[6 4 3 5 5 6 6 6 5 6]
 </pre></div>
 </div>
 </div>
@@ -688,7 +687,7 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0 0 0 1 1 0 0 0 0 1]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0 1 1 1 1 1 1 1 1 1]
 </pre></div>
 </div>
 </div>
@@ -716,16 +715,16 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0, 0, 0, 1, 1],
-       [0, 0, 0, 0, 0],
-       [0, 0, 1, 1, 0],
-       [1, 1, 0, 1, 0],
-       [1, 0, 1, 0, 1],
-       [0, 0, 0, 1, 0],
-       [1, 1, 0, 0, 1],
-       [0, 0, 0, 0, 0],
-       [0, 1, 0, 0, 1],
-       [0, 0, 1, 0, 0]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1, 0, 0, 0, 0],
+       [1, 0, 1, 0, 0],
+       [1, 1, 1, 1, 1],
+       [0, 0, 1, 0, 0],
+       [1, 0, 0, 0, 0],
+       [0, 1, 1, 1, 1],
+       [1, 1, 0, 1, 1],
+       [1, 0, 1, 1, 0],
+       [1, 0, 1, 0, 0],
+       [0, 1, 1, 0, 1]])
 </pre></div>
 </div>
 </div>
@@ -738,7 +737,7 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([2, 0, 2, 3, 3, 1, 3, 0, 2, 1])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1, 2, 5, 1, 1, 4, 4, 3, 2, 3])
 </pre></div>
 </div>
 </div>
@@ -751,7 +750,7 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/f2b962fa94570d434833de5e6665b4a26653e1024bf67dcd3451ac112a573e45.png" src="../_images/f2b962fa94570d434833de5e6665b4a26653e1024bf67dcd3451ac112a573e45.png" />
+<img alt="../_images/c74b531e6e6c17f0d32a2e15cc08cada14fb33c56e70358b2737338ad807ba6e.png" src="../_images/c74b531e6e6c17f0d32a2e15cc08cada14fb33c56e70358b2737338ad807ba6e.png" />
 </div>
 </div>
 <p>Take a closer look at the values of the parameters entered in</p>
@@ -773,7 +772,7 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.0322 0.1668 0.309  0.308  0.1504 0.0336]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.0294 0.1644 0.3098 0.316  0.1506 0.0298]
 </pre></div>
 </div>
 </div>
@@ -842,7 +841,7 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/33326d8a4fab893bece2b9b95b359cd9d4d2f8eb783ff7bbd23d89f18a2f267f.png" src="../_images/33326d8a4fab893bece2b9b95b359cd9d4d2f8eb783ff7bbd23d89f18a2f267f.png" />
+<img alt="../_images/d33a78284899ed53d610f8962237ff719a52d37411733eea27497fff2644c97f.png" src="../_images/d33a78284899ed53d610f8962237ff719a52d37411733eea27497fff2644c97f.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -852,8 +851,8 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Relative Frequencies: [0.0046 0.0148 0.0251 0.0471 0.0631 0.095  0.1143 0.1266 0.1289 0.1193
- 0.0957 0.0727 0.0493 0.026  0.0134 0.0041]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Relative Frequencies: [0.0055 0.0147 0.029  0.0456 0.0685 0.1079 0.1102 0.1305 0.1209 0.1195
+ 0.0873 0.0705 0.0428 0.0294 0.0123 0.0054]
 </pre></div>
 </div>
 </div>
@@ -877,7 +876,7 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/632bbeaa70ac354cba3df2121b8d901f06af3824002370d677038d080387eb30.png" src="../_images/632bbeaa70ac354cba3df2121b8d901f06af3824002370d677038d080387eb30.png" />
+<img alt="../_images/501bcec1adbb022af6f0dad9ec88fd673fb8d3ccadf48176cba434024bb2759f.png" src="../_images/501bcec1adbb022af6f0dad9ec88fd673fb8d3ccadf48176cba434024bb2759f.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -887,7 +886,7 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.    0.011 0.031 0.124 0.261 0.308 0.202 0.063]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.    0.001 0.032 0.141 0.263 0.301 0.204 0.058]
 </pre></div>
 </div>
 </div>
