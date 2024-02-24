@@ -1,0 +1,1069 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Simplex Method &#8212; Python and Jupyter for UBC Mathematics</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-E4TJ9JBS8H"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-E4TJ9JBS8H');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'linear-programming/simplex';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="LP Solvers" href="solvers.html" />
+    <link rel="prev" title="Continuous Distributions" href="../probability/continuous.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">Python and Jupyter for UBC Mathematics</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/jupyter.html">Python and Jupyter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/mathematics.html">Elementary Mathematics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/matrices.html">Working with Matrices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/functions.html">Defining Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/vectorization.html">Vectorization and Plotting</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Linear Algebra</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../linear-algebra/systems.html">Systems of Linear Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linear-algebra/transformations.html">Linear Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linear-algebra/eigenvalues.html">Eigenvalues and Eigenvectors</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Differential Equations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../differential-equations/slope-fields.html">Slope Fields</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential-equations/eulers-method.html">Euler’s Method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential-equations/odeint.html">Numerical Solutions with odeint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential-equations/systems.html">Systems of Differential Equations</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Calculus</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../calculus/contour.html">Contour Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../calculus/integration.html">Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../calculus/optimization.html">Optimization</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Probability</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../probability/discrete.html">Discrete Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../probability/continuous.html">Continuous Distributions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Linear Programming</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Simplex Method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solvers.html">LP Solvers</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://ubc.syzygy.ca/jupyter/hub/user-redirect/git-pull?repo=https%3A//github.com/UBCMath/python&urlpath=tree/python/linear-programming/simplex.ipynb&branch=main" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onJupyterHub"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_jupyterhub.svg">
+  </span>
+<span class="btn__text-container">JupyterHub</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+<a href="https://github.com/UBCMath/python" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/linear-programming/simplex.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Simplex Method</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-form">Standard Form</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feasible-solutions">Feasible Solutions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#slack-variables">Slack Variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-variables">Basic Variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tableau-matrix">Tableau Matrix</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pivot-operation">Pivot Operation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Simplex Method</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#initialization">Initialization</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="simplex-method">
+<h1>Simplex Method<a class="headerlink" href="#simplex-method" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">scipy.linalg</span> <span class="k">as</span> <span class="nn">la</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="standard-form">
+<h2>Standard Form<a class="headerlink" href="#standard-form" title="Permalink to this heading">#</a></h2>
+<p>The <strong>standard form</strong> of a linear optimization problem is:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{array}{rc}
+\text{maximize:} &amp; \mathbf{c}^T \mathbf{x} \\
+\text{subject to:} &amp; A \mathbf{x} \leq \mathbf{b} \\
+&amp; \mathbf{x} \geq 0
+\end{array}
+\end{split}\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\mathbf{x} \in \mathbb{R}^n\)</span> is the vector of decision variables <span class="math notranslate nohighlight">\(x_0,\dots,x_{n-1}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{c} \in \mathbb{R}^n\)</span> defines the objective function <span class="math notranslate nohighlight">\(f(\mathbf{x}) = \mathbf{c}^T \mathbf{x}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(A\)</span> is a <span class="math notranslate nohighlight">\(m \times n\)</span> matrix defining the coefficients of the linear constraint inequalities</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{b} \in \mathbb{R}^m\)</span> defines the right side of the linear constraint inequalities</p></li>
+</ul>
+<p>Note: vector inequality <span class="math notranslate nohighlight">\(\mathbf{u} \leq \mathbf{v}\)</span> means <span class="math notranslate nohighlight">\(u_i \leq v_i\)</span> for each <span class="math notranslate nohighlight">\(i\)</span>.</p>
+<p>The matrix equations above can be written explicitly as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{array}{rc}
+\text{maximize:} &amp; c_0x_0 + \cdots + c_{n-1}x_{n-1} \\
+\text{subject to:} &amp; a_{0,0}x_0 + \cdots + a_{0,n-1}x_{n-1} \leq b_0 \\
+&amp; a_{1,0}x_0 + \cdots + a_{1,n-1}x_{n-1} \leq b_1 \\
+&amp; \vdots \\
+&amp; a_{m-1,0}x_0 + \cdots + a_{m-1,n-1}x_{n-1} \leq b_{m-1} \\
+&amp; x_0 \geq 0, \dots , x_{n-1} \geq 0
+\end{array}
+\end{split}\]</div>
+<p>Note: we use 0-indexing therefore vectors in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> begin at index 0</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{x} = \begin{bmatrix} x_0 \\ x_1 \\ \vdots \\ x_{n-1} \end{bmatrix}
+\end{split}\]</div>
+</section>
+<section id="feasible-solutions">
+<h2>Feasible Solutions<a class="headerlink" href="#feasible-solutions" title="Permalink to this heading">#</a></h2>
+<p>A vector <span class="math notranslate nohighlight">\(\mathbf{x} \in \mathbb{R}^n\)</span> is a <strong>feasible solution</strong> if it satisfies the constraints: <span class="math notranslate nohighlight">\(A \mathbf{x} \leq \mathbf{b}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{x} \geq 0\)</span>. A feasible solution <span class="math notranslate nohighlight">\(\mathbf{x} \in \mathbb{R}^n\)</span> is <strong>optimal</strong> if <span class="math notranslate nohighlight">\(\mathbf{c}^T \mathbf{y} \leq \mathbf{c}^T \mathbf{x}\)</span> for all other feasible solutions <span class="math notranslate nohighlight">\(\mathbf{y} \in \mathbb{R}^n\)</span>. A linear optimization problem is <strong>infeasible</strong> if there are no feasible solutions. A linear optimization problem is <strong>unbounded</strong> if the set of feasible solutions is unbounded.</p>
+<p>A set <span class="math notranslate nohighlight">\(S \subset \mathbb{R}^n\)</span> is <strong>convex</strong> if for all <span class="math notranslate nohighlight">\(\mathbf{x},\mathbf{y} \in S\)</span> the line connecting <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> is also contained in <span class="math notranslate nohighlight">\(S\)</span>. The set of feasible solutions <span class="math notranslate nohighlight">\(S = \{ \mathbf{x} \in \mathbb{R}^n : A \mathbf{x} \leq \mathbf{b} \ , \ \mathbf{x} \geq 0 \}\)</span> is a convex set. A <strong>polytope</strong> in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> is a bounded set such that the boundary consists of hyperplanes (of dimension n-1). A <strong>vertex</strong> of a polytope in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> is a point on the boundary which lies in the intersection of <span class="math notranslate nohighlight">\(n\)</span> hyperplanes (of dimension n-1) on the boundary.</p>
+<p><em>What’s the point?!</em> The set of feasible solutions of a bounded linear optimization problem is a convex polytope and an optimal solution exists at a vertex.</p>
+</section>
+<section id="slack-variables">
+<h2>Slack Variables<a class="headerlink" href="#slack-variables" title="Permalink to this heading">#</a></h2>
+<p>Introduce <strong>slack variables</strong> <span class="math notranslate nohighlight">\(w_0,\dots,w_{m-1}\)</span> for each inequality constraint:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{array}{rc}
+\text{maximize:} &amp; c_0x_0 + \cdots + c_{n-1}x_{n-1} \\
+\text{subject to:} &amp; a_{0,0}x_0 + \cdots + a_{0,n-1}x_{n-1} + w_0 = b_0 \\
+&amp; a_{1,0}x_0 + \cdots + a_{1,n-1}x_{n-1} + w_1 = b_1 \\
+&amp; \vdots \\
+&amp; a_{m-1,0}x_0 + \cdots + a_{m-1,n-1}x_{n-1} + w_{m-1} = b_{m-1} \\
+&amp; x_0 \geq 0, \dots , x_{n-1} \geq 0, w_0 \geq 0, \dots , w_{m-1} \geq 0
+\end{array}
+\end{split}\]</div>
+<p>The equality constraints can be written in matrix notation:</p>
+<div class="math notranslate nohighlight">
+\[
+A \mathbf{x} + I \mathbf{w} = \mathbf{b}
+\]</div>
+<p>Equivalently, we can write the equality constraints as matrix multiplication:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+[ \ A \ I \ ] \begin{bmatrix} \mathbf{x} \\ \mathbf{w} \end{bmatrix} = \mathbf{b}
+\end{split}\]</div>
+<p>Let’s make some obervations:</p>
+<ul class="simple">
+<li><p>The equation <span class="math notranslate nohighlight">\(x_j = 0\)</span> defines a hyperplane in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> for each <span class="math notranslate nohighlight">\(j\)</span></p></li>
+<li><p>The equation <span class="math notranslate nohighlight">\(w_i = 0\)</span> defines the hyperplane <span class="math notranslate nohighlight">\(\langle \mathbf{a}_i, \mathbf{x} \rangle = b_i\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> for each <span class="math notranslate nohighlight">\(i\)</span> (where <span class="math notranslate nohighlight">\(\mathbf{a}_i\)</span> is the <span class="math notranslate nohighlight">\(i\)</span>th row of <span class="math notranslate nohighlight">\(A\)</span>)</p></li>
+<li><p>The slack variable <span class="math notranslate nohighlight">\(w_i\)</span> is the “distance” to the constraint <span class="math notranslate nohighlight">\(\langle \mathbf{a}_i, \mathbf{x} \rangle = b_i\)</span></p></li>
+<li><p>The intersection of <span class="math notranslate nohighlight">\(n\)</span> hyperplanes in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> defines a vertex on the boundary of the convex polytope of feasible solutions (or the intersection is empty or outside the feasible set)</p></li>
+</ul>
+</section>
+<section id="basic-variables">
+<h2>Basic Variables<a class="headerlink" href="#basic-variables" title="Permalink to this heading">#</a></h2>
+<p>An optimal solution exists at a vertex therefore we want to systematically identify vertices:</p>
+<ul class="simple">
+<li><p>Choose any <span class="math notranslate nohighlight">\(m\)</span> variables from the list <span class="math notranslate nohighlight">\(x_0,\dots,x_{n-1},w_0,\dots,w_{m-1}\)</span> and call them <strong>basic variables</strong></p></li>
+<li><p>The remaining <span class="math notranslate nohighlight">\(n\)</span> variables are called <strong>nonbasic variables</strong></p></li>
+<li><p>Set all nonbasic variables to 0 and solve for <em>positive</em> values of basic variables (if possible)</p></li>
+<li><p>The result <span class="math notranslate nohighlight">\(\mathbf{x} = (x_0,\dots,x_{n-1})^T\)</span> is a vertex of the convex polytope of feasible solutions</p></li>
+</ul>
+</section>
+<section id="tableau-matrix">
+<h2>Tableau Matrix<a class="headerlink" href="#tableau-matrix" title="Permalink to this heading">#</a></h2>
+<p>Construct the initial <strong>tableau</strong> matrix:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+T = 
+\begin{bmatrix}
+A &amp; I &amp; \mathbf{b} \\
+\mathbf{c}^T &amp; 0 &amp; 0
+\end{bmatrix}
+\end{split}\]</div>
+<p>This definition is different from other sources. The vector <span class="math notranslate nohighlight">\(\mathbf{c}^T\)</span> is in the bottom row so that the row indices of <span class="math notranslate nohighlight">\(T\)</span> match the indices of the slack variables. For example, row 0 of <span class="math notranslate nohighlight">\(T\)</span> corresponds to <span class="math notranslate nohighlight">\(w_0\)</span>, row 1 corresponds to <span class="math notranslate nohighlight">\(w_1\)</span>, etc.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">tableau</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">):</span>
+    <span class="n">m</span><span class="p">,</span><span class="n">n</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">I</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">A</span><span class="p">,</span><span class="n">I</span><span class="p">,</span><span class="n">b</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">m</span><span class="p">,</span><span class="mi">1</span><span class="p">))])</span> <span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">c</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">)])</span> <span class="p">])</span>
+    <span class="k">return</span> <span class="n">T</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The <strong>basic variables</strong> correspond to the columns of <span class="math notranslate nohighlight">\(T\)</span> which are columns of the identity matrix (in the first <span class="math notranslate nohighlight">\(m\)</span> rows). In the initial tableau, the slack variables <span class="math notranslate nohighlight">\(w_0,\dots,w_{m-1}\)</span> are the basic variables and the decision variables <span class="math notranslate nohighlight">\(x_0,\dots,x_{n-1}\)</span> are the nonbasic variables. The corresponding vertex is <span class="math notranslate nohighlight">\(\mathbf{x}=0\)</span>.</p>
+<p>Let’s do an example with the following <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{c}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = \begin{bmatrix} 2 &amp; 1 &amp; 1 &amp; 3 \\ 1 &amp; 3 &amp; 1 &amp; 2 \end{bmatrix}
+\hspace{1in}
+\mathbf{b} = \begin{bmatrix} 5 \\ 3 \end{bmatrix}
+\hspace{1in}
+\mathbf{c} = \begin{bmatrix} 6 \\ 8 \\ 5 \\ 9 \end{bmatrix}
+\end{split}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">2.</span><span class="p">,</span><span class="mf">1.</span><span class="p">,</span><span class="mf">1.</span><span class="p">,</span><span class="mf">3.</span><span class="p">],[</span><span class="mf">1.</span><span class="p">,</span><span class="mf">3.</span><span class="p">,</span><span class="mf">1.</span><span class="p">,</span><span class="mf">2.</span><span class="p">]])</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">6.</span><span class="p">,</span><span class="mf">8.</span><span class="p">,</span><span class="mf">5.</span><span class="p">,</span><span class="mf">9.</span><span class="p">])</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">5.</span><span class="p">,</span><span class="mf">3.</span><span class="p">])</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">tableau</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[2. 1. 1. 3. 1. 0. 5.]
+ [1. 3. 1. 2. 0. 1. 3.]
+ [6. 8. 5. 9. 0. 0. 0.]]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="pivot-operation">
+<h2>Pivot Operation<a class="headerlink" href="#pivot-operation" title="Permalink to this heading">#</a></h2>
+<p>We want to move to an adjacent vertex by selecting a new basic variable (the <strong>entering variable</strong>) and removing an existing basic variable (the <strong>leaving variable</strong>).</p>
+<p>We choose the entering and leaving variables such that:</p>
+<ul class="simple">
+<li><p>The value of the objective function increases.</p></li>
+<li><p>The new list of basic variables defines a vertex. In other words, the values of the basic variables (with nonbasic variables set to 0) are all <em>positive</em>.</p></li>
+</ul>
+<p>How do we do this? Choose the entering variable such that it has a positive coefficient in the objective function. That is, choose a column with a positive value in the last row. Increasing the value of this variable will increase the value of the objective function.</p>
+<p>Choose the leaving variable such that the values of the basic variables (with nonbasic variables set to 0) are all positive. To do this, let <span class="math notranslate nohighlight">\(k\)</span> be the column index of the entering variable. Look at the ratios</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{t_{i,n+m}}{t_{i,k}} \ , \ i = 0,\dots,m-1
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(t_{i,n+m}\)</span> are the entries in the last column of <span class="math notranslate nohighlight">\(T\)</span>, and <span class="math notranslate nohighlight">\(t_{i,k}\)</span> are the entries in the <span class="math notranslate nohighlight">\(k\)</span>th column of <span class="math notranslate nohighlight">\(T\)</span>. Select row <span class="math notranslate nohighlight">\(i\)</span> such that this ratio is postive and minimal.</p>
+<p>Let <span class="math notranslate nohighlight">\(k\)</span> be the column index of the entering variable. Let <span class="math notranslate nohighlight">\(\ell\)</span> be the row index of the leaving variable. The pivot operation applies row operations to the tableau <span class="math notranslate nohighlight">\(T\)</span> such that column <span class="math notranslate nohighlight">\(k\)</span> has 1 in row <span class="math notranslate nohighlight">\(\ell\)</span> and all other entries 0. The last column of the tableau should always have positive entries in rows <span class="math notranslate nohighlight">\(0,\dots,m-1\)</span>.</p>
+</section>
+<section id="id1">
+<h2>Simplex Method<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(A\)</span> be an <span class="math notranslate nohighlight">\(m \times n\)</span> matrix, <span class="math notranslate nohighlight">\(\mathbf{b} \in \mathbb{R}^m\)</span> and <span class="math notranslate nohighlight">\(\mathbf{c} \in \mathbb{R}^n\)</span>. Consider the linear optimization problem: maximize <span class="math notranslate nohighlight">\(\mathbf{c}^T \mathbf{x}\)</span> subject to <span class="math notranslate nohighlight">\(A \mathbf{x} \leq \mathbf{b}\)</span>, <span class="math notranslate nohighlight">\(\mathbf{x} \geq 0\)</span>.</p>
+<p>The <strong>simplex algorithm</strong> is:</p>
+<ul class="simple">
+<li><p>Phase I: Find any vertex</p>
+<ul>
+<li><p>If <span class="math notranslate nohighlight">\(\mathbf{b} \geq 0\)</span> then choose <span class="math notranslate nohighlight">\(\mathbf{x} = 0\)</span>.</p></li>
+<li><p>Otherwise, solve initialization problem.</p></li>
+</ul>
+</li>
+<li><p>Phase II: Move from vertex to vertex to increase the value of objective function</p>
+<ul>
+<li><p>Identify entering and leaving variables.</p></li>
+<li><p>Perform pivot operation.</p></li>
+<li><p>Repeat!</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="implementation">
+<h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this heading">#</a></h2>
+<p>Write a function called <code class="docutils literal notranslate"><span class="pre">pivot</span></code> which takes a tableau matrix <span class="math notranslate nohighlight">\(T\)</span> and indices <code class="docutils literal notranslate"><span class="pre">k</span></code> and <code class="docutils literal notranslate"><span class="pre">l</span></code>. The function performs the pivot operation on <span class="math notranslate nohighlight">\(T\)</span> and returns the new tableau matrix.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">pivot</span><span class="p">(</span><span class="n">T</span><span class="p">,</span><span class="n">k</span><span class="p">,</span><span class="n">l</span><span class="p">):</span>
+    <span class="n">E</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">T</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">E</span><span class="p">[:,</span><span class="n">l</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">T</span><span class="p">[:,</span><span class="n">k</span><span class="p">]</span><span class="o">/</span><span class="n">T</span><span class="p">[</span><span class="n">l</span><span class="p">,</span><span class="n">k</span><span class="p">]</span>
+    <span class="n">E</span><span class="p">[</span><span class="n">l</span><span class="p">,</span><span class="n">l</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">T</span><span class="p">[</span><span class="n">l</span><span class="p">,</span><span class="n">k</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">E</span><span class="nd">@T</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s do an example with the following <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{c}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = \begin{bmatrix} 2 &amp; 1 &amp; 1 &amp; 3 \\ 1 &amp; 3 &amp; 1 &amp; 2 \end{bmatrix}
+\hspace{1in}
+\mathbf{b} = \begin{bmatrix} 5 \\ 3 \end{bmatrix}
+\hspace{1in}
+\mathbf{c} = \begin{bmatrix} 6 \\ 8 \\ 5 \\ 9 \end{bmatrix}
+\end{split}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">2.</span><span class="p">,</span><span class="mf">1.</span><span class="p">,</span><span class="mf">1.</span><span class="p">,</span><span class="mf">3.</span><span class="p">],[</span><span class="mf">1.</span><span class="p">,</span><span class="mf">3.</span><span class="p">,</span><span class="mf">1.</span><span class="p">,</span><span class="mf">2.</span><span class="p">]])</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">6.</span><span class="p">,</span><span class="mf">8.</span><span class="p">,</span><span class="mf">5.</span><span class="p">,</span><span class="mf">9.</span><span class="p">])</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">5.</span><span class="p">,</span><span class="mf">3.</span><span class="p">])</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">tableau</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[2. 1. 1. 3. 1. 0. 5.]
+ [1. 3. 1. 2. 0. 1. 3.]
+ [6. 8. 5. 9. 0. 0. 0.]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>We see that column <span class="math notranslate nohighlight">\(k=3\)</span> has the largest positive entry in the last row. Look at the ratios <span class="math notranslate nohighlight">\(\frac{t_{0,6}}{t_{0,3}}=5/3\)</span> and <span class="math notranslate nohighlight">\(\frac{t_{1,6}}{t_{1,3}}=2/3\)</span>. Since the ratio for <span class="math notranslate nohighlight">\(i=1\)</span> is positive and minimal we choose <span class="math notranslate nohighlight">\(\ell=1\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T1</span> <span class="o">=</span> <span class="n">pivot</span><span class="p">(</span><span class="n">T</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">T1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[  0.5  -3.5  -0.5   0.    1.   -1.5   0.5]
+ [  0.5   1.5   0.5   1.    0.    0.5   1.5]
+ [  1.5  -5.5   0.5   0.    0.   -4.5 -13.5]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Repeat!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T2</span> <span class="o">=</span> <span class="n">pivot</span><span class="p">(</span><span class="n">T1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">T2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[  1.  -7.  -1.   0.   2.  -3.   1.]
+ [  0.   5.   1.   1.  -1.   2.   1.]
+ [  0.   5.   2.   0.  -3.   0. -15.]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T3</span> <span class="o">=</span> <span class="n">pivot</span><span class="p">(</span><span class="n">T2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">T3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 1.0000000e+00 -4.4408921e-16  4.0000000e-01  1.4000000e+00
+   6.0000000e-01 -2.0000000e-01  2.4000000e+00]
+ [ 0.0000000e+00  1.0000000e+00  2.0000000e-01  2.0000000e-01
+  -2.0000000e-01  4.0000000e-01  2.0000000e-01]
+ [ 0.0000000e+00  0.0000000e+00  1.0000000e+00 -1.0000000e+00
+  -2.0000000e+00 -2.0000000e+00 -1.6000000e+01]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T4</span> <span class="o">=</span> <span class="n">pivot</span><span class="p">(</span><span class="n">T3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">T4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 1.00000000e+00 -2.00000000e+00 -2.22044605e-17  1.00000000e+00
+   1.00000000e+00 -1.00000000e+00  2.00000000e+00]
+ [ 0.00000000e+00  5.00000000e+00  1.00000000e+00  1.00000000e+00
+  -1.00000000e+00  2.00000000e+00  1.00000000e+00]
+ [ 0.00000000e+00 -5.00000000e+00  0.00000000e+00 -2.00000000e+00
+  -1.00000000e+00 -4.00000000e+00 -1.70000000e+01]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>All the entries in the bottom row are negative therefore we have arrived! The optimal value is <span class="math notranslate nohighlight">\(17\)</span> and occurs at <span class="math notranslate nohighlight">\(\mathbf{x} = (2,0,1,0)\)</span>.</p>
+<p>Let’s try another example:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = \left[ \begin{array}{rrr} 0 &amp; 2 &amp; 3 \\ 1 &amp; 1 &amp; 2 \\ 1 &amp; 2 &amp; 3 \\  \end{array} \right]
+\hspace{1in}
+\mathbf{b} = \left[ \begin{array}{r} 5 \\ 4 \\ 7 \end{array} \right]
+\hspace{1in}
+\mathbf{c} = \left[ \begin{array}{r} 2 \\ 3 \\ 4 \end{array} \right]
+\end{split}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]])</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">7</span><span class="p">])</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">tableau</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0., 2., 3., 1., 0., 0., 5.],
+       [1., 1., 2., 0., 1., 0., 4.],
+       [1., 2., 3., 0., 0., 1., 7.],
+       [2., 3., 4., 0., 0., 0., 0.]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T1</span> <span class="o">=</span> <span class="n">pivot</span><span class="p">(</span><span class="n">T</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">T1</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.  ,  0.67,  1.  ,  0.33,  0.  ,  0.  ,  1.67],
+       [ 1.  , -0.33,  0.  , -0.67,  1.  ,  0.  ,  0.67],
+       [ 1.  ,  0.  ,  0.  , -1.  ,  0.  ,  1.  ,  2.  ],
+       [ 2.  ,  0.33,  0.  , -1.33,  0.  ,  0.  , -6.67]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T2</span> <span class="o">=</span> <span class="n">pivot</span><span class="p">(</span><span class="n">T1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">T2</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.  ,  0.67,  1.  ,  0.33,  0.  ,  0.  ,  1.67],
+       [ 1.  , -0.33,  0.  , -0.67,  1.  ,  0.  ,  0.67],
+       [ 0.  ,  0.33,  0.  , -0.33, -1.  ,  1.  ,  1.33],
+       [ 0.  ,  1.  ,  0.  ,  0.  , -2.  ,  0.  , -8.  ]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T3</span> <span class="o">=</span> <span class="n">pivot</span><span class="p">(</span><span class="n">T2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">T3</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[  0. ,   1. ,   1.5,   0.5,   0. ,   0. ,   2.5],
+       [  1. ,   0. ,   0.5,  -0.5,   1. ,   0. ,   1.5],
+       [  0. ,   0. ,  -0.5,  -0.5,  -1. ,   1. ,   0.5],
+       [  0. ,   0. ,  -1.5,  -0.5,  -2. ,   0. , -10.5]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Optimial value <span class="math notranslate nohighlight">\(10.5\)</span> occurs at <span class="math notranslate nohighlight">\(\mathbf{x} = (1.5,2.5,0.0)\)</span>.</p>
+</section>
+<section id="initialization">
+<h2>Initialization<a class="headerlink" href="#initialization" title="Permalink to this heading">#</a></h2>
+<p>If <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> has negative entries then <span class="math notranslate nohighlight">\(\mathbf{x} = 0\)</span> is not a feasible solution. The initialization process simply adds a scalar <span class="math notranslate nohighlight">\(y\)</span> to each constraint to define the <strong>auxiliary problem</strong>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{array}{rc}
+\text{maximize:} &amp; -y \\
+\text{subject to:} &amp; a_{0,0}x_0 + \cdots + a_{0,n-1}x_{n-1} - y \leq b_0 \\
+&amp; a_{1,0}x_0 + \cdots + a_{1,n-1}x_{n-1} - y \leq b_1 \\
+&amp; \vdots \\
+&amp; a_{m-1,0}x_0 + \cdots + a_{m-1,n-1}x_{n-1} - y \leq b_{m-1} \\
+&amp; y \geq 0, x_0 \geq 0, \dots , x_{n-1} \geq 0, w_0 \geq 0, \dots , w_{m-1} \geq 0
+\end{array}
+\end{split}\]</div>
+<p>You can think of <span class="math notranslate nohighlight">\(y\)</span> as moving each constraint towards the origin. The solution of the auxiliary problem finds a vertex “nearest” to the origin. When the auxiliary problem is solved, drop variable <span class="math notranslate nohighlight">\(y\)</span> and the result is a vertex of the original problem. Proceed to Phase II.</p>
+<p>Let’s try the following example:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = \left[ \begin{array}{rrr} -1 &amp; -1 &amp; -1 \\ 2 &amp; -1 &amp; 1 \end{array} \right]
+\hspace{1in}
+\mathbf{b} = \left[ \begin{array}{r} -2 \\ 1 \end{array} \right]
+\hspace{1in}
+\mathbf{c} = \left[ \begin{array}{r} 2 \\ -6 \\ 0 \end{array} \right]
+\end{split}\]</div>
+<p>Append column to <span class="math notranslate nohighlight">\(A\)</span> for variable <span class="math notranslate nohighlight">\(y\)</span> and construct the tableau.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Ax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">bx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">cx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">Tx</span> <span class="o">=</span> <span class="n">tableau</span><span class="p">(</span><span class="n">Ax</span><span class="p">,</span><span class="n">bx</span><span class="p">,</span><span class="n">cx</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Tx</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[-1. -1. -1. -1.  1.  0. -2.]
+ [ 2. -1.  1. -1.  0.  1.  1.]
+ [ 0.  0.  0. -1.  0.  0.  0.]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Apply pivot operations to solve:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Tx1</span> <span class="o">=</span> <span class="n">pivot</span><span class="p">(</span><span class="n">Tx</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">Tx1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 1.,  1.,  1.,  1., -1.,  0.,  2.],
+       [ 3.,  0.,  2.,  0., -1.,  1.,  3.],
+       [ 1.,  1.,  1.,  0., -1.,  0.,  2.]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Tx2</span> <span class="o">=</span> <span class="n">pivot</span><span class="p">(</span><span class="n">Tx1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">Tx2</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.  ,  1.  ,  0.33,  1.  , -0.67, -0.33,  1.  ],
+       [ 1.  ,  0.  ,  0.67,  0.  , -0.33,  0.33,  1.  ],
+       [ 0.  ,  1.  ,  0.33,  0.  , -0.67, -0.33,  1.  ]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Tx3</span> <span class="o">=</span> <span class="n">pivot</span><span class="p">(</span><span class="n">Tx2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">Tx3</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.  ,  1.  ,  0.33,  1.  , -0.67, -0.33,  1.  ],
+       [ 1.  ,  0.  ,  0.67,  0.  , -0.33,  0.33,  1.  ],
+       [-0.  ,  0.  ,  0.  , -1.  ,  0.  ,  0.  ,  0.  ]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Found solution <span class="math notranslate nohighlight">\(\mathbf{x} = (1,1,0)\)</span> and <span class="math notranslate nohighlight">\(y=0\)</span>. Now setup the tableau for the original problem:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">tableau</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[-1. -1. -1.  1.  0. -2.]
+ [ 2. -1.  1.  0.  1.  1.]
+ [ 2. -6.  0.  0.  0.  0.]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>The solution of the initializatin problem tells us that we want to start with <span class="math notranslate nohighlight">\(x_0\)</span> and <span class="math notranslate nohighlight">\(x_1\)</span> as basic variables.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T1</span> <span class="o">=</span> <span class="n">pivot</span><span class="p">(</span><span class="n">T</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">T1</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0. , -1.5, -0.5,  1. ,  0.5, -1.5],
+       [ 1. , -0.5,  0.5,  0. ,  0.5,  0.5],
+       [ 0. , -5. , -1. ,  0. , -1. , -1. ]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T2</span> <span class="o">=</span> <span class="n">pivot</span><span class="p">(</span><span class="n">T1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">T2</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.  ,  1.  ,  0.33, -0.67, -0.33,  1.  ],
+       [ 1.  ,  0.  ,  0.67, -0.33,  0.33,  1.  ],
+       [ 0.  ,  0.  ,  0.67, -3.33, -2.67,  4.  ]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>This is a feasible solution. Apply simplex method.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T3</span> <span class="o">=</span> <span class="n">pivot</span><span class="p">(</span><span class="n">T2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">T3</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-0.5,  1. ,  0. , -0.5, -0.5,  0.5],
+       [ 1.5,  0. ,  1. , -0.5,  0.5,  1.5],
+       [-1. ,  0. ,  0. , -3. , -3. ,  3. ]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Soluiton is <span class="math notranslate nohighlight">\(\mathbf{x} = (0,0.5,1.5)\)</span> with <span class="math notranslate nohighlight">\(\mathbf{c}^T \mathbf{x} = -3\)</span>.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./linear-programming"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../probability/continuous.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Continuous Distributions</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="solvers.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">LP Solvers</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-form">Standard Form</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feasible-solutions">Feasible Solutions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#slack-variables">Slack Variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-variables">Basic Variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tableau-matrix">Tableau Matrix</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pivot-operation">Pivot Operation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Simplex Method</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#initialization">Initialization</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By UBC Math
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
