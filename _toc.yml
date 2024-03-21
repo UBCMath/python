@@ -15,8 +15,8 @@ parts:
     - file: linear-algebra/eigenvalues.ipynb
   - caption: Differential Equations
     chapters:
-    - file: differential-equations/slope-fields.ipynb
-    - file: differential-equations/eulers-method.ipynb
+    - file: differential-equations/slopefields.ipynb
+    - file: differential-equations/euler.ipynb
     - file: differential-equations/odeint.ipynb
     - file: differential-equations/systems.ipynb
   - caption: Calculus
