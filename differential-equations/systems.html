@@ -1,60 +1,60 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Systems of Differential Equations &#8212; Python and Jupyter for UBC Mathematics</title>
+    <title>Systems of Equations &#8212; Python and Jupyter for UBC Mathematics</title>
   
   
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=8f914afb" />
+    <link rel="stylesheet" type="text/css" href="../_static/.ipynb_checkpoints/custom-checkpoint.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-E4TJ9JBS8H"></script>
     <script>
                 window.dataLayer = window.dataLayer || [];
@@ -62,17 +62,23 @@
                 gtag('js', new Date());
                 gtag('config', 'G-E4TJ9JBS8H');
             </script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-E4TJ9JBS8H');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'differential-equations/systems';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Contour Plots" href="../calculus/contour.html" />
-    <link rel="prev" title="Numerical Solutions with odeint" href="odeint.html" />
+    <link rel="prev" title="Linear Systems" href="linear.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -82,19 +88,23 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -116,12 +126,20 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -136,6 +154,9 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
+  
+    
   
 
 <a class="navbar-brand logo" href="../index.html">
@@ -144,10 +165,22 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
+  
     <p class="title logo__title">Python and Jupyter for UBC Mathematics</p>
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="nav bd-sidenav">
@@ -165,10 +198,11 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Differential Equations</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="slope-fields.html">Slope Fields</a></li>
-<li class="toctree-l1"><a class="reference internal" href="eulers-method.html">Euler’s Method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="slopefields.html">Slope Fields</a></li>
+<li class="toctree-l1"><a class="reference internal" href="euler.html">Euler’s Method</a></li>
 <li class="toctree-l1"><a class="reference internal" href="odeint.html">Numerical Solutions with odeint</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Systems of Differential Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linear.html">Linear Systems</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Systems of Equations</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Calculus</span></p>
 <ul class="nav bd-sidenav">
@@ -183,6 +217,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Linear Programming</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../linear-programming/pulp.html">Computing with PuLP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../linear-programming/simplex.html">Simplex Method</a></li>
 </ul>
 
@@ -199,7 +234,7 @@ const thebe_selector_output = ".output, .cell_output"
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -208,14 +243,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -240,14 +275,14 @@ const thebe_selector_output = ".output, .cell_output"
       
       <li><a href="https://ubc.syzygy.ca/jupyter/hub/user-redirect/git-pull?repo=https%3A//github.com/UBCMath/python&urlpath=tree/python/differential-equations/systems.ipynb&branch=main" target="_blank"
    class="btn btn-sm dropdown-item"
-   title="Launch onJupyterHub"
+   title="Launch on JupyterHub"
    data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   
-    <img src="../_static/images/logo_jupyterhub.svg">
+    <img alt="JupyterHub logo" src="../_static/images/logo_jupyterhub.svg">
   </span>
 <span class="btn__text-container">JupyterHub</span>
 </a>
@@ -336,24 +371,28 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
 
+
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -364,11 +403,25 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Systems of Differential Equations</h1>
+    <h1>Systems of Equations</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-order-systems">First Order Systems</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numerical-solutions">Numerical Solutions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-linear-system">2D Linear System</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d-nonlinear-system">2D Nonlinear System</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -376,11 +429,298 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="systems-of-differential-equations">
-<h1>Systems of Differential Equations<a class="headerlink" href="#systems-of-differential-equations" title="Permalink to this heading">#</a></h1>
-<p><em>Under construction</em></p>
+  <section class="tex2jax_ignore mathjax_ignore" id="systems-of-equations">
+<h1>Systems of Equations<a class="headerlink" href="#systems-of-equations" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.integrate</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">spi</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="first-order-systems">
+<h2>First Order Systems<a class="headerlink" href="#first-order-systems" title="Link to this heading">#</a></h2>
+<p>An <span class="math notranslate nohighlight">\(d\)</span>-dimensional first order system of differential equations is of the form</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+x_0' &amp;= f_0(x_0,\dots,x_{d-1},t) \\
+x_1' &amp;= f_1(x_0,\dots,x_{d-1},t) \\
+&amp; \ \  \vdots \\
+x_{d-1}' &amp;= f_{d-1}(x_0,\dots,x_{d-1},t)
+\end{align*}
+\end{split}\]</div>
+<p>Write the system as a vector equation</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{bmatrix} x_0' \\ x_1' \\ \vdots \\ x_{d-1}' \end{bmatrix}
+=
+\begin{bmatrix} f_0(x_0,\dots,x_{d-1},t) \\ f_1(x_0,\dots,x_{d-1},t) \\ \vdots \\ f_{d-1}(x_0,\dots,x_{d-1},t) \end{bmatrix}
+\end{split}\]</div>
+<p>Write the system in vector notation</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{d \mathbf{x}}{dt} = \mathbf{f}(\mathbf{x},t)
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> is a vector of <span class="math notranslate nohighlight">\(d\)</span> unknown functions</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{x}(t) = \begin{bmatrix} x_0(t) \\ x_1(t) \\ \vdots \\ x_{d-1}(t) \end{bmatrix}
+\hspace{20mm}
+\frac{d\mathbf{x}}{dt} = \begin{bmatrix} x_0'(t) \\ x_1'(t) \\ \vdots \\ x_{d-1}'(t) \end{bmatrix}
+\end{split}\]</div>
+<p>and <span class="math notranslate nohighlight">\(\mathbf{f}\)</span> is a vector of functions</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{f}(\mathbf{x},t) = \begin{bmatrix} f_0(x_0,x_1,\dots,x_{d-1},t) \\ f_1(x_0,x_1,\dots,x_{d-1},t) \\ \vdots \\ f_{d-1}(x_0,x_1,\dots,x_{d-1},t) \end{bmatrix}
+\end{split}\]</div>
+<p>For example, consider the 2-dimensional first order system of differential equations</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+x_0' &amp;= x_1 \\
+x_1' &amp;= x_0
+\end{align*}
+\end{split}\]</div>
+<p>Represent the right side of the system as a vector function</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{f}(\mathbf{x},t) = \begin{bmatrix} x_1 \\ x_0 \end{bmatrix}
+\end{split}\]</div>
+<p>In this example, the variable <span class="math notranslate nohighlight">\(t\)</span> does not appear in the expression for <span class="math notranslate nohighlight">\(\mathbf{f}\)</span> but we include it anyway because we want a standard form for first order systems. Create a Python function which represents the right hand side of the system of equations.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span><span class="n">t</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Plug in some values to verify that <code class="docutils literal notranslate"><span class="pre">f</span></code> returns the array <span class="math notranslate nohighlight">\([x_1 , x_0]\)</span> for the input <span class="math notranslate nohighlight">\(\mathbf{x} = [x_0,x_1]\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span><span class="mf">2.</span><span class="p">],</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([2., 1.])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="p">([</span><span class="o">-</span><span class="mf">3.</span><span class="p">,</span><span class="mf">2.</span><span class="p">],</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 2., -3.])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="numerical-solutions">
+<h2>Numerical Solutions<a class="headerlink" href="#numerical-solutions" title="Link to this heading">#</a></h2>
+<p>The function <code class="docutils literal notranslate"><span class="pre">scipy.integrate.odeint</span></code> approximates the solution of a system of first order differential equations with an initial condition:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\frac{d\mathbf{x}}{dt} = \mathbf{f}(\mathbf{x},t) \ , \ \ \mathbf{x}(t_0) = \mathbf{x}_0 = \begin{bmatrix} x_0(t_0) \\ x_1(t_0) \\ \vdots \\ x_{d-1}(t_0) \end{bmatrix}
+\end{split}\]</div>
+<p>The function <code class="docutils literal notranslate"><span class="pre">scipy.integrate.odeint</span></code> takes input parameters <code class="docutils literal notranslate"><span class="pre">f</span></code>, <code class="docutils literal notranslate"><span class="pre">x0</span></code> and <code class="docutils literal notranslate"><span class="pre">t</span></code> where:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">f</span></code> is a Python function which represents the right hand side of the system <span class="math notranslate nohighlight">\(\mathbf{f}(\mathbf{x},t)\)</span></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x0</span></code> is the vector of initial values <span class="math notranslate nohighlight">\(\mathbf{x}(t_0) = \mathbf{x}_0\)</span></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">t</span></code> is a NumPy array of <span class="math notranslate nohighlight">\(t\)</span> values such that the first entry is <span class="math notranslate nohighlight">\(t_0\)</span></p></li>
+</ul>
+<p>The fuction <code class="docutils literal notranslate"><span class="pre">scipy.integrate.odeint</span></code> returns a NumPy array <code class="docutils literal notranslate"><span class="pre">x</span></code> such that:</p>
+<ul class="simple">
+<li><p>the number of rows of <code class="docutils literal notranslate"><span class="pre">x</span></code> is equal to the length of <code class="docutils literal notranslate"><span class="pre">t</span></code></p></li>
+<li><p>the number of columns of <code class="docutils literal notranslate"><span class="pre">x</span></code> is equal to the dimension <span class="math notranslate nohighlight">\(d\)</span> of the system</p></li>
+<li><p>the first row <code class="docutils literal notranslate"><span class="pre">x[0,:]</span></code> is the vector of initial values <span class="math notranslate nohighlight">\(\mathbf{x}(t_0) = \mathbf{x}_0\)</span></p></li>
+<li><p>the row <code class="docutils literal notranslate"><span class="pre">x[n,:]</span></code> at index <span class="math notranslate nohighlight">\(n\)</span> is the vector of approximations of the solution <span class="math notranslate nohighlight">\(\mathbf{x}(t_n)\)</span> at time <span class="math notranslate nohighlight">\(t_n\)</span></p></li>
+<li><p>the value <span class="math notranslate nohighlight">\(t_n\)</span> is the entry <code class="docutils literal notranslate"><span class="pre">t[n]</span></code> at index <span class="math notranslate nohighlight">\(n\)</span> in the input array <code class="docutils literal notranslate"><span class="pre">t</span></code></p></li>
+<li><p>the column <code class="docutils literal notranslate"><span class="pre">x[:,i]</span></code> is the vector of approximations of the function <span class="math notranslate nohighlight">\(x_i(t)\)</span></p></li>
+</ul>
+<p>Given a differential equation with initial value, it is up to us to construct the input vector <code class="docutils literal notranslate"><span class="pre">t</span></code>. We need to choose a final value <span class="math notranslate nohighlight">\(t_f\)</span> and the number of values in the input vector <code class="docutils literal notranslate"><span class="pre">t</span></code>.</p>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h2>
+<section id="d-linear-system">
+<h3>2D Linear System<a class="headerlink" href="#d-linear-system" title="Link to this heading">#</a></h3>
+<p>Approximate the unique solution of the 2-dimensional first order system of differential equations</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+x_0' &amp;= x_0 - x_1 \\
+x_1' &amp;= 5x_0 - 3x_1
+\end{align*}
+\end{split}\]</div>
+<p>with initial conditions <span class="math notranslate nohighlight">\(x_0(0) = 0\)</span>, <span class="math notranslate nohighlight">\(x_1(0) = 1\)</span>. Approximate the solution over the interval <span class="math notranslate nohighlight">\([0,5]\)</span>.</p>
+<p>Represent the right side of the system as a vector function</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{f}(\mathbf{x},t) = \begin{bmatrix}  x_0 - x_1 \\ 5x_0 - 3x_1 \end{bmatrix}
+\end{split}\]</div>
+<p>Define the function <code class="docutils literal notranslate"><span class="pre">f</span></code> to represent the right side of the system of equations:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span><span class="n">t</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">,</span> <span class="mi">5</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">3</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Plug in some values to verify that the function returns the vector <span class="math notranslate nohighlight">\([x_0 - x_1, 5x_0 - 3x_1]\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="p">([</span><span class="mf">2.</span><span class="p">,</span><span class="mf">1.</span><span class="p">],</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1., 7.])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="p">([</span><span class="o">-</span><span class="mf">4.</span><span class="p">,</span><span class="mf">3.</span><span class="p">],</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ -7., -29.])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Define the vector of intial values <span class="math notranslate nohighlight">\(\mathbf{x}_0 = [x_0(0),x_1(0)] = [0,1]\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span><span class="mf">1.</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Construct a NumPy array of <span class="math notranslate nohighlight">\(t\)</span> values from <span class="math notranslate nohighlight">\(t_0 = 0\)</span> to <span class="math notranslate nohighlight">\(t_f = 5\)</span>. The number of points in the array is our decision. The number of points does not change the accuracy of the results. It only changes the number of rows in the ouput matrix <code class="docutils literal notranslate"><span class="pre">x</span></code> and we need enough to plot the approximation smoothly. Let’s choose <span class="math notranslate nohighlight">\(N=101\)</span> values so that the step size between <span class="math notranslate nohighlight">\(t\)</span> values is 0.05.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">101</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Look at the first few values of <code class="docutils literal notranslate"><span class="pre">t</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.  , 0.05, 0.1 , 0.15, 0.2 ])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Compute the matrix of approximations of <span class="math notranslate nohighlight">\(\mathbf{x}(t)\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">spi</span><span class="o">.</span><span class="n">odeint</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">x0</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Look at the shape of the array <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(101, 2)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The row <code class="docutils literal notranslate"><span class="pre">x[n,:]</span></code> corresponds to <span class="math notranslate nohighlight">\([x_0(t_n),x_1(t_n)]\)</span> for value <code class="docutils literal notranslate"><span class="pre">t[n]</span></code> at index <span class="math notranslate nohighlight">\(n\)</span> in array <code class="docutils literal notranslate"><span class="pre">t</span></code>. The column <code class="docutils literal notranslate"><span class="pre">x[:,0]</span></code> corresponds to the values of the function <span class="math notranslate nohighlight">\(x_0(t)\)</span> and column <code class="docutils literal notranslate"><span class="pre">x[:,1]</span></code> corresponds to the values of the function <span class="math notranslate nohighlight">\(x_1(t)\)</span>. Plot the approximations:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">x</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;$x_0(t)$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">x</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;$x_1(t)$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/252c2c0c534c9fcda3ef39a27e3e4142a270872513f63f6a4a0f028fac3300c2.png" src="../_images/252c2c0c534c9fcda3ef39a27e3e4142a270872513f63f6a4a0f028fac3300c2.png" />
+</div>
+</div>
+<p>Plot the trajectory <span class="math notranslate nohighlight">\(\mathbf{x}(t) = (x_0(t),x_t(t))\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">x</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="o">-</span><span class="mf">.5</span><span class="p">,</span><span class="mf">.5</span><span class="p">]),</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="o">-</span><span class="mf">1.1</span><span class="p">,</span><span class="mf">1.1</span><span class="p">]),</span> <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/732fdc5a5e43769c966d61abb8adfca01151eee07f6c27beb1c6f1423a5b886a.png" src="../_images/732fdc5a5e43769c966d61abb8adfca01151eee07f6c27beb1c6f1423a5b886a.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="d-nonlinear-system">
+<h2>2D Nonlinear System<a class="headerlink" href="#d-nonlinear-system" title="Link to this heading">#</a></h2>
+<p>Approximate the unique solution of the 2-dimensional first order system of differential equations</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+x_0' &amp;= x_0^2 - x_1^2 \\
+x_1' &amp;= x_1 - x_0^2
+\end{align*}
+\end{split}\]</div>
+<p>with initial conditions <span class="math notranslate nohighlight">\(x_0(0) = 2\)</span>, <span class="math notranslate nohighlight">\(x_1(0) = 0\)</span>. Approximate the solution over the interval <span class="math notranslate nohighlight">\([0,5]\)</span>.</p>
+<p>Represent the right side of the system as a vector function</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{f}(\mathbf{x},t) = \begin{bmatrix}  x_0^2 - x_1^2 \\ x_1 - x_0^2 \end{bmatrix}
+\end{split}\]</div>
+<p>Define the function <code class="docutils literal notranslate"><span class="pre">f</span></code> to represent the right side of the system of equations:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span><span class="n">t</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="p">])</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">501</span><span class="p">)</span>
+
+<span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span><span class="mf">1.</span><span class="p">])</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">spi</span><span class="o">.</span><span class="n">odeint</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">x0</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">x</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">2.</span><span class="p">,</span><span class="mf">0.</span><span class="p">])</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">spi</span><span class="o">.</span><span class="n">odeint</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">x0</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">x</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/2h/25vcwmr52mvfqs1h92028rph0000gn/T/ipykernel_33136/588151722.py:9: ODEintWarning: Excess work done on this call (perhaps wrong Dfun type). Run with full_output = 1 to get quantitative information.
+  x = spi.odeint(f,x0,t)
+</pre></div>
+</div>
+<img alt="../_images/1cdb8032bd20dbd84326d4d29c37b77880cc96f8508f7d0ab577d263c697c2c2.png" src="../_images/1cdb8032bd20dbd84326d4d29c37b77880cc96f8508f7d0ab577d263c697c2c2.png" />
+</div>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -408,19 +748,18 @@ document.write(`
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer d-print-none">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="odeint.html"
+       href="linear.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Numerical Solutions with odeint</p>
+        <p class="prev-next-title">Linear Systems</p>
       </div>
     </a>
     <a class="right-next"
@@ -432,15 +771,33 @@ document.write(`
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-order-systems">First Order Systems</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numerical-solutions">Numerical Solutions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-linear-system">2D Linear System</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d-nonlinear-system">2D Nonlinear System</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
@@ -458,6 +815,7 @@ By UBC Math
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2024.
@@ -484,8 +842,8 @@ By UBC Math
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

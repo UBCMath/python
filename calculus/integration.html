@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Numerical Integration &#8212; Python and Jupyter for UBC Mathematics</title>
   
@@ -15,46 +14,47 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=8f914afb" />
+    <link rel="stylesheet" type="text/css" href="../_static/.ipynb_checkpoints/custom-checkpoint.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-E4TJ9JBS8H"></script>
     <script>
                 window.dataLayer = window.dataLayer || [];
@@ -62,12 +62,16 @@
                 gtag('js', new Date());
                 gtag('config', 'G-E4TJ9JBS8H');
             </script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-E4TJ9JBS8H');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'calculus/integration';</script>
@@ -84,19 +88,23 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -118,12 +126,20 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -138,6 +154,9 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
+  
+    
   
 
 <a class="navbar-brand logo" href="../index.html">
@@ -146,10 +165,22 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
+  
     <p class="title logo__title">Python and Jupyter for UBC Mathematics</p>
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="nav bd-sidenav">
@@ -167,10 +198,11 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Differential Equations</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../differential-equations/slope-fields.html">Slope Fields</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../differential-equations/eulers-method.html">Euler’s Method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential-equations/slopefields.html">Slope Fields</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential-equations/euler.html">Euler’s Method</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../differential-equations/odeint.html">Numerical Solutions with odeint</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../differential-equations/systems.html">Systems of Differential Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential-equations/linear.html">Linear Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential-equations/systems.html">Systems of Equations</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Calculus</span></p>
 <ul class="current nav bd-sidenav">
@@ -185,6 +217,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Linear Programming</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../linear-programming/pulp.html">Computing with PuLP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../linear-programming/simplex.html">Simplex Method</a></li>
 </ul>
 
@@ -201,7 +234,7 @@ const thebe_selector_output = ".output, .cell_output"
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -210,14 +243,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -242,14 +275,14 @@ const thebe_selector_output = ".output, .cell_output"
       
       <li><a href="https://ubc.syzygy.ca/jupyter/hub/user-redirect/git-pull?repo=https%3A//github.com/UBCMath/python&urlpath=tree/python/calculus/integration.ipynb&branch=main" target="_blank"
    class="btn btn-sm dropdown-item"
-   title="Launch onJupyterHub"
+   title="Launch on JupyterHub"
    data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   
-    <img src="../_static/images/logo_jupyterhub.svg">
+    <img alt="JupyterHub logo" src="../_static/images/logo_jupyterhub.svg">
   </span>
 <span class="btn__text-container">JupyterHub</span>
 </a>
@@ -338,26 +371,28 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
 
+
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -394,20 +429,20 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="numerical-integration">
-<h1>Numerical Integration<a class="headerlink" href="#numerical-integration" title="Permalink to this heading">#</a></h1>
+<h1>Numerical Integration<a class="headerlink" href="#numerical-integration" title="Link to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 </pre></div>
 </div>
 </div>
 </div>
 <section id="visualizing-riemann-sums">
-<h2>Visualizing Riemann Sums<a class="headerlink" href="#visualizing-riemann-sums" title="Permalink to this heading">#</a></h2>
+<h2>Visualizing Riemann Sums<a class="headerlink" href="#visualizing-riemann-sums" title="Link to this heading">#</a></h2>
 <p>The definite integral <span class="math notranslate nohighlight">\(\int_a^b f(x) \, dx\)</span> is the (net) area under the curve <span class="math notranslate nohighlight">\(y=f(x)\)</span>. Approximate the area under the curve by the sum of areas of rectangles. In particular, choose an integer <span class="math notranslate nohighlight">\(N\)</span> and define</p>
 <div class="math notranslate nohighlight">
 \[
@@ -464,7 +499,7 @@ L = \sum_{k=1}^N f(x_{k-1}) \Delta x = \left( \frac{b-a}{N} \right) \sum_{k=1}^N
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8955204a6befa8a39d60d0c396824fd36d1c0a21779b368c561c2f635656a0fe.png" src="../_images/8955204a6befa8a39d60d0c396824fd36d1c0a21779b368c561c2f635656a0fe.png" />
+<img alt="../_images/46aef6f0fe8dc3b216c18bb7bbcc5a6d0f96d01c05ddef718e6d0a6bfad3a2a3.png" src="../_images/46aef6f0fe8dc3b216c18bb7bbcc5a6d0f96d01c05ddef718e6d0a6bfad3a2a3.png" />
 </div>
 </div>
 <p>Let’s do the same example but for right Riemann sums.</p>
@@ -502,12 +537,12 @@ L = \sum_{k=1}^N f(x_{k-1}) \Delta x = \left( \frac{b-a}{N} \right) \sum_{k=1}^N
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8aed0efd66140472b324157a27a26f9bacd8936326df7664ba40ecd84aafd39e.png" src="../_images/8aed0efd66140472b324157a27a26f9bacd8936326df7664ba40ecd84aafd39e.png" />
+<img alt="../_images/9e1de76fb64801d183ef15dcc7719ab7be48b36fe931070647ac248c36b5f4b5.png" src="../_images/9e1de76fb64801d183ef15dcc7719ab7be48b36fe931070647ac248c36b5f4b5.png" />
 </div>
 </div>
 </section>
 <section id="computing-riemann-sums">
-<h2>Computing Riemann Sums<a class="headerlink" href="#computing-riemann-sums" title="Permalink to this heading">#</a></h2>
+<h2>Computing Riemann Sums<a class="headerlink" href="#computing-riemann-sums" title="Link to this heading">#</a></h2>
 <p>The right Riemann for the definite integral <span class="math notranslate nohighlight">\(\int_a^b f(x) dx\)</span> is given by</p>
 <div class="math notranslate nohighlight">
 \[
@@ -695,7 +730,7 @@ L = \left( \frac{b - a}{N} \right) \sum_{k=0}^{N-1} y_k
 <p>We know that <span class="math notranslate nohighlight">\(\int_0^1 (1 - x^2) \, dx = 2/3\)</span> therefore the Riemann sums approach <span class="math notranslate nohighlight">\(2/3\)</span> as <span class="math notranslate nohighlight">\(N \to \infty\)</span>.</p>
 </section>
 <section id="computing-the-trapezoid-rule">
-<h2>Computing the Trapezoid Rule<a class="headerlink" href="#computing-the-trapezoid-rule" title="Permalink to this heading">#</a></h2>
+<h2>Computing the Trapezoid Rule<a class="headerlink" href="#computing-the-trapezoid-rule" title="Link to this heading">#</a></h2>
 <p>The left and right Riemann sums are approximations of the definite integral <span class="math notranslate nohighlight">\(\int_a^b f(x) \, dx\)</span>. The <strong>trapezoid rule</strong> is the average of the left and right Riemann sums</p>
 <div class="math notranslate nohighlight">
 \[
@@ -733,7 +768,7 @@ T = \frac{L + R}{2} = \frac{1}{2} \left( \sum_{k=1}^N f(x_{k-1}) \Delta x + \sum
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6231471bba72b6f47a07270546bbdbd03fed02e50b8312cb3de6f6f6dc2add01.png" src="../_images/6231471bba72b6f47a07270546bbdbd03fed02e50b8312cb3de6f6f6dc2add01.png" />
+<img alt="../_images/1cb1502646bc2fe251e471442232a599f10a5f8a0c40a99e92673d0ad31221e8.png" src="../_images/1cb1502646bc2fe251e471442232a599f10a5f8a0c40a99e92673d0ad31221e8.png" />
 </div>
 </div>
 <p>Let’s compute the average of the left and right Riemann sums:</p>
@@ -757,7 +792,7 @@ T = \frac{L + R}{2} = \frac{1}{2} \left( \sum_{k=1}^N f(x_{k-1}) \Delta x + \sum
 <p>The exact solution is <span class="math notranslate nohighlight">\(\int_{-1}^1 (1 - x^4) \, dx = 8/5\)</span> therefore <span class="math notranslate nohighlight">\(T\)</span> converges to <span class="math notranslate nohighlight">\(1.6\)</span> as <span class="math notranslate nohighlight">\(N \to \infty\)</span>.</p>
 </section>
 <section id="visualizing-riemann-sums-for-double-integrals">
-<h2>Visualizing Riemann Sums for Double Integrals<a class="headerlink" href="#visualizing-riemann-sums-for-double-integrals" title="Permalink to this heading">#</a></h2>
+<h2>Visualizing Riemann Sums for Double Integrals<a class="headerlink" href="#visualizing-riemann-sums-for-double-integrals" title="Link to this heading">#</a></h2>
 <p>Let <span class="math notranslate nohighlight">\(R\)</span> be the region bounded between the curves <span class="math notranslate nohighlight">\(y = B(x)\)</span> and <span class="math notranslate nohighlight">\(y = T(x)\)</span> and <span class="math notranslate nohighlight">\(a \leq x \leq b\)</span>. Let <span class="math notranslate nohighlight">\(f(x,y)\)</span> be an integrable function. The <strong>definite integral</strong> of <span class="math notranslate nohighlight">\(f(x,y)\)</span> over the region <span class="math notranslate nohighlight">\(R\)</span> is a limit of Riemann sums</p>
 <div class="math notranslate nohighlight">
 \[
@@ -798,7 +833,7 @@ y_{kl} = B(x_k) + l \Delta y_k \ \ \ , \ \ k = 1,\dots,N \ \ \ , \ \ l = 1,\dots
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/292a858920bd145848ef08c46a0f7c4eeb7cd33be2f0f8a3b0b543871285e375.png" src="../_images/292a858920bd145848ef08c46a0f7c4eeb7cd33be2f0f8a3b0b543871285e375.png" />
+<img alt="../_images/2bb0377b83bbe47383fa265475df06ec4eaf4042d2942dd6e14aeb205e053059.png" src="../_images/2bb0377b83bbe47383fa265475df06ec4eaf4042d2942dd6e14aeb205e053059.png" />
 </div>
 </div>
 <p>Now we can see all the points when we partition the <span class="math notranslate nohighlight">\(x\)</span>-interval <span class="math notranslate nohighlight">\([a,b]\)</span> and then partition each <span class="math notranslate nohighlight">\(y\)</span>-interval <span class="math notranslate nohighlight">\([B(x_k),T(x_k)]\)</span> for <span class="math notranslate nohighlight">\(k=1,\dots,N\)</span>.</p>
@@ -838,12 +873,12 @@ y_{kl} = B(x_k) + l \Delta y_k \ \ \ , \ \ k = 1,\dots,N \ \ \ , \ \ l = 1,\dots
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/2ea7b63ab0725b1d3f8474d07f6bf589d5a11da7a6e927a91e2f0daccf0c149f.png" src="../_images/2ea7b63ab0725b1d3f8474d07f6bf589d5a11da7a6e927a91e2f0daccf0c149f.png" />
+<img alt="../_images/5bb523656a4d24d2cdc65e240e8111b261adf278e6fbcb29fdfe8306f85cc5a5.png" src="../_images/5bb523656a4d24d2cdc65e240e8111b261adf278e6fbcb29fdfe8306f85cc5a5.png" />
 </div>
 </div>
 </section>
 <section id="computing-riemann-sums-for-double-integrals">
-<h2>Computing Riemann Sums for Double Integrals<a class="headerlink" href="#computing-riemann-sums-for-double-integrals" title="Permalink to this heading">#</a></h2>
+<h2>Computing Riemann Sums for Double Integrals<a class="headerlink" href="#computing-riemann-sums-for-double-integrals" title="Link to this heading">#</a></h2>
 <p>The procedure to compute the right Riemann sum for a double integral is as follows:</p>
 <ol class="arabic simple">
 <li><p>Define the function <span class="math notranslate nohighlight">\(z = f(x,y)\)</span> and limits of integration <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span>, and <span class="math notranslate nohighlight">\(y=B(x)\)</span> and <span class="math notranslate nohighlight">\(y = T(x)\)</span>.</p></li>
@@ -916,7 +951,7 @@ y_{kl} = B(x_k) + l \Delta y_k \ \ \ , \ \ k = 1,\dots,N \ \ \ , \ \ l = 1,\dots
 </div>
 </section>
 <section id="trapezoid-rule-for-double-integrals">
-<h2>Trapezoid Rule for Double Integrals<a class="headerlink" href="#trapezoid-rule-for-double-integrals" title="Permalink to this heading">#</a></h2>
+<h2>Trapezoid Rule for Double Integrals<a class="headerlink" href="#trapezoid-rule-for-double-integrals" title="Link to this heading">#</a></h2>
 <p>In our code above, we use the right endpoints of the intervals <span class="math notranslate nohighlight">\([x_{k-1},x_k]\)</span> and <span class="math notranslate nohighlight">\([y_{k,l-1},y_{k,l}]\)</span>, <span class="math notranslate nohighlight">\(l=1,\dots,M\)</span>, when we compute the value:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="n">fk</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
 </pre></div>
@@ -931,7 +966,7 @@ y_{kl} = B(x_k) + l \Delta y_k \ \ \ , \ \ k = 1,\dots,N \ \ \ , \ \ l = 1,\dots
 <p>The <strong>trapezoid rule</strong> is when we use the average of these 4 computations to approximate the double integral.</p>
 </section>
 <section id="triple-integrals">
-<h2>Triple Integrals<a class="headerlink" href="#triple-integrals" title="Permalink to this heading">#</a></h2>
+<h2>Triple Integrals<a class="headerlink" href="#triple-integrals" title="Link to this heading">#</a></h2>
 <p><em>Under construction</em></p>
 </section>
 </section>
@@ -961,11 +996,10 @@ y_{kl} = B(x_k) + l \Delta y_k \ \ \ , \ \ k = 1,\dots,N \ \ \ , \ \ l = 1,\dots
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer d-print-none">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="contour.html"
@@ -985,10 +1019,7 @@ y_{kl} = B(x_k) + l \Delta y_k \ \ \ , \ \ k = 1,\dots,N \ \ \ , \ \ l = 1,\dots
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -996,6 +1027,7 @@ y_{kl} = B(x_k) + l \Delta y_k \ \ \ , \ \ k = 1,\dots,N \ \ \ , \ \ l = 1,\dots
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -1031,6 +1063,7 @@ By UBC Math
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2024.
@@ -1057,8 +1090,8 @@ By UBC Math
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

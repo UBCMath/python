@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Linear Transformations &#8212; Python and Jupyter for UBC Mathematics</title>
   
@@ -15,46 +14,47 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=8f914afb" />
+    <link rel="stylesheet" type="text/css" href="../_static/.ipynb_checkpoints/custom-checkpoint.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-E4TJ9JBS8H"></script>
     <script>
                 window.dataLayer = window.dataLayer || [];
@@ -62,12 +62,16 @@
                 gtag('js', new Date());
                 gtag('config', 'G-E4TJ9JBS8H');
             </script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-E4TJ9JBS8H');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'linear-algebra/transformations';</script>
@@ -84,19 +88,23 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -118,12 +126,20 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -138,6 +154,9 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
+  
+    
   
 
 <a class="navbar-brand logo" href="../index.html">
@@ -146,10 +165,22 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
+  
     <p class="title logo__title">Python and Jupyter for UBC Mathematics</p>
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="nav bd-sidenav">
@@ -167,10 +198,11 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Differential Equations</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../differential-equations/slope-fields.html">Slope Fields</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../differential-equations/eulers-method.html">Euler’s Method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential-equations/slopefields.html">Slope Fields</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential-equations/euler.html">Euler’s Method</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../differential-equations/odeint.html">Numerical Solutions with odeint</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../differential-equations/systems.html">Systems of Differential Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential-equations/linear.html">Linear Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential-equations/systems.html">Systems of Equations</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Calculus</span></p>
 <ul class="nav bd-sidenav">
@@ -185,6 +217,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Linear Programming</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../linear-programming/pulp.html">Computing with PuLP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../linear-programming/simplex.html">Simplex Method</a></li>
 </ul>
 
@@ -201,7 +234,7 @@ const thebe_selector_output = ".output, .cell_output"
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -210,14 +243,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -242,14 +275,14 @@ const thebe_selector_output = ".output, .cell_output"
       
       <li><a href="https://ubc.syzygy.ca/jupyter/hub/user-redirect/git-pull?repo=https%3A//github.com/UBCMath/python&urlpath=tree/python/linear-algebra/transformations.ipynb&branch=main" target="_blank"
    class="btn btn-sm dropdown-item"
-   title="Launch onJupyterHub"
+   title="Launch on JupyterHub"
    data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   
-    <img src="../_static/images/logo_jupyterhub.svg">
+    <img alt="JupyterHub logo" src="../_static/images/logo_jupyterhub.svg">
   </span>
 <span class="btn__text-container">JupyterHub</span>
 </a>
@@ -338,26 +371,28 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
 
+
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -393,21 +428,21 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="linear-transformations">
-<h1>Linear Transformations<a class="headerlink" href="#linear-transformations" title="Permalink to this heading">#</a></h1>
+<h1>Linear Transformations<a class="headerlink" href="#linear-transformations" title="Link to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">scipy.linalg</span> <span class="k">as</span> <span class="nn">la</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.linalg</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">la</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 </pre></div>
 </div>
 </div>
 </div>
 <section id="matrix-multiplication">
-<h2>Matrix Multiplication<a class="headerlink" href="#matrix-multiplication" title="Permalink to this heading">#</a></h2>
+<h2>Matrix Multiplication<a class="headerlink" href="#matrix-multiplication" title="Link to this heading">#</a></h2>
 <p>Let’s create an asymmetrical figure in the xy-plane by defining lists of <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> coordinates.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -419,7 +454,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/1ea8f01cc06f630ffc737e87f80bce43664f020cd87b80946eada5b5f0fc8031.png" src="../_images/1ea8f01cc06f630ffc737e87f80bce43664f020cd87b80946eada5b5f0fc8031.png" />
+<img alt="../_images/4d9c45b9e0a758749de33ffb982f0549d962857dd3d09232a0bdf0ea70d24742.png" src="../_images/4d9c45b9e0a758749de33ffb982f0549d962857dd3d09232a0bdf0ea70d24742.png" />
 </div>
 </div>
 <p>Note that we use the command <code class="docutils literal notranslate"><span class="pre">plt.grid(True)</span></code> to include a grid in the figure and <code class="docutils literal notranslate"><span class="pre">plt.axis('equal')</span></code> plots the figure with equal scaling in the <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> directions.</p>
@@ -436,6 +471,10 @@ document.write(`
  [ 0.  2.  0. -2.  0.  2.  0.  0.]]
 </pre></div>
 </div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/2h/25vcwmr52mvfqs1h92028rph0000gn/T/ipykernel_33158/4224013073.py:1: DeprecationWarning: `row_stack` alias is deprecated. Use `np.vstack` directly.
+  X = np.row_stack([x,y])
+</pre></div>
+</div>
 </div>
 </div>
 <div class="cell docutils container">
@@ -446,7 +485,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/1ea8f01cc06f630ffc737e87f80bce43664f020cd87b80946eada5b5f0fc8031.png" src="../_images/1ea8f01cc06f630ffc737e87f80bce43664f020cd87b80946eada5b5f0fc8031.png" />
+<img alt="../_images/4d9c45b9e0a758749de33ffb982f0549d962857dd3d09232a0bdf0ea70d24742.png" src="../_images/4d9c45b9e0a758749de33ffb982f0549d962857dd3d09232a0bdf0ea70d24742.png" />
 </div>
 </div>
 <p>Any linear transformation of <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span> can be written as a 2 by 2 matrix with respect to the standard basis. Therefore we can apply to the figure above a linear transformation given by matrix <span class="math notranslate nohighlight">\(A\)</span> by computing matrix multiplication:</p>
@@ -465,7 +504,7 @@ A \begin{bmatrix} x_N \\ y_N \end{bmatrix}
 <p>where column at index <span class="math notranslate nohighlight">\(k\)</span> corresponds to the point <span class="math notranslate nohighlight">\((x_k,y_k) \in \mathbf{R}^2\)</span>. In other words, the column at index <span class="math notranslate nohighlight">\(k\)</span> in the product <span class="math notranslate nohighlight">\(AX\)</span> are the coordinates of the transformed point <span class="math notranslate nohighlight">\(A \begin{bmatrix} x_k \\ y_k \end{bmatrix}\)</span>.</p>
 </section>
 <section id="rotation-matrix">
-<h2>Rotation Matrix<a class="headerlink" href="#rotation-matrix" title="Permalink to this heading">#</a></h2>
+<h2>Rotation Matrix<a class="headerlink" href="#rotation-matrix" title="Link to this heading">#</a></h2>
 <p>A rotation matrix is given by</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -485,12 +524,12 @@ R_{\theta} = \begin{bmatrix} \cos(\theta) &amp; \sin(\theta) \\ -\sin(\theta) &a
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/9e2c6ad775fe9ec7324b0216bb7406f36f082a1721cbd0ccaa1fe6c6b4fc4ff3.png" src="../_images/9e2c6ad775fe9ec7324b0216bb7406f36f082a1721cbd0ccaa1fe6c6b4fc4ff3.png" />
+<img alt="../_images/68b11e94303c265be759f6dfd77ed9a48a3c42b35661d1747d0428c066d8ebf8.png" src="../_images/68b11e94303c265be759f6dfd77ed9a48a3c42b35661d1747d0428c066d8ebf8.png" />
 </div>
 </div>
 </section>
 <section id="scaling-matrix">
-<h2>Scaling Matrix<a class="headerlink" href="#scaling-matrix" title="Permalink to this heading">#</a></h2>
+<h2>Scaling Matrix<a class="headerlink" href="#scaling-matrix" title="Link to this heading">#</a></h2>
 <p>A scaling matrix is given by</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -510,12 +549,12 @@ C_{a,b} = \begin{bmatrix} a &amp; 0 \\ 0 &amp; b \end{bmatrix}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/1a30a1dfeeadd3d99f1c3c318149d8a22a67f1dd0c7178ae3762543f86d15a6e.png" src="../_images/1a30a1dfeeadd3d99f1c3c318149d8a22a67f1dd0c7178ae3762543f86d15a6e.png" />
+<img alt="../_images/4b34d115be2c3007fdfef9dc7bfce84363244e64bfa24c18716033fe4cbd4f77.png" src="../_images/4b34d115be2c3007fdfef9dc7bfce84363244e64bfa24c18716033fe4cbd4f77.png" />
 </div>
 </div>
 </section>
 <section id="shear-matrix">
-<h2>Shear Matrix<a class="headerlink" href="#shear-matrix" title="Permalink to this heading">#</a></h2>
+<h2>Shear Matrix<a class="headerlink" href="#shear-matrix" title="Link to this heading">#</a></h2>
 <p>A shear matrix is given by</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -535,12 +574,12 @@ S_u = \begin{bmatrix} 1 &amp; u \\ 0 &amp; 1 \end{bmatrix}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/1efca1dd31c3703c0d83e16926eb1cac463dcfec8c6523d7c682c8ef944ad05b.png" src="../_images/1efca1dd31c3703c0d83e16926eb1cac463dcfec8c6523d7c682c8ef944ad05b.png" />
+<img alt="../_images/bcacb26d62c3290e1e31563f0409689d2521ea9259a8eacbb1b24213cea8eef5.png" src="../_images/bcacb26d62c3290e1e31563f0409689d2521ea9259a8eacbb1b24213cea8eef5.png" />
 </div>
 </div>
 </section>
 <section id="projection-matrix">
-<h2>Projection Matrix<a class="headerlink" href="#projection-matrix" title="Permalink to this heading">#</a></h2>
+<h2>Projection Matrix<a class="headerlink" href="#projection-matrix" title="Link to this heading">#</a></h2>
 <p>The matrix which projects onto the line at angle <span class="math notranslate nohighlight">\(\theta\)</span> with the <span class="math notranslate nohighlight">\(x\)</span>-axis is given by</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -563,12 +602,12 @@ P_{\theta} = \begin{bmatrix}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/caada88572c4e9a35e804d6d5e955c23536390956cef8af33571acc535b9cc8f.png" src="../_images/caada88572c4e9a35e804d6d5e955c23536390956cef8af33571acc535b9cc8f.png" />
+<img alt="../_images/02730a61963902fe2315d3d65530a7c3892513fc3f2e1dd4a0367fbc31667f47.png" src="../_images/02730a61963902fe2315d3d65530a7c3892513fc3f2e1dd4a0367fbc31667f47.png" />
 </div>
 </div>
 </section>
 <section id="reflection-matrix">
-<h2>Reflection Matrix<a class="headerlink" href="#reflection-matrix" title="Permalink to this heading">#</a></h2>
+<h2>Reflection Matrix<a class="headerlink" href="#reflection-matrix" title="Link to this heading">#</a></h2>
 <p>The matrix which refelcts through the line at angle <span class="math notranslate nohighlight">\(\theta\)</span> with the <span class="math notranslate nohighlight">\(x\)</span>-axis is given by</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -591,7 +630,7 @@ F_{\theta} = \begin{bmatrix}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/2c1e55be2478377c443e41ef4caa8c58d1baee12485d0a4e639731452ee528d6.png" src="../_images/2c1e55be2478377c443e41ef4caa8c58d1baee12485d0a4e639731452ee528d6.png" />
+<img alt="../_images/1f53bd3431b3e86736bff46b7a0c84852c9280678d372ac1873b3b09f8833bd6.png" src="../_images/1f53bd3431b3e86736bff46b7a0c84852c9280678d372ac1873b3b09f8833bd6.png" />
 </div>
 </div>
 </section>
@@ -622,11 +661,10 @@ F_{\theta} = \begin{bmatrix}
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer d-print-none">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="systems.html"
@@ -646,10 +684,7 @@ F_{\theta} = \begin{bmatrix}
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -657,6 +692,7 @@ F_{\theta} = \begin{bmatrix}
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -691,6 +727,7 @@ By UBC Math
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2024.
@@ -717,8 +754,8 @@ By UBC Math
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

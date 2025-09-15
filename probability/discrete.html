@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Discrete Distributions &#8212; Python and Jupyter for UBC Mathematics</title>
   
@@ -15,46 +14,47 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=8f914afb" />
+    <link rel="stylesheet" type="text/css" href="../_static/.ipynb_checkpoints/custom-checkpoint.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-E4TJ9JBS8H"></script>
     <script>
                 window.dataLayer = window.dataLayer || [];
@@ -62,12 +62,16 @@
                 gtag('js', new Date());
                 gtag('config', 'G-E4TJ9JBS8H');
             </script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-E4TJ9JBS8H');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'probability/discrete';</script>
@@ -84,19 +88,23 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -118,12 +126,20 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -138,6 +154,9 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
+  
+    
   
 
 <a class="navbar-brand logo" href="../index.html">
@@ -146,10 +165,22 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
+  
     <p class="title logo__title">Python and Jupyter for UBC Mathematics</p>
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="nav bd-sidenav">
@@ -167,10 +198,11 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Differential Equations</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../differential-equations/slope-fields.html">Slope Fields</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../differential-equations/eulers-method.html">Euler’s Method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential-equations/slopefields.html">Slope Fields</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential-equations/euler.html">Euler’s Method</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../differential-equations/odeint.html">Numerical Solutions with odeint</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../differential-equations/systems.html">Systems of Differential Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential-equations/linear.html">Linear Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential-equations/systems.html">Systems of Equations</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Calculus</span></p>
 <ul class="nav bd-sidenav">
@@ -185,6 +217,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Linear Programming</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../linear-programming/pulp.html">Computing with PuLP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../linear-programming/simplex.html">Simplex Method</a></li>
 </ul>
 
@@ -201,7 +234,7 @@ const thebe_selector_output = ".output, .cell_output"
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -210,14 +243,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -242,14 +275,14 @@ const thebe_selector_output = ".output, .cell_output"
       
       <li><a href="https://ubc.syzygy.ca/jupyter/hub/user-redirect/git-pull?repo=https%3A//github.com/UBCMath/python&urlpath=tree/python/probability/discrete.ipynb&branch=main" target="_blank"
    class="btn btn-sm dropdown-item"
-   title="Launch onJupyterHub"
+   title="Launch on JupyterHub"
    data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   
-    <img src="../_static/images/logo_jupyterhub.svg">
+    <img alt="JupyterHub logo" src="../_static/images/logo_jupyterhub.svg">
   </span>
 <span class="btn__text-container">JupyterHub</span>
 </a>
@@ -338,26 +371,28 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
 
+
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -402,21 +437,21 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="discrete-distributions">
-<h1>Discrete Distributions<a class="headerlink" href="#discrete-distributions" title="Permalink to this heading">#</a></h1>
+<h1>Discrete Distributions<a class="headerlink" href="#discrete-distributions" title="Link to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">scipy.special</span> <span class="k">as</span> <span class="nn">sp</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.special</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>
 </pre></div>
 </div>
 </div>
 </div>
 <section id="binomial-coefficient">
-<h2>Binomial Coefficient<a class="headerlink" href="#binomial-coefficient" title="Permalink to this heading">#</a></h2>
+<h2>Binomial Coefficient<a class="headerlink" href="#binomial-coefficient" title="Link to this heading">#</a></h2>
 <p>The Python package <code class="docutils literal notranslate"><span class="pre">scipy.special</span></code> includes the function <code class="docutils literal notranslate"><span class="pre">scipy.special.factorial</span></code> to compute the factorial</p>
 <div class="math notranslate nohighlight">
 \[
@@ -436,7 +471,7 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5040.0
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(5040.0)
 </pre></div>
 </div>
 </div>
@@ -449,7 +484,7 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10.0
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(10.0)
 </pre></div>
 </div>
 </div>
@@ -462,7 +497,7 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10.0
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(10.0)
 </pre></div>
 </div>
 </div>
@@ -479,7 +514,7 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/c3360296dcdfe220043baad609b81b730be73e30c8b54d942ec901b1b26b6961.png" src="../_images/c3360296dcdfe220043baad609b81b730be73e30c8b54d942ec901b1b26b6961.png" />
+<img alt="../_images/a44ea1923717aebda7ec91cb9bb8451cbac0fe4a4987053b6537f184ab606c92.png" src="../_images/a44ea1923717aebda7ec91cb9bb8451cbac0fe4a4987053b6537f184ab606c92.png" />
 </div>
 </div>
 <p>Look at the array of binomial coefficients:</p>
@@ -497,10 +532,10 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </section>
 <section id="random-sampling">
-<h2>Random Sampling<a class="headerlink" href="#random-sampling" title="Permalink to this heading">#</a></h2>
+<h2>Random Sampling<a class="headerlink" href="#random-sampling" title="Link to this heading">#</a></h2>
 <p>The Python package NumPy contains a subpackage <code class="docutils literal notranslate"><span class="pre">numpy.random</span></code> which includes functions to generate random numbers. For example, the function <code class="docutils literal notranslate"><span class="pre">np.random.randint(a,b,size=(n,m))</span></code> generates a <span class="math notranslate nohighlight">\(n \times m\)</span> matrix of integers sampled from the half-closed interval <span class="math notranslate nohighlight">\([a,b)\)</span> with equal probability.</p>
 <section id="flipping-coins">
-<h3>Flipping Coins<a class="headerlink" href="#flipping-coins" title="Permalink to this heading">#</a></h3>
+<h3>Flipping Coins<a class="headerlink" href="#flipping-coins" title="Link to this heading">#</a></h3>
 <p>Simulate flipping 2 coins 5 times (where tails is 0 and heads is 1):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -510,9 +545,9 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[0 1]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[0 0]
  [0 0]
- [0 1]
+ [1 1]
  [0 1]
  [1 1]]
 </pre></div>
@@ -521,7 +556,7 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </section>
 <section id="rolling-dice">
-<h3>Rolling Dice<a class="headerlink" href="#rolling-dice" title="Permalink to this heading">#</a></h3>
+<h3>Rolling Dice<a class="headerlink" href="#rolling-dice" title="Link to this heading">#</a></h3>
 <p>Simulate rolling 3 dice 10 times:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -531,23 +566,23 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[4 6 1]
- [2 1 3]
- [6 5 2]
- [1 5 6]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[4 5 4]
  [5 1 5]
- [2 5 4]
- [3 5 2]
- [2 1 5]
- [2 1 4]
- [6 4 1]]
+ [6 2 2]
+ [4 6 2]
+ [4 3 5]
+ [1 5 5]
+ [1 4 5]
+ [1 6 2]
+ [1 2 2]
+ [2 6 1]]
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="drawing-cards">
-<h3>Drawing Cards<a class="headerlink" href="#drawing-cards" title="Permalink to this heading">#</a></h3>
+<h3>Drawing Cards<a class="headerlink" href="#drawing-cards" title="Link to this heading">#</a></h3>
 <p>Use the function <code class="docutils literal notranslate"><span class="pre">numpy.random.choice</span></code> to randomly choose elements from a set. For example, we can create a deck of cards as a Python list with text entries (each text entry represents a card in the standard deck) and then draw a certain number of them (without replacement).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -562,7 +597,7 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;6D&#39; &#39;QS&#39; &#39;9D&#39; &#39;KH&#39; &#39;2D&#39;]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;JS&#39; &#39;QH&#39; &#39;AS&#39; &#39;10H&#39; &#39;2H&#39;]
 </pre></div>
 </div>
 </div>
@@ -576,23 +611,23 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[&#39;10S&#39; &#39;7S&#39; &#39;KH&#39; &#39;KC&#39; &#39;8D&#39;]
- [&#39;10C&#39; &#39;KC&#39; &#39;6S&#39; &#39;4H&#39; &#39;8H&#39;]
- [&#39;9C&#39; &#39;4S&#39; &#39;9D&#39; &#39;JH&#39; &#39;QS&#39;]
- [&#39;AD&#39; &#39;AS&#39; &#39;JS&#39; &#39;3H&#39; &#39;QH&#39;]
- [&#39;2S&#39; &#39;5S&#39; &#39;10S&#39; &#39;QC&#39; &#39;QH&#39;]
- [&#39;10D&#39; &#39;8C&#39; &#39;4H&#39; &#39;JC&#39; &#39;JD&#39;]
- [&#39;6D&#39; &#39;10H&#39; &#39;KC&#39; &#39;8H&#39; &#39;9C&#39;]
- [&#39;6H&#39; &#39;10D&#39; &#39;KS&#39; &#39;AC&#39; &#39;QH&#39;]
- [&#39;JS&#39; &#39;3H&#39; &#39;AC&#39; &#39;4H&#39; &#39;8H&#39;]
- [&#39;8D&#39; &#39;QD&#39; &#39;JS&#39; &#39;10D&#39; &#39;4S&#39;]]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[&#39;10H&#39; &#39;8C&#39; &#39;4C&#39; &#39;KD&#39; &#39;9D&#39;]
+ [&#39;4H&#39; &#39;6C&#39; &#39;5S&#39; &#39;7C&#39; &#39;10S&#39;]
+ [&#39;7H&#39; &#39;10C&#39; &#39;4C&#39; &#39;3S&#39; &#39;AC&#39;]
+ [&#39;3H&#39; &#39;4H&#39; &#39;8S&#39; &#39;JD&#39; &#39;KD&#39;]
+ [&#39;9H&#39; &#39;7C&#39; &#39;JD&#39; &#39;2H&#39; &#39;4H&#39;]
+ [&#39;8S&#39; &#39;7D&#39; &#39;JH&#39; &#39;5C&#39; &#39;8D&#39;]
+ [&#39;6C&#39; &#39;4C&#39; &#39;2S&#39; &#39;JC&#39; &#39;QS&#39;]
+ [&#39;4C&#39; &#39;8S&#39; &#39;10H&#39; &#39;KH&#39; &#39;8C&#39;]
+ [&#39;3S&#39; &#39;3D&#39; &#39;AC&#39; &#39;6H&#39; &#39;JH&#39;]
+ [&#39;KH&#39; &#39;2D&#39; &#39;6H&#39; &#39;7C&#39; &#39;KS&#39;]]
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="custom-distributions">
-<h3>Custom Distributions<a class="headerlink" href="#custom-distributions" title="Permalink to this heading">#</a></h3>
+<h3>Custom Distributions<a class="headerlink" href="#custom-distributions" title="Link to this heading">#</a></h3>
 <p>We can also define our own custom distributions using the fucntion <code class="docutils literal notranslate"><span class="pre">np.random.choice</span></code>. We specify the sample space <code class="docutils literal notranslate"><span class="pre">omega</span></code> and the corresponding vector of probabilities <code class="docutils literal notranslate"><span class="pre">probs</span></code>.</p>
 <p>For example, let’s consider a weighted coin such that flips result in heads with probability 2/3 and tails with probability 1/3. Genreate 10 samples of flipping the weighted coin three times.</p>
 <div class="cell docutils container">
@@ -608,15 +643,15 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[1 1 1]
- [1 1 0]
+ [0 1 1]
+ [1 0 1]
  [1 1 1]
  [0 0 1]
+ [1 1 1]
  [1 0 1]
- [1 1 0]
- [0 1 0]
- [0 0 1]
- [1 0 1]
- [1 0 1]]
+ [1 0 0]
+ [1 1 1]
+ [1 1 1]]
 </pre></div>
 </div>
 </div>
@@ -624,7 +659,7 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </section>
 </section>
 <section id="random-variables">
-<h2>Random Variables<a class="headerlink" href="#random-variables" title="Permalink to this heading">#</a></h2>
+<h2>Random Variables<a class="headerlink" href="#random-variables" title="Link to this heading">#</a></h2>
 <p>A <strong>random variable</strong> on a sample space <span class="math notranslate nohighlight">\(\Omega\)</span> is a function <span class="math notranslate nohighlight">\(X : \Omega \to \mathbb{R}\)</span>. In the previous section, we constructed random samples as NumPy arrays where each row was the result of a random experiment. In other words, each row was an element in the sample space <span class="math notranslate nohighlight">\(\Omega\)</span>. Apply NumPy functions such as <code class="docutils literal notranslate"><span class="pre">np.sum</span></code>, <code class="docutils literal notranslate"><span class="pre">np.max</span></code>, <code class="docutils literal notranslate"><span class="pre">np.min</span></code> and <code class="docutils literal notranslate"><span class="pre">np.any</span></code> to simulate random variables.</p>
 <p>For example, let’s generate random samples of rolling 4 dice.</p>
 <div class="cell docutils container">
@@ -635,16 +670,16 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[4 6 4 1]
- [4 3 2 3]
- [3 1 2 1]
- [5 1 5 3]
- [3 5 1 2]
- [6 6 4 3]
- [1 5 3 6]
- [3 6 2 4]
- [5 1 3 2]
- [5 6 3 4]]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[1 5 2 3]
+ [6 1 1 3]
+ [6 3 4 3]
+ [2 5 5 1]
+ [5 3 5 6]
+ [6 1 1 3]
+ [5 4 2 6]
+ [2 2 3 2]
+ [1 4 1 1]
+ [4 5 3 5]]
 </pre></div>
 </div>
 </div>
@@ -658,7 +693,7 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[15 12  7 14 11 19 15 15 11 18]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[11 11 16 13 19 11 17  9  7 17]
 </pre></div>
 </div>
 </div>
@@ -673,7 +708,7 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[6 4 3 5 5 6 6 6 5 6]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[5 6 6 5 6 6 6 3 4 5]
 </pre></div>
 </div>
 </div>
@@ -687,14 +722,14 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0 1 1 1 1 1 1 1 1 1]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1 1 1 0 1 1 0 1 0 1]
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="histograms">
-<h2>Histograms<a class="headerlink" href="#histograms" title="Permalink to this heading">#</a></h2>
+<h2>Histograms<a class="headerlink" href="#histograms" title="Link to this heading">#</a></h2>
 <p>Now that we can compute values of random variables on sample spaces of rolling dice and flipping coins, let’s visualize results as <a class="reference external" href="https://en.wikipedia.org/wiki/Histogram">histograms</a>.</p>
 <p>For example, construct the histogram of 5000 random samples of flipping 5 coins and counting the number of heads.</p>
 <div class="cell docutils container">
@@ -715,16 +750,16 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1, 0, 0, 0, 0],
-       [1, 0, 1, 0, 0],
-       [1, 1, 1, 1, 1],
-       [0, 0, 1, 0, 0],
-       [1, 0, 0, 0, 0],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0, 1, 0, 0, 0],
+       [0, 0, 0, 1, 1],
+       [1, 1, 0, 0, 0],
        [0, 1, 1, 1, 1],
-       [1, 1, 0, 1, 1],
-       [1, 0, 1, 1, 0],
-       [1, 0, 1, 0, 0],
-       [0, 1, 1, 0, 1]])
+       [0, 1, 1, 0, 0],
+       [1, 1, 0, 0, 0],
+       [1, 1, 1, 0, 1],
+       [0, 1, 0, 1, 0],
+       [0, 1, 0, 1, 1],
+       [0, 1, 0, 0, 1]])
 </pre></div>
 </div>
 </div>
@@ -737,7 +772,7 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1, 2, 5, 1, 1, 4, 4, 3, 2, 3])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1, 2, 2, 4, 2, 2, 4, 2, 3, 2])
 </pre></div>
 </div>
 </div>
@@ -750,7 +785,7 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/c74b531e6e6c17f0d32a2e15cc08cada14fb33c56e70358b2737338ad807ba6e.png" src="../_images/c74b531e6e6c17f0d32a2e15cc08cada14fb33c56e70358b2737338ad807ba6e.png" />
+<img alt="../_images/a554e7d9fec5c0c84860a51ced0ddc4158066985a1194eef0df2ebd360657532.png" src="../_images/a554e7d9fec5c0c84860a51ced0ddc4158066985a1194eef0df2ebd360657532.png" />
 </div>
 </div>
 <p>Take a closer look at the values of the parameters entered in</p>
@@ -772,7 +807,7 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.0294 0.1644 0.3098 0.316  0.1506 0.0298]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.031  0.1614 0.3018 0.3154 0.1562 0.0342]
 </pre></div>
 </div>
 </div>
@@ -806,7 +841,7 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/33eeff0828098340c28a88cd5ec79cb7a60823ce0bc001b3cb8eeb180a4b23d4.png" src="../_images/33eeff0828098340c28a88cd5ec79cb7a60823ce0bc001b3cb8eeb180a4b23d4.png" />
+<img alt="../_images/ea23b018e71431305d8df446b0dbb3fc7027ee721ce8486e91c9bce4f5e203bb.png" src="../_images/ea23b018e71431305d8df446b0dbb3fc7027ee721ce8486e91c9bce4f5e203bb.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -823,9 +858,9 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </section>
 <section id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">#</a></h2>
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h2>
 <section id="id1">
-<h3>Rolling Dice<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<h3>Rolling Dice<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
 <p>Generate 10000 random samples of the sum of 3 dice and construct the histogram.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -841,7 +876,7 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/d33a78284899ed53d610f8962237ff719a52d37411733eea27497fff2644c97f.png" src="../_images/d33a78284899ed53d610f8962237ff719a52d37411733eea27497fff2644c97f.png" />
+<img alt="../_images/4c2fc80b1741ae993f8c4bd2d73d881fff810bb00c810daf8fe71d3946cf7539.png" src="../_images/4c2fc80b1741ae993f8c4bd2d73d881fff810bb00c810daf8fe71d3946cf7539.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -851,15 +886,15 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Relative Frequencies: [0.0055 0.0147 0.029  0.0456 0.0685 0.1079 0.1102 0.1305 0.1209 0.1195
- 0.0873 0.0705 0.0428 0.0294 0.0123 0.0054]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Relative Frequencies: [0.0044 0.0113 0.026  0.05   0.07   0.0936 0.1137 0.1281 0.1334 0.11
+ 0.1032 0.0671 0.0449 0.0265 0.0142 0.0036]
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="weighted-coin">
-<h3>Weighted Coin<a class="headerlink" href="#weighted-coin" title="Permalink to this heading">#</a></h3>
+<h3>Weighted Coin<a class="headerlink" href="#weighted-coin" title="Link to this heading">#</a></h3>
 <p>Consider an unfair coin which flips to heads with probability 2/3. Generate 1000 random samples of 7 flips, count the number of heads and construct the histogram.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -876,7 +911,7 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/501bcec1adbb022af6f0dad9ec88fd673fb8d3ccadf48176cba434024bb2759f.png" src="../_images/501bcec1adbb022af6f0dad9ec88fd673fb8d3ccadf48176cba434024bb2759f.png" />
+<img alt="../_images/a15cbf0010f0bcb7b22d53d93ec5d57768cc039c9790ca4dbe357d90d4f9c1eb.png" src="../_images/a15cbf0010f0bcb7b22d53d93ec5d57768cc039c9790ca4dbe357d90d4f9c1eb.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -886,7 +921,7 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.    0.001 0.032 0.141 0.263 0.301 0.204 0.058]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.    0.004 0.041 0.14  0.263 0.286 0.208 0.058]
 </pre></div>
 </div>
 </div>
@@ -920,11 +955,10 @@ n! = n(n-1)(n-2) \cdots (2)(1)
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer d-print-none">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="../calculus/optimization.html"
@@ -944,10 +978,7 @@ n! = n(n-1)(n-2) \cdots (2)(1)
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -955,6 +986,7 @@ n! = n(n-1)(n-2) \cdots (2)(1)
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -998,6 +1030,7 @@ By UBC Math
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2024.
@@ -1024,8 +1057,8 @@ By UBC Math
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>
