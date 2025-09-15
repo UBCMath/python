@@ -1,0 +1,21 @@
+a {
+    text-decoration: none;
+}
+
+nav.bd-links .current>a {
+    box-shadow: none;
+}
+
+.bd-sidebar-primary {
+  overflow-x: hidden;
+}
+
+.bd-page-width {
+  grid-template-columns: auto 1fr auto;
+}
+
+@media (min-width: 960px) {
+  .bd-sidebar-primary {
+    flex: 0 0 280px;
+  }
+}
